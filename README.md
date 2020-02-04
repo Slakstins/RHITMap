@@ -1,2 +1,2 @@
-# SchoolMap
-SchoolMap
+# RHITSchoolMap
+RHITSchoolMap
