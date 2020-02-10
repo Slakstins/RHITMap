@@ -307,4 +307,18 @@ bg=green
 </panel_attributes>
     <additional_attributes/>
   </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>90</x>
+      <y>290</y>
+      <w>350</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>Nodes are stored in a hashmap with an ArrayList of
+their edges
+bg=green
+</panel_attributes>
+    <additional_attributes/>
+  </element>
 </diagram>
