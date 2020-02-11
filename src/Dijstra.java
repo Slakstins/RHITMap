@@ -2,39 +2,56 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 
-import GUI.Edge;
-import GUI.Node;
-
 
 public class Dijstra 
 {
+	private HashMap<Node, String> nodes = new HashMap<>();
+	
 	private HashMap<Node, ArrayList<Edge>> shortestPath = new HashMap<>();
 	private PriorityQueue<Node> queue = new PriorityQueue<>();
-	private ArrayList<Edge> currentPath = new ArrayList<>();
 	
 	public Dijstra()
 	{
 		
 	}
 	
-	public ArrayList<Edge> calculatePath(Node startNode, Node endNode)
+	public void calculatePath(Node startNode, Node endNode)
 	{
-		GUI.draw(currentPath);
+		queue.offer(startNode);
+		while(!queue.isEmpty())
+		{
+			queue.poll().calculatePath();
+		}
+		GUI.draw(shortestPath.get(endNode));
 	}
 	
 	public class Edge 
 	{
-		private Node startNode;
-		private Node endNode;
+		private Node n1;
+		private Node n2;
 		private int cost;
 		private boolean outside;
 		
-		public Edge(Node startNode, Node endNode, int cost, boolean outside)
+		public Edge(Node n1, Node n2, int cost, boolean outside)
 		{
-			startNode = startNode;
-			endNode = endNode;
-			cost = cost;
-			outside = outside;
+			this.n1 = n1;
+			this.n2 = n2;
+			this.cost = cost;
+			this.outside = outside;
+		}
+		
+		public Node getEndNode(Node n)
+		{
+			if(n1 == n)
+			{
+				return n2;
+			}
+			return n1;
+		}
+		
+		public int getCost()
+		{
+			return cost;
 		}
 		
 	}
@@ -47,10 +64,10 @@ public class Dijstra
 		
 		public Node(int x, int y, String name, ArrayList<Edge> edges)
 		{
-			x = x;
-			y = y;
-			name = name;
-			edges = edges;
+			this.x = x;
+			this.y = y;
+			this.name = name;
+			this.edges = edges;
 		}
 		
 		public int getX()
@@ -64,6 +81,42 @@ public class Dijstra
 		public String getName()
 		{
 			return name;
+		}
+		
+		public void calculatePath()
+		{
+			for(int i = 0; i < edges.size(); i++)
+			{
+				Node n = edges.get(i).getEndNode(this);
+				queue.offer(n);
+				if(shortestPath.containsKey(n))
+				{
+					int oldCost = 0;
+					for(int j = 0; j < shortestPath.get(n).size(); j++)
+					{
+						oldCost += shortestPath.get(n).get(j).getCost();
+					}
+					
+					int newCost = edges.get(i).getCost();
+					for(int j = 0; j < shortestPath.get(this).size(); j++) 
+					{
+						newCost += shortestPath.get(this).get(j).getCost();
+					}
+					
+					if(oldCost > newCost)
+					{
+						ArrayList<Edge> newPath = shortestPath.get(this);
+						newPath.add(edges.get(i));
+						shortestPath.put(n, newPath);
+					}
+				}
+				else
+				{
+					ArrayList<Edge> newPath = shortestPath.get(this);
+					newPath.add(edges.get(i));
+					shortestPath.put(n, newPath);
+				}
+			}
 		}
 	}
 }
