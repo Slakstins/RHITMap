@@ -1,8 +1,27 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.PriorityQueue;
+
+import GUI.Edge;
+import GUI.Node;
+
 
 public class Dijstra 
 {
-
+	private HashMap<Node, ArrayList<Edge>> shortestPath = new HashMap<>();
+	private PriorityQueue<Node> queue = new PriorityQueue<>();
+	private ArrayList<Edge> currentPath = new ArrayList<>();
+	
+	public Dijstra()
+	{
+		
+	}
+	
+	public ArrayList<Edge> calculatePath(Node startNode, Node endNode)
+	{
+		GUI.draw(currentPath);
+	}
+	
 	public class Edge 
 	{
 		private Node startNode;
