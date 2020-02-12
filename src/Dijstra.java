@@ -132,11 +132,7 @@ public class Dijstra
 			this.edges = edges;
 			this.nodeToDraw = new Ellipse2D.Double(x, y, size, size);
 		}
-		
-		public Node() {
 
-			
-		}
 		
 		public void addNodeEllipseToDraw() {
 			this.nodeToDraw = new Ellipse2D.Double(x, y, size, size);
@@ -189,30 +185,13 @@ public class Dijstra
 			return name;
 		}
 		
-		public void setName(String name) 
-		{
-			this.name = name;
-		}
+
 		
-		public ArrayList<Edge> getEdges()
-		{
-			return this.edges;
-		}
+
 		
-		public void setEdges(ArrayList<Edge> edges) 
-		{
-			this.edges = edges;
-		}
+
 		
-		public void addNodeEllipseToDraw() 
-		{
-			this.nodeToDraw = new Ellipse2D.Double(x, y, size, size);
-		}
-		
-		public String toString() 
-		{
-			return ("Name: " + name + "/nX: " + x + "/nY: " + y );
-		}
+
 		
 		public void calculatePath()
 		{
