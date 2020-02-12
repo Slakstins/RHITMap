@@ -61,6 +61,11 @@ public class Dijstra
 			this.outside = outside;
 		}
 		
+		public void addEdgeLineToDraw() {
+			this.edge = new Line2D.Double(new Point2D.Double(n1.x+n1.size/2, n1.y+n1.size/2), new Point2D.Double(n2.x+n2.size/2, n2.y+n2.size/2));
+			
+		}
+		
 		public Node getN1() 
 		{
 			return n1;
@@ -172,6 +177,8 @@ public class Dijstra
 			this.nodeToDraw = new Ellipse2D.Double(x, y, size, size);
 		}
 		
+		
+		
 		public String toString() 
 		{
 			return ("Name: " + name + "\nX: " + this.x + "\nY: " + this.y );
@@ -230,14 +237,6 @@ public class Dijstra
 			g.fill(nodeToDraw);
 			nodeToDraw.toString();
 			g.draw(nodeToDraw);
-		}
-
-		public void setPosition(int x, int y) 
-		{
-			this.x = x;
-			this.y = y;
-			
-			this.nodeToDraw = new Ellipse2D.Double(this.x, this.y, size, size);
 		}
 	}
 }

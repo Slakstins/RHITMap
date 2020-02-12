@@ -39,16 +39,9 @@ public class XMLEditor {
         testNode1.setX(69);
         testNode1.setY(300);
 
-
-
-		
-		
-		
-		
-
 		Dijstra.Node testNode2 = new Dijstra.Node();
 
-        testNode2.setX(10);
+        testNode2.setX(1000);
         testNode2.setY(70);
 
 
@@ -64,10 +57,6 @@ public class XMLEditor {
 		
 		edges.add(testEdge1);
 
-		
-		
-		
-		
 
 	}
 	
@@ -126,6 +115,7 @@ public class XMLEditor {
 		}
 		HashMap<Dijstra.Node, ArrayList<Dijstra.Edge>> output = new HashMap<Dijstra.Node, ArrayList<Dijstra.Edge>>();
 		for (int i = 0; i < edges.size(); i++) {
+			edges.get(i).addEdgeLineToDraw();
 			output.put(edges.get(i).getN1(), edges.get(i).getN1().getEdges());
 			output.put(edges.get(i).getN2(), edges.get(i).getN2().getEdges());
 
@@ -150,6 +140,8 @@ public class XMLEditor {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		
 
 		return formatEdges(edges);
 
