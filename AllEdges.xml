@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_221" class="java.beans.XMLDecoder">
+ <object class="Dijstra$Edge" id="Dijstra$Edge0">
+  <void property="cost">
+   <int>5</int>
+  </void>
+  <void property="n1">
+   <object class="Dijstra$Node">
+    <void property="edges">
+     <object class="java.util.ArrayList" id="ArrayList0">
+      <void method="add">
+       <object idref="Dijstra$Edge0"/>
+      </void>
+     </object>
+    </void>
+    <void property="name">
+     <string>Bob</string>
+    </void>
+    <void property="x">
+     <int>69</int>
+    </void>
+    <void property="y">
+     <int>300</int>
+    </void>
+   </object>
+  </void>
+  <void property="n2">
+   <object class="Dijstra$Node">
+    <void property="edges">
+     <object idref="ArrayList0"/>
+    </void>
+    <void property="name">
+     <string>George</string>
+    </void>
+    <void property="x">
+     <int>1000</int>
+    </void>
+    <void property="y">
+     <int>70</int>
+    </void>
+   </object>
+  </void>
+  <void property="outside">
+   <boolean>true</boolean>
+  </void>
+ </object>
+</java>
