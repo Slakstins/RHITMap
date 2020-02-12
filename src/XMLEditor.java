@@ -22,6 +22,8 @@ public class XMLEditor {
 		edges = new ArrayList<Dijstra.Edge>();
 		nodes = new ArrayList<Dijstra.Node>();
 		initializeNodesEdges();
+		
+		//can get rid of this when the XML map file is done
 		updateMapXML();
 
 	}
@@ -34,8 +36,8 @@ public class XMLEditor {
 		testEdge1.setOutside(true);
 
 		Dijstra.Node testNode1 = new Dijstra.Node();
-        testNode1.setX(10);
-        testNode1.setY(10);
+        testNode1.setX(69);
+        testNode1.setY(300);
 
 
 
@@ -56,9 +58,9 @@ public class XMLEditor {
 		nodes.add(testNode2);
 		nodes.add(testNode1);
 
-		testEdge1.setStartNode(testNode1);
+		testEdge1.setN1(testNode1);
 
-		testEdge1.setEndNode(testNode2);
+		testEdge1.setN2(testNode2);
 		
 		edges.add(testEdge1);
 
@@ -124,8 +126,8 @@ public class XMLEditor {
 		}
 		HashMap<Dijstra.Node, ArrayList<Dijstra.Edge>> output = new HashMap<Dijstra.Node, ArrayList<Dijstra.Edge>>();
 		for (int i = 0; i < edges.size(); i++) {
-			output.put(edges.get(i).getStartNode(), edges.get(i).getStartNode().getEdges());
-			output.put(edges.get(i).getEndNode(), edges.get(i).getEndNode().getEdges());
+			output.put(edges.get(i).getN1(), edges.get(i).getN1().getEdges());
+			output.put(edges.get(i).getN2(), edges.get(i).getN2().getEdges());
 
 		}
 		
