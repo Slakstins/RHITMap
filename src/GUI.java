@@ -35,6 +35,7 @@ public class GUI extends JComponent
 		
 		
 		
+		
 	}
 	
 	protected void paintComponent(Graphics g) {
@@ -49,7 +50,7 @@ public class GUI extends JComponent
 		}
 		
 		for (Dijstra.Edge e : edges) {
-//			e.drawOn(g2);
+			e.drawOn(g2);
 			repaint();
 		}
 		
