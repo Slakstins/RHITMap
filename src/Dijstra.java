@@ -8,12 +8,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 
-
-
 public class Dijstra 
-{
-	private static HashMap<Node, String> nodes = new HashMap<>();
-	
+{	
 	private static HashMap<Node, ArrayList<Edge>> shortestPath = new HashMap<>();
 	private static PriorityQueue<Node> queue = new PriorityQueue<>();
 	
@@ -226,11 +222,9 @@ public class Dijstra
 		{
 			
 			g.setColor(Color.BLACK);
-			g.fill(this.nodeToDraw);
+			g.fill(nodeToDraw);
 			nodeToDraw.toString();
 			g.draw(nodeToDraw);
 		}
-
-
 	}
 }
