@@ -111,7 +111,6 @@ public class Dijstra
 	}
 	public static class Node implements Serializable
 	{
-
 		private int x;
 		private int y;
 		private String name;
@@ -132,29 +131,7 @@ public class Dijstra
 			this.edges = edges;
 			this.nodeToDraw = new Ellipse2D.Double(x, y, size, size);
 		}
-
 		
-		public void addNodeEllipseToDraw() {
-			this.nodeToDraw = new Ellipse2D.Double(x, y, size, size);
-		}
-		
-
-		
-		public String toString() {
-			return ("X: " + this.x + "\nY: " + this.y );
-			
-			
-		}
-		
-		public void setEdges(ArrayList<Edge> edges) {
-			this.edges = edges;
-		}
-		
-		public ArrayList<Edge> getEdges(){
-			return this.edges;
-		}
-		
-
 		public int getX()
 		{
 			return x;
@@ -169,7 +146,6 @@ public class Dijstra
 			return y;
 		}
 		
-
 		public void setY(int y) {
 			this.y = y;
 		}
@@ -178,20 +154,30 @@ public class Dijstra
 			this.name = name;
 		}
 		
-
-		
 		public String getName()
 		{
 			return name;
 		}
 		
-
+		public void addNodeEllipseToDraw() 
+		{
+			this.nodeToDraw = new Ellipse2D.Double(x, y, size, size);
+		}
 		
-
+		public String toString() 
+		{
+			return ("Name: " + name + "\nX: " + this.x + "\nY: " + this.y );
+		}
 		
-
+		public void setEdges(ArrayList<Edge> edges) 
+		{
+			this.edges = edges;
+		}
 		
-
+		public ArrayList<Edge> getEdges()
+		{
+			return this.edges;
+		}
 		
 		public void calculatePath()
 		{
@@ -244,12 +230,6 @@ public class Dijstra
 			this.y = y;
 			
 			this.nodeToDraw = new Ellipse2D.Double(this.x, this.y, size, size);
-			
-
-			
-
-			
-	
 		}
 	}
 }
