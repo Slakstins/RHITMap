@@ -12,14 +12,16 @@ public class GUI extends JComponent
 {
 	private ArrayList<Dijstra.Node> nodes = new ArrayList<>();
 	private ArrayList<Dijstra.Edge> edges = new ArrayList<>();
+	private HashMap<String, Dijstra.Node> nodeNameMap = new HashMap<>();
 	private JFrame frame;
 	
 	private Dijstra dijstra = new Dijstra();
-//	private Dijstra.Node node1 = new Dijstra.Node(100, 100, "Node 1", edges);
-//	private Dijstra.Node node2 = new Dijstra.Node(300, 300, "Node 2", edges);
-//	private Dijstra.Edge edge1 = new Dijstra.Edge(node1, node2, 1, false);
+
+
 	
 	public GUI(JFrame frame, HashMap<Dijstra.Node, ArrayList<Dijstra.Edge>> nodeEdgeMap) {
+		
+		
 		this.frame = frame;
 		Set<Dijstra.Node> keys = nodeEdgeMap.keySet();
 		for (Dijstra.Node i : keys) {
@@ -33,8 +35,22 @@ public class GUI extends JComponent
 			
 		}
 		
+		generateNodeNameMap();
+
 		
 		
+		
+		
+	}
+	
+	public void generateNodeNameMap() {
+		for (int i = 0; i < this.nodes.size(); i++) {
+			nodeNameMap.put(nodes.get(i).getName(), nodes.get(i));
+		}
+	}
+	
+	public void calculatePath(String startNode, String endNode) {
+		this.dijstra.calculatePath(nodeNameMap.get(startNode), nodeNameMap.get(endNode));
 		
 	}
 	

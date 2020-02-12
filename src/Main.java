@@ -15,6 +15,11 @@ public class Main
 		JFrame frame = new JFrame("RHIT School Map");
 		frame.setSize(500, 500);
 		GUI gui = new GUI(frame, xmlEditor.getNodeToEdgeMap());
+		
+		gui.calculatePath("Bob", "George");
+		
+		
+		
 		frame.add(gui, BorderLayout.CENTER);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

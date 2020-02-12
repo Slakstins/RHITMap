@@ -29,6 +29,8 @@ public class XMLEditor {
 	}
 
 	public void initializeNodesEdges() {
+		
+		//this method will become obsolete!
 
 
 		Dijstra.Edge testEdge1 = new Dijstra.Edge();
@@ -38,15 +40,18 @@ public class XMLEditor {
 		Dijstra.Node testNode1 = new Dijstra.Node();
         testNode1.setX(69);
         testNode1.setY(300);
+        testNode1.setName("Bob");
 
 		Dijstra.Node testNode2 = new Dijstra.Node();
 
         testNode2.setX(1000);
         testNode2.setY(70);
+        testNode2.setName("George");
 
 
 		testNode1.setEdges(edges);
 		testNode2.setEdges(edges);
+		
 
 		nodes.add(testNode2);
 		nodes.add(testNode1);
@@ -65,14 +70,13 @@ public class XMLEditor {
 			
 			this.writeEdges(edges, "AllEdges.xml");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 	}
 
 	/**
-	 * write all of the edges to the XML file for retreival with read
+	 * write all of the edges to the XML file for retrieval with read
 	 * 
 	 * @param E
 	 * @param filename
