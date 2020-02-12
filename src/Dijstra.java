@@ -8,9 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 
-//import GUI.Edge;
-//import GUI.Node;
-import javafx.scene.shape.Line;
+
 
 
 public class Dijstra 
@@ -125,8 +123,6 @@ public class Dijstra
 		}
 		
 		public void addNodeEllipseToDraw() {
-			System.out.println(this.x);
-			System.out.println(this.y);
 			this.nodeToDraw = new Ellipse2D.Double(x, y, size, size);
 		}
 		
@@ -157,18 +153,20 @@ public class Dijstra
 			this.x = x;
 		}
 		
+		public int getY()
+		{
+			return y;
+		}
+		
 		public void setY(int y) {
-			this.x = y;
+			this.y = y;
 		}
 		
 		public void setName(String name) {
 			this.name = name;
 		}
 		
-		public int getY()
-		{
-			return y;
-		}
+		
 		public String getName()
 		{
 			return name;
@@ -187,7 +185,7 @@ public class Dijstra
 			this.y = y;
 			
 			this.nodeToDraw = new Ellipse2D.Double(this.x, this.y, size, size);
-			;
+			
 
 			
 

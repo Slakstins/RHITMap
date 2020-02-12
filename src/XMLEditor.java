@@ -32,13 +32,13 @@ public class XMLEditor {
 		Dijstra.Edge testEdge1 = new Dijstra.Edge();
 		testEdge1.setCost(5);
 		testEdge1.setOutside(true);
-		edges.add(testEdge1);
 
 		Dijstra.Node testNode1 = new Dijstra.Node();
-
-		testNode1.setEdges(edges);
+        testNode1.setX(10);
         testNode1.setY(10);
-        testNode1.setX(420);
+
+
+
 		
 		
 		
@@ -46,8 +46,9 @@ public class XMLEditor {
 
 		Dijstra.Node testNode2 = new Dijstra.Node();
 
+        testNode2.setX(10);
         testNode2.setY(70);
-        testNode2.setX(420);
+
 
 		testNode1.setEdges(edges);
 		testNode2.setEdges(edges);
@@ -59,6 +60,9 @@ public class XMLEditor {
 
 		testEdge1.setEndNode(testNode2);
 		
+		edges.add(testEdge1);
+
+		
 		
 		
 		
@@ -67,6 +71,7 @@ public class XMLEditor {
 	
 	public void updateMapXML() {
 		try {
+			
 			this.writeEdges(edges, "AllEdges.xml");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -127,6 +132,8 @@ public class XMLEditor {
 		Set<Dijstra.Node> keys = output.keySet();
 		for (Dijstra.Node i : keys) {
 			i.addNodeEllipseToDraw(); //calls to make the node drawable
+			
+			System.out.println(i.toString());
 		}
 		
 		
