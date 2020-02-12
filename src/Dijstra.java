@@ -111,20 +111,33 @@ public class Dijstra
 		private String name;
 		private ArrayList<Edge> edges;
 		
-		private Ellipse2D.Double node;
+		private Ellipse2D.Double nodeToDraw;
 		
 		public Node(int x, int y, String name, ArrayList<Edge> edges)
 		{
+
 			this.x = x;
 			this.y = y;
 			this.name = name;
-			if (edges != null)
 			this.edges = edges;
 			
-			this.node = new Ellipse2D.Double(x, y, size, size);
+			this.nodeToDraw = new Ellipse2D.Double(x, y, size, size);
+		}
+		
+		public void addNodeEllipseToDraw() {
+			System.out.println(this.x);
+			System.out.println(this.y);
+			this.nodeToDraw = new Ellipse2D.Double(x, y, size, size);
 		}
 		
 		public Node() {
+
+			
+		}
+		
+		public String toString() {
+			return ("X: " + this.x + "\nY: " + this.y );
+			
 			
 		}
 		
@@ -162,9 +175,24 @@ public class Dijstra
 		}
 		
 		public void drawOn(Graphics2D g) {
+			
 			g.setColor(Color.BLACK);
 			//g.fill(this.node);
-			g.draw(node);
+			nodeToDraw.toString();
+			g.draw(nodeToDraw);
+		}
+
+		public void setPosition(int x, int y) {
+			this.x = x;
+			this.y = y;
+			
+			this.nodeToDraw = new Ellipse2D.Double(this.x, this.y, size, size);
+			;
+
+			
+
+			
+			
 		}
 	}
 }
