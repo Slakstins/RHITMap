@@ -8,11 +8,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 
-
-
 public class Dijstra 
 {
-	private static HashMap<Node, String> nodes = new HashMap<>();
+	private static ArrayList<Node> nodes = new ArrayList<>();
 	
 	private static HashMap<Node, ArrayList<Edge>> shortestPath = new HashMap<>();
 	private static PriorityQueue<Node> queue = new PriorityQueue<>();
@@ -20,6 +18,11 @@ public class Dijstra
 	public Dijstra()
 	{
 		
+	}
+	
+	public Dijstra(ArrayList<Node> nodes)
+	{
+		this.nodes = nodes;
 	}
 	
 	public void calculatePath(Node startNode, Node endNode)
@@ -30,6 +33,11 @@ public class Dijstra
 			queue.poll().calculatePath();
 		}
 		GUI.draw(shortestPath.get(endNode));
+	}
+	
+	public ArrayList<Node> getNodes()
+	{
+		return nodes;
 	}
 	
 	public static class Edge implements Serializable
@@ -219,7 +227,7 @@ public class Dijstra
 		{
 			
 			g.setColor(Color.BLACK);
-			//g.fill(this.node);
+			g.fill(nodeToDraw);
 			nodeToDraw.toString();
 			g.draw(nodeToDraw);
 		}
