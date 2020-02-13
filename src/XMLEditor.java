@@ -69,73 +69,38 @@ public class XMLEditor {
 		testEdge56.setCost(9);
 		testEdge56.setOutside(true);
 		
-		
-
 		Dijstra.Node testNode1 = new Dijstra.Node();
         testNode1.setX(69);
-        testNode1.setY(940);
+        testNode1.setY(700);
         testNode1.setName("n1");
-        ArrayList<Dijstra.Edge> n1Edges = new ArrayList<Dijstra.Edge>();
-        n1Edges.add(testEdge12);
-        n1Edges.add(testEdge13);
-        n1Edges.add(testEdge16);
-        testNode1.setEdges(n1Edges);
-
         
-        
-
-		Dijstra.Node testNode2 = new Dijstra.Node();
+        Dijstra.Node testNode2 = new Dijstra.Node();
         testNode2.setX(500);
-        testNode2.setY(950);
+        testNode2.setY(710);
         testNode2.setName("n2");
-        ArrayList<Dijstra.Edge> n2Edges = new ArrayList<Dijstra.Edge>();
-        n2Edges.add(testEdge12);
-        n2Edges.add(testEdge23);
-        n2Edges.add(testEdge24);
-        testNode2.setEdges(n2Edges);
         
-        
-		Dijstra.Node testNode3 = new Dijstra.Node();
+        Dijstra.Node testNode3 = new Dijstra.Node();
         testNode3.setX(500);
-        testNode3.setY(500);
+        testNode3.setY(350);
         testNode3.setName("n3");
-        ArrayList<Dijstra.Edge> n3Edges = new ArrayList<Dijstra.Edge>();
-        n3Edges.add(testEdge34);
-        n3Edges.add(testEdge23);
-        n3Edges.add(testEdge13);
-        n3Edges.add(testEdge36);
-        testNode3.setEdges(n3Edges);
         
-		Dijstra.Node testNode4 = new Dijstra.Node();
+        Dijstra.Node testNode4 = new Dijstra.Node();
         testNode4.setX(950);
         testNode4.setY(450);
         testNode4.setName("n4");
-        ArrayList<Dijstra.Edge> n4Edges = new ArrayList<Dijstra.Edge>();
-        n4Edges.add(testEdge24);
-        n4Edges.add(testEdge34);
-        n4Edges.add(testEdge45);
-        testNode4.setEdges(n4Edges);
         
-		Dijstra.Node testNode5 = new Dijstra.Node();
+        Dijstra.Node testNode5 = new Dijstra.Node();
         testNode5.setX(600);
         testNode5.setY(70);
         testNode5.setName("n5");
-        ArrayList<Dijstra.Edge> n5Edges = new ArrayList<Dijstra.Edge>();
-        n5Edges.add(testEdge56);
-        n5Edges.add(testEdge45);
-        testNode5.setEdges(n5Edges);
         
-		Dijstra.Node testNode6 = new Dijstra.Node();
-
+        Dijstra.Node testNode6 = new Dijstra.Node();
         testNode6.setX(100);
         testNode6.setY(100);
         testNode6.setName("n6");
-        ArrayList<Dijstra.Edge> n6Edges = new ArrayList<Dijstra.Edge>();
-        n6Edges.add(testEdge36);
-        n6Edges.add(testEdge16);
-        n6Edges.add(testEdge56);
-        testNode6.setEdges(n6Edges);
         
+        
+		
 		testEdge12.setN1(testNode1);
 		testEdge12.setN2(testNode2);
 		
@@ -163,6 +128,44 @@ public class XMLEditor {
 		testEdge34.setN1(testNode3);
 		testEdge34.setN2(testNode4);
 		
+		
+		
+        ArrayList<Dijstra.Edge> n1Edges = new ArrayList<Dijstra.Edge>();
+        n1Edges.add(testEdge12);
+        n1Edges.add(testEdge13);
+        n1Edges.add(testEdge16);
+        testNode1.setEdges(n1Edges);
+
+        ArrayList<Dijstra.Edge> n2Edges = new ArrayList<Dijstra.Edge>();
+        n2Edges.add(testEdge12);
+        n2Edges.add(testEdge23);
+        n2Edges.add(testEdge24);
+        testNode2.setEdges(n2Edges);
+        
+        ArrayList<Dijstra.Edge> n3Edges = new ArrayList<Dijstra.Edge>();
+        n3Edges.add(testEdge34);
+        n3Edges.add(testEdge23);
+        n3Edges.add(testEdge13);
+        n3Edges.add(testEdge36);
+        testNode3.setEdges(n3Edges);
+       
+        ArrayList<Dijstra.Edge> n4Edges = new ArrayList<Dijstra.Edge>();
+        n4Edges.add(testEdge24);
+        n4Edges.add(testEdge34);
+        n4Edges.add(testEdge45);
+        testNode4.setEdges(n4Edges);
+        
+        ArrayList<Dijstra.Edge> n5Edges = new ArrayList<Dijstra.Edge>();
+        n5Edges.add(testEdge56);
+        n5Edges.add(testEdge45);
+        testNode5.setEdges(n5Edges);
+        
+        ArrayList<Dijstra.Edge> n6Edges = new ArrayList<Dijstra.Edge>();
+        n6Edges.add(testEdge36);
+        n6Edges.add(testEdge16);
+        n6Edges.add(testEdge56);
+        testNode6.setEdges(n6Edges);
+		
 
 
 
@@ -187,8 +190,6 @@ public class XMLEditor {
 		edges.add(testEdge45);
 		edges.add(testEdge56);
 		edges.add(testEdge34);
-
-
 
 	}
 	

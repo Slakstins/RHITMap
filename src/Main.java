@@ -22,7 +22,7 @@ public class Main
 		frame.add(gui, BorderLayout.CENTER);
 		frame.setVisible(true);
 		
-		gui.calculatePath("Bob", "George");
+		gui.calculatePath("n1", "n6");
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		

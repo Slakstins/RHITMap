@@ -10,8 +10,8 @@ import javax.swing.JFrame;
 
 public class GUI extends JComponent
 {
-	private ArrayList<Dijstra.Node> nodes = new ArrayList<>();
-	private ArrayList<Dijstra.Edge> edges = new ArrayList<>();
+	private static ArrayList<Dijstra.Node> nodes = new ArrayList<>();
+	private static ArrayList<Dijstra.Edge> edges = new ArrayList<>();
 	private HashMap<String, Dijstra.Node> nodeNameMap = new HashMap<>();
 	private JFrame frame;
 	
@@ -27,7 +27,7 @@ public class GUI extends JComponent
 		for (Dijstra.Node i : keys) {
 			nodes.add(i);
 			for (Dijstra.Edge j : i.getEdges()) {
-				edges.add(j);
+				//edges.add(j);***
 				//this adds duplicates of the edges, as multiple nodes have the same edge.
 				//could store edges in a set (sets don't allow dulicates)
 				//to avoid this problem
@@ -51,7 +51,6 @@ public class GUI extends JComponent
 	
 	public void calculatePath(String startNode, String endNode) {
 		this.dijstra.calculatePath(nodeNameMap.get(startNode), nodeNameMap.get(endNode));
-		
 	}
 	
 	protected void paintComponent(Graphics g) {
@@ -72,11 +71,14 @@ public class GUI extends JComponent
 		
 	}
 	
-	public static void draw(ArrayList<Dijstra.Edge> edges)
+	public static void draw(ArrayList<Dijstra.Edge> pathEdges)
 	{
+		int cost = 0;
+		edges = pathEdges;
 		for(int i = 0; i < edges.size(); i++)
 		{
-			//draw a line between both nodes
+			cost += edges.get(i).getCost();
 		}
+		System.out.println(cost);
 	}
 }

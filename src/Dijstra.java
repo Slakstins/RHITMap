@@ -20,12 +20,26 @@ public class Dijstra
 	
 	public void calculatePath(Node startNode, Node endNode)
 	{
+		ArrayList<Edge> path = new ArrayList<>();
+		path.add(startNode.zeroEdge);
+		shortestPath.put(startNode, path);
 		queue.offer(startNode);
 		while(!queue.isEmpty())
 		{
 			queue.poll().calculatePath();
 		}
 		GUI.draw(shortestPath.get(endNode));
+	}
+	
+	public static int cost(Node n)
+	{
+		int cost = 0;
+		ArrayList<Edge> path = shortestPath.get(n);
+		for(int i = 0; i < path.size(); i++)
+		{
+			cost+=path.get(i).getCost();
+		}
+		return cost;
 	}
 	
 	public static class Edge implements Serializable
@@ -47,11 +61,11 @@ public class Dijstra
 			this.n2 = n2;
 			this.cost = cost;
 			this.outside = outside;
+			this.edge = new Line2D.Double(new Point2D.Double(n1.x+n1.size/2, n1.y+n1.size/2), new Point2D.Double(n2.x+n2.size/2, n2.y+n2.size/2));
 		}
 		
 		public void addEdgeLineToDraw() {
 			this.edge = new Line2D.Double(new Point2D.Double(n1.x+n1.size/2, n1.y+n1.size/2), new Point2D.Double(n2.x+n2.size/2, n2.y+n2.size/2));
-			
 		}
 		
 		public Node getN1() 
@@ -109,19 +123,25 @@ public class Dijstra
 			g.fill(this.edge);
 			g.draw(edge);
 		}
+		
+		public String toString()
+		{
+			return "From: " + n1.name + "\nTo: " + n2.name + "\nCost: " + cost +'\n';
+		}
 	}
-	public static class Node implements Serializable
+	public static class Node implements Comparable<Node>, Serializable
 	{
 		private int x;
 		private int y;
 		private String name;
-		private ArrayList<Edge> edges;
+		private ArrayList<Edge> edges = new ArrayList<>();
+		private Edge zeroEdge;
 		private Ellipse2D.Double nodeToDraw;
 		private final int size = 40;
 		
 		public Node() 
 		{
-			
+			zeroEdge = new Edge(this, this, 0, false);
 		}
 		
 		public Node(int x, int y, String name, ArrayList<Edge> edges)
@@ -129,6 +149,7 @@ public class Dijstra
 			this.x = x;
 			this.y = y;
 			this.name = name;
+			zeroEdge = new Edge(this, this, 0, false);
 			this.edges = edges;
 			this.nodeToDraw = new Ellipse2D.Double(x, y, size, size);
 		}
@@ -165,8 +186,6 @@ public class Dijstra
 			this.nodeToDraw = new Ellipse2D.Double(x, y, size, size);
 		}
 		
-		
-		
 		public String toString() 
 		{
 			return ("Name: " + name + "\nX: " + this.x + "\nY: " + this.y );
@@ -187,44 +206,53 @@ public class Dijstra
 			for(int i = 0; i < edges.size(); i++)
 			{
 				Node n = edges.get(i).getEndNode(this);
-				queue.offer(n);
 				if(shortestPath.containsKey(n))
 				{
-					int oldCost = 0;
-					for(int j = 0; j < shortestPath.get(n).size(); j++)
-					{
-						oldCost += shortestPath.get(n).get(j).getCost();
-					}
+					int oldCost = cost(n);
 					
-					int newCost = edges.get(i).getCost();
-					for(int j = 0; j < shortestPath.get(this).size(); j++) 
-					{
-						newCost += shortestPath.get(this).get(j).getCost();
-					}
+					int newCost = edges.get(i).getCost() + cost(this);
 					
 					if(oldCost > newCost)
 					{
-						ArrayList<Edge> newPath = shortestPath.get(this);
+						ArrayList<Edge> newPath = new ArrayList<>();
+						newPath.addAll(shortestPath.get(this));
 						newPath.add(edges.get(i));
 						shortestPath.put(n, newPath);
+						queue.offer(n);
 					}
 				}
 				else
 				{
-					ArrayList<Edge> newPath = shortestPath.get(this);
+					ArrayList<Edge> newPath = new ArrayList<>();
+					newPath.addAll(shortestPath.get(this));
 					newPath.add(edges.get(i));
 					shortestPath.put(n, newPath);
+					queue.offer(n);
 				}
 			}
 		}
 		
 		public void drawOn(Graphics2D g) 
 		{
-			
 			g.setColor(Color.BLACK);
 			g.fill(nodeToDraw);
 			nodeToDraw.toString();
 			g.draw(nodeToDraw);
+		}
+
+		public int compareTo(Node n) 
+		{
+			int thisCost = cost(this);
+			int nCost = cost(n);
+			if(thisCost < nCost)
+			{
+				return -1;
+			}
+			if(thisCost == nCost)
+			{
+				return 0;
+			}
+			return 1;
 		}
 	}
 }
