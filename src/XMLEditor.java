@@ -29,33 +29,165 @@ public class XMLEditor {
 	}
 
 	public void initializeNodesEdges() {
+		
+		//this method will become obsolete!
 
 
-		Dijstra.Edge testEdge1 = new Dijstra.Edge();
-		testEdge1.setCost(5);
-		testEdge1.setOutside(true);
+		Dijstra.Edge testEdge12 = new Dijstra.Edge();
+		testEdge12.setCost(7);
+		testEdge12.setOutside(true);
+		
+		Dijstra.Edge testEdge23 = new Dijstra.Edge();
+		testEdge23.setCost(10);
+		testEdge23.setOutside(true);
+		
+		Dijstra.Edge testEdge13 = new Dijstra.Edge();
+		testEdge13.setCost(9);
+		testEdge13.setOutside(true);
+		
+		Dijstra.Edge testEdge16 = new Dijstra.Edge();
+		testEdge16.setCost(14);
+		testEdge16.setOutside(true);
+		
+		Dijstra.Edge testEdge36 = new Dijstra.Edge();
+		testEdge36.setCost(2);
+		testEdge36.setOutside(true);
+		
+		Dijstra.Edge testEdge24 = new Dijstra.Edge();
+		testEdge24.setCost(15);
+		testEdge24.setOutside(true);
+		
+		Dijstra.Edge testEdge34 = new Dijstra.Edge();
+		testEdge34.setCost(11);
+		testEdge34.setOutside(true);
+		
+		Dijstra.Edge testEdge45 = new Dijstra.Edge();
+		testEdge45.setCost(6);
+		testEdge45.setOutside(true);
+		
+		Dijstra.Edge testEdge56 = new Dijstra.Edge();
+		testEdge56.setCost(9);
+		testEdge56.setOutside(true);
+		
+		
 
 		Dijstra.Node testNode1 = new Dijstra.Node();
         testNode1.setX(69);
-        testNode1.setY(300);
+        testNode1.setY(940);
+        testNode1.setName("n1");
+        ArrayList<Dijstra.Edge> n1Edges = new ArrayList<Dijstra.Edge>();
+        n1Edges.add(testEdge12);
+        n1Edges.add(testEdge13);
+        n1Edges.add(testEdge16);
+        testNode1.setEdges(n1Edges);
+
+        
+        
 
 		Dijstra.Node testNode2 = new Dijstra.Node();
+        testNode2.setX(500);
+        testNode2.setY(950);
+        testNode2.setName("n2");
+        ArrayList<Dijstra.Edge> n2Edges = new ArrayList<Dijstra.Edge>();
+        n2Edges.add(testEdge12);
+        n2Edges.add(testEdge23);
+        n2Edges.add(testEdge24);
+        testNode2.setEdges(n2Edges);
+        
+        
+		Dijstra.Node testNode3 = new Dijstra.Node();
+        testNode3.setX(500);
+        testNode3.setY(500);
+        testNode3.setName("n3");
+        ArrayList<Dijstra.Edge> n3Edges = new ArrayList<Dijstra.Edge>();
+        n3Edges.add(testEdge34);
+        n3Edges.add(testEdge23);
+        n3Edges.add(testEdge13);
+        n3Edges.add(testEdge36);
+        testNode3.setEdges(n3Edges);
+        
+		Dijstra.Node testNode4 = new Dijstra.Node();
+        testNode4.setX(950);
+        testNode4.setY(450);
+        testNode4.setName("n4");
+        ArrayList<Dijstra.Edge> n4Edges = new ArrayList<Dijstra.Edge>();
+        n4Edges.add(testEdge24);
+        n4Edges.add(testEdge34);
+        n4Edges.add(testEdge45);
+        testNode4.setEdges(n4Edges);
+        
+		Dijstra.Node testNode5 = new Dijstra.Node();
+        testNode5.setX(600);
+        testNode5.setY(70);
+        testNode5.setName("n5");
+        ArrayList<Dijstra.Edge> n5Edges = new ArrayList<Dijstra.Edge>();
+        n5Edges.add(testEdge56);
+        n5Edges.add(testEdge45);
+        testNode5.setEdges(n5Edges);
+        
+		Dijstra.Node testNode6 = new Dijstra.Node();
 
-        testNode2.setX(1000);
-        testNode2.setY(70);
-
-
-		testNode1.setEdges(edges);
-		testNode2.setEdges(edges);
-
-		nodes.add(testNode2);
-		nodes.add(testNode1);
-
-		testEdge1.setN1(testNode1);
-
-		testEdge1.setN2(testNode2);
+        testNode6.setX(100);
+        testNode6.setY(100);
+        testNode6.setName("n6");
+        ArrayList<Dijstra.Edge> n6Edges = new ArrayList<Dijstra.Edge>();
+        n6Edges.add(testEdge36);
+        n6Edges.add(testEdge16);
+        n6Edges.add(testEdge56);
+        testNode6.setEdges(n6Edges);
+        
+		testEdge12.setN1(testNode1);
+		testEdge12.setN2(testNode2);
 		
-		edges.add(testEdge1);
+		testEdge13.setN1(testNode1);
+		testEdge13.setN2(testNode3);
+		
+		testEdge16.setN1(testNode1);
+		testEdge16.setN2(testNode6);
+		
+		testEdge36.setN1(testNode3);
+		testEdge36.setN2(testNode6);
+		
+		testEdge23.setN1(testNode2);
+		testEdge23.setN2(testNode3);
+		
+		testEdge24.setN1(testNode2);
+		testEdge24.setN2(testNode4);
+		
+		testEdge45.setN1(testNode4);
+		testEdge45.setN2(testNode5);
+
+		testEdge56.setN1(testNode5);
+		testEdge56.setN2(testNode6);
+		
+		testEdge34.setN1(testNode3);
+		testEdge34.setN2(testNode4);
+		
+
+
+
+		
+
+
+		nodes.add(testNode1);
+		nodes.add(testNode2);
+		nodes.add(testNode3);
+		nodes.add(testNode4);
+		nodes.add(testNode5);
+		nodes.add(testNode6);
+		
+
+		
+		edges.add(testEdge12);
+		edges.add(testEdge16);
+		edges.add(testEdge13);
+		edges.add(testEdge23);
+		edges.add(testEdge24);
+		edges.add(testEdge36);
+		edges.add(testEdge45);
+		edges.add(testEdge56);
+		edges.add(testEdge34);
+
 
 
 	}
@@ -65,14 +197,13 @@ public class XMLEditor {
 			
 			this.writeEdges(edges, "AllEdges.xml");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 	}
 
 	/**
-	 * write all of the edges to the XML file for retreival with read
+	 * write all of the edges to the XML file for retrieval with read
 	 * 
 	 * @param E
 	 * @param filename

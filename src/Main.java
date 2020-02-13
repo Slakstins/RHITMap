@@ -13,10 +13,17 @@ public class Main
 		XMLEditor xmlEditor = new XMLEditor();
 		
 		JFrame frame = new JFrame("RHIT School Map");
-		frame.setSize(500, 500);
+		frame.setSize(1000, 1100);
 		GUI gui = new GUI(frame, xmlEditor.getNodeToEdgeMap());
+		
+		
+		
+		
 		frame.add(gui, BorderLayout.CENTER);
 		frame.setVisible(true);
+		
+		gui.calculatePath("Bob", "George");
+
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		
