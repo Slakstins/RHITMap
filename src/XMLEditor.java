@@ -236,6 +236,9 @@ public class XMLEditor {
 				break;
 			}
 		}
+		for (int i = 0; i < edges.size(); i++) {
+			edges.get(i).addEdgeLineToDraw();
+		}
 		decoder.close();
 		return edges;
 	}
@@ -247,7 +250,6 @@ public class XMLEditor {
 		}
 		HashMap<Dijstra.Node, ArrayList<Dijstra.Edge>> output = new HashMap<Dijstra.Node, ArrayList<Dijstra.Edge>>();
 		for (int i = 0; i < edges.size(); i++) {
-			edges.get(i).addEdgeLineToDraw();
 			output.put(edges.get(i).getN1(), edges.get(i).getN1().getEdges());
 			output.put(edges.get(i).getN2(), edges.get(i).getN2().getEdges());
 

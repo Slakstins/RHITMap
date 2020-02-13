@@ -10,7 +10,9 @@ import java.util.PriorityQueue;
 
 public class Dijstra 
 {	
-	private static HashMap<Node, ArrayList<Edge>> shortestPath = new HashMap<>();
+	private static HashMap<Node, ArrayList<Edge>> shortestPathMap = new HashMap<>();
+	public static ArrayList<Edge> shortestPathEdges = new ArrayList<>();
+	
 	private static PriorityQueue<Node> queue = new PriorityQueue<>();
 	
 	public Dijstra()
@@ -22,19 +24,27 @@ public class Dijstra
 	{
 		ArrayList<Edge> path = new ArrayList<>();
 		path.add(startNode.zeroEdge);
-		shortestPath.put(startNode, path);
+		shortestPathMap.put(startNode, path);
 		queue.offer(startNode);
 		while(!queue.isEmpty())
 		{
 			queue.poll().calculatePath();
 		}
-		GUI.draw(shortestPath.get(endNode));
+		GUI.draw(shortestPathMap.get(endNode));
+		shortestPathEdges = shortestPathMap.get(endNode);
+		
 	}
+	
+	public void setShortestPathFromSave(ArrayList<Edge> edges) {
+		this.shortestPathEdges = edges;
+		GUI.draw(edges);
+	}
+	
 	
 	public static int cost(Node n)
 	{
 		int cost = 0;
-		ArrayList<Edge> path = shortestPath.get(n);
+		ArrayList<Edge> path = shortestPathMap.get(n);
 		for(int i = 0; i < path.size(); i++)
 		{
 			cost+=path.get(i).getCost();
@@ -206,7 +216,7 @@ public class Dijstra
 			for(int i = 0; i < edges.size(); i++)
 			{
 				Node n = edges.get(i).getEndNode(this);
-				if(shortestPath.containsKey(n))
+				if(shortestPathMap.containsKey(n))
 				{
 					int oldCost = cost(n);
 					
@@ -215,18 +225,18 @@ public class Dijstra
 					if(oldCost > newCost)
 					{
 						ArrayList<Edge> newPath = new ArrayList<>();
-						newPath.addAll(shortestPath.get(this));
+						newPath.addAll(shortestPathMap.get(this));
 						newPath.add(edges.get(i));
-						shortestPath.put(n, newPath);
+						shortestPathMap.put(n, newPath);
 						queue.offer(n);
 					}
 				}
 				else
 				{
 					ArrayList<Edge> newPath = new ArrayList<>();
-					newPath.addAll(shortestPath.get(this));
+					newPath.addAll(shortestPathMap.get(this));
 					newPath.add(edges.get(i));
-					shortestPath.put(n, newPath);
+					shortestPathMap.put(n, newPath);
 					queue.offer(n);
 				}
 			}

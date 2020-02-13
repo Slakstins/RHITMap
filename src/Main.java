@@ -10,11 +10,10 @@ public class Main
 	
 	public Main() {
 		
-		XMLEditor xmlEditor = new XMLEditor();
 		
 		JFrame frame = new JFrame("RHIT School Map");
 		frame.setSize(1000, 1100);
-		GUI gui = new GUI(frame, xmlEditor.getNodeToEdgeMap());
+		GUI gui = new GUI(frame);
 		
 		
 		
@@ -22,8 +21,13 @@ public class Main
 		frame.add(gui, BorderLayout.CENTER);
 		frame.setVisible(true);
 		
-		gui.calculatePath("n1", "n6");
+		
+		
+		gui.calculatePath("n4", "n6");
+		gui.savePath("N4ToN6");
+		gui.loadSavedPath("n4ToN6");
 
+		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		
