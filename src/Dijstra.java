@@ -10,8 +10,7 @@ import java.util.PriorityQueue;
 
 public class Dijstra 
 {	
-	public static double xScreenRatio = Main.screenWidth/1920;
-	public static double yScreenRatio = Main.screenHeight/1920;
+
 
 	
 	private static HashMap<Node, ArrayList<Edge>> shortestPathMap = new HashMap<>();
@@ -197,7 +196,7 @@ public class Dijstra
 		
 		public void addNodeEllipseToDraw() 
 		{
-			this.nodeToDraw = new Ellipse2D.Double(x * xScreenRatio, y * yScreenRatio, size, size);
+			this.nodeToDraw = new Ellipse2D.Double(x * Main.xScreenRatio, y * Main.yScreenRatio, size, size);
 		}
 		
 		public String toString() 
