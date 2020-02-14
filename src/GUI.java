@@ -69,7 +69,16 @@ public class GUI extends JComponent {
 	}
 
 	public void calculatePath(String startNode, String endNode) {
-		this.dijstra.calculatePath(nodeNameMap.get(startNode), nodeNameMap.get(endNode));
+		ArrayList<Dijstra.Edge> path = new ArrayList<>();
+		if((path = loadSavedPath(startNode + "To" + endNode)) != null)
+		{
+			edges = path;
+		}
+		else
+		{
+			this.dijstra.calculatePath(nodeNameMap.get(startNode), nodeNameMap.get(endNode));
+			savePath(startNode + "To" + endNode);
+		}	
 	}
 
 	public void savePath(String fileName) {
@@ -85,21 +94,18 @@ public class GUI extends JComponent {
 		}
 	}
 
-	public void loadSavedPath(String fileName) {
+	public ArrayList<Dijstra.Edge> loadSavedPath(String fileName) {
 		ArrayList<Dijstra.Edge> readEdges = null;
 		try {
 			readEdges = xmlEditor.read(fileName);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			System.out.println("could not read " + fileName);
-			e.printStackTrace();
+			return null;
 		}
 
 		if (readEdges == null) {
 			System.out.println("file not read " + fileName);
 		}
-		edges = readEdges;
-		dijstra.setShortestPathFromSave(readEdges);
+		return readEdges;
 	}
 
 	protected void paintComponent(Graphics g) {

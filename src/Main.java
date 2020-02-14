@@ -37,12 +37,8 @@ public class Main
 		gui.savePath("N4ToN6");
 		gui.loadSavedPath("n4ToN6");
 
+
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		
-		
-		
-		
 	}
 }
