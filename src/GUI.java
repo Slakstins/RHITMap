@@ -52,7 +52,7 @@ public class GUI extends JComponent {
 		ImageObserver observer = null;
 		BufferedImage RHITMap = null;
 		try {
-			RHITMap = ImageIO.read(new File("src/RHITMap.png"));
+			RHITMap = ImageIO.read(new File("src/RHITMap.jpg"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			System.out.println("did not find RHITMap.png");
