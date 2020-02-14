@@ -23,16 +23,9 @@ public class Main
 		
 		
 		
-		gui.calculatePath("n4", "n6");
-		gui.savePath("N4ToN6");
-		gui.loadSavedPath("n4ToN6");
+		gui.calculatePath("n5", "n6");
 
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		
-		
-		
-		
 	}
 }
