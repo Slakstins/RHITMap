@@ -1,9 +1,15 @@
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
+import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 
@@ -13,6 +19,8 @@ public class GUI extends JComponent {
 	private HashMap<String, Dijstra.Node> nodeNameMap = new HashMap<>();
 	private XMLEditor xmlEditor;
 	private JFrame frame;
+	
+	
 
 	private Dijstra dijstra = new Dijstra();
 
@@ -21,6 +29,7 @@ public class GUI extends JComponent {
 		// clicks
 		xmlEditor = new XMLEditor();
 		HashMap<Dijstra.Node, ArrayList<Dijstra.Edge>> nodeEdgeMap = xmlEditor.getNodeToEdgeMap();
+		
 
 		this.frame = frame;
 		Set<Dijstra.Node> keys = nodeEdgeMap.keySet();
@@ -37,6 +46,20 @@ public class GUI extends JComponent {
 
 		generateNodeNameMap();
 
+	}
+
+	private void drawMap(Graphics2D g) {
+		ImageObserver observer = null;
+		BufferedImage RHITMap = null;
+		try {
+			RHITMap = ImageIO.read(new File("src/RHITMap.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println("did not find RHITMap.png");
+			e.printStackTrace();
+		}
+		g.drawImage(RHITMap, null, 0, 0);
+		g.drawImage(RHITMap, 0, 0, Main.screenWidth, Main.screenHeight, 0, 0, RHITMap.getWidth(), RHITMap.getHeight(), null);
 	}
 
 	public void generateNodeNameMap() {
@@ -83,7 +106,7 @@ public class GUI extends JComponent {
 		super.paintComponent(g);
 
 		Graphics2D g2 = (Graphics2D) g;
-
+		drawMap(g2);
 		for (Dijstra.Node n : nodes) {
 			n.drawOn(g2);
 			repaint();
@@ -97,6 +120,7 @@ public class GUI extends JComponent {
 
 	}
 
+	
 	public static void draw(ArrayList<Dijstra.Edge> pathEdges) {
 		int cost = 0;
 		edges = pathEdges;
