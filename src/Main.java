@@ -1,12 +1,11 @@
 import java.awt.BorderLayout;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JFrame;
 
 public class Main {
-	static int screenHeight;
-	static int screenWidth;
-	public static double xScreenRatio;
-	public static double yScreenRatio;
+
 
 	public static void main(String[] args) {
 		new Main();
@@ -15,18 +14,68 @@ public class Main {
 	public Main() {
 
 		JFrame frame = new JFrame("RHIT School Map");
-		GUI gui = new GUI(frame);
 
-		frame.add(gui, BorderLayout.CENTER);
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setUndecorated(true);
 
 		frame.setVisible(true);
 
-		screenHeight = frame.getHeight();
-		screenWidth = frame.getWidth();
-		xScreenRatio = Main.screenWidth / 1920;
-		yScreenRatio = Main.screenHeight / 1920;
+		GUI gui = new GUI(frame);
+		
+		frame.addKeyListener(new KeyListener(){
+			private boolean up = false;
+			private boolean left = false;
+			private boolean right = false;
+			private boolean down = false;
+
+			@Override
+			public void keyPressed(KeyEvent event) {
+				int keyCode = event.getKeyCode();
+
+				if (keyCode == KeyEvent.VK_UP) {
+					gui.moveMapUp();
+				}
+				
+				if (keyCode == KeyEvent.VK_LEFT) {
+					gui.moveMapLeft();
+				}
+				
+				if (keyCode == KeyEvent.VK_RIGHT) {
+					gui.moveMapRight();
+				}
+				
+				if (keyCode == KeyEvent.VK_DOWN) {
+					gui.moveMapDown();
+				}
+								
+			}
+
+			@Override
+			public void keyReleased(KeyEvent event) {
+				// TODO Auto-generated method stub
+				int keyCode = event.getKeyCode();
+
+				
+				if (keyCode == event.VK_UP) {
+					up = false;
+
+					}
+				
+				
+			}
+
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+
+		frame.add(gui, BorderLayout.CENTER);
+		
+		frame.validate();
+
 
 		gui.calculatePath("n4", "n6");
 		gui.savePath("N4ToN6");

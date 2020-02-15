@@ -260,11 +260,7 @@ public class XMLEditor {
 		}
 		
 		Set<Dijstra.Node> keys = output.keySet();
-		for (Dijstra.Node i : keys) {
-			i.addNodeEllipseToDraw(); //calls to make the node drawable
-			
-			System.out.println(i.toString());
-		}
+
 		
 		
 		return output;

@@ -11,7 +11,6 @@ import java.util.PriorityQueue;
 public class Dijstra 
 {	
 
-
 	
 	private static HashMap<Node, ArrayList<Edge>> shortestPathMap = new HashMap<>();
 	public static ArrayList<Edge> shortestPathEdges = new ArrayList<>();
@@ -194,9 +193,10 @@ public class Dijstra
 			return name;
 		}
 		
-		public void addNodeEllipseToDraw() 
+		public Ellipse2D convertNodeEllipseToDraw() 
 		{
-			this.nodeToDraw = new Ellipse2D.Double(x * Main.xScreenRatio, y * Main.yScreenRatio, size, size);
+
+			return new Ellipse2D.Double(GUI.xScreenRatio * x + GUI.xOffset, GUI.yScreenRatio * y + GUI.yOffset, size, size);
 		}
 		
 		public String toString() 
@@ -247,10 +247,10 @@ public class Dijstra
 		
 		public void drawOn(Graphics2D g) 
 		{
+			Ellipse2D converted = this.convertNodeEllipseToDraw();
 			g.setColor(Color.BLACK);
-			g.fill(nodeToDraw);
-			nodeToDraw.toString();
-			g.draw(nodeToDraw);
+			g.fill(converted);
+			g.draw(converted);
 		}
 
 		public int compareTo(Node n) 
@@ -268,4 +268,5 @@ public class Dijstra
 			return 1;
 		}
 	}
+
 }

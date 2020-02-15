@@ -14,17 +14,38 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 
 public class GUI extends JComponent {
+	static int screenHeight;
+	static int screenWidth;
+	public static double xScreenRatio;
+	public static double yScreenRatio;
+	
+	public static int xOffset = 0;
+	public static int yOffset = 0;
+	
+	
 	private static ArrayList<Dijstra.Node> nodes = new ArrayList<>();
 	private static ArrayList<Dijstra.Edge> edges = new ArrayList<>();
 	private HashMap<String, Dijstra.Node> nodeNameMap = new HashMap<>();
 	private XMLEditor xmlEditor;
 	private JFrame frame;
 	
+	private boolean mapMoving = false;
+	
+	
+	
+	
+	
+	
 	
 
 	private Dijstra dijstra = new Dijstra();
 
 	public GUI(JFrame frame) {
+		screenHeight = frame.getHeight();
+		screenWidth = frame.getWidth();
+		xScreenRatio = screenWidth/1920;
+		yScreenRatio = screenHeight/1080;
+
 		// put xml inside of graphics since it looks like it will be handling all of the
 		// clicks
 		xmlEditor = new XMLEditor();
@@ -47,9 +68,34 @@ public class GUI extends JComponent {
 		generateNodeNameMap();
 
 	}
+	
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+
+		Graphics2D g2 = (Graphics2D) g;
+		drawMap(g2);
+		for (Dijstra.Node n : nodes) {
+			System.out.println("node painted");
+			n.drawOn(g2);
+		}
+		if (edges != null && edges.size() > 0) {
+			for (Dijstra.Edge e : edges) {
+				e.drawOn(g2);
+			}
+		}
+		
+		if (mapMoving) {
+			
+			
+		}
+		
+		g2.dispose();
+		
+		
+
+	}
 
 	private void drawMap(Graphics2D g) {
-		ImageObserver observer = null;
 		BufferedImage RHITMap = null;
 		try {
 			RHITMap = ImageIO.read(new File("src/RHITMap.jpg"));
@@ -58,8 +104,7 @@ public class GUI extends JComponent {
 			System.out.println("did not find RHITMap.png");
 			e.printStackTrace();
 		}
-		g.drawImage(RHITMap, null, 0, 0);
-		g.drawImage(RHITMap, 0, 0, Main.screenWidth, Main.screenHeight, 0, 0, RHITMap.getWidth(), RHITMap.getHeight(), null);
+		g.drawImage(RHITMap, xOffset, yOffset, screenWidth + xOffset, screenHeight + yOffset, 0, 0, RHITMap.getWidth(), RHITMap.getHeight(), null);
 	}
 
 	public void generateNodeNameMap() {
@@ -108,23 +153,7 @@ public class GUI extends JComponent {
 		return readEdges;
 	}
 
-	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
 
-		Graphics2D g2 = (Graphics2D) g;
-		drawMap(g2);
-		for (Dijstra.Node n : nodes) {
-			n.drawOn(g2);
-			repaint();
-		}
-		if (edges != null && edges.size() > 0) {
-			for (Dijstra.Edge e : edges) {
-				e.drawOn(g2);
-				repaint();
-			}
-		}
-
-	}
 
 	
 	public static void draw(ArrayList<Dijstra.Edge> pathEdges) {
@@ -134,5 +163,29 @@ public class GUI extends JComponent {
 			cost += edges.get(i).getCost();
 		}
 		System.out.println(cost);
+	}
+
+	public void moveMapUp() {
+		GUI.yOffset -= 5;
+		this.repaint();
+	
+	}
+	
+	public void moveMapDown() {
+		GUI.yOffset += 5;
+		this.repaint();
+	
+	}
+	
+	public void moveMapRight() {
+		GUI.xOffset += 5;
+		this.repaint();
+	
+	}
+	
+	public void moveMapLeft() {
+		GUI.xOffset -= 5;
+		this.repaint();
+	
 	}
 }
