@@ -29,6 +29,7 @@ public class Main {
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(new Rectangle(0, 0, 100, 50));
+		panel.setLocation(frame.getWidth() - 150, frame.getHeight() - 75);
 		panel.setOpaque(false);
 		JButton zoomInButton = new JButton();
 		JButton zoomOutButton = new JButton();
