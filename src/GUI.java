@@ -22,6 +22,8 @@ public class GUI extends JComponent {
 	public static int xOffset = 0;
 	public static int yOffset = 0;
 	
+	private int mapMoveAmount = 10;
+	
 	
 	private static ArrayList<Dijstra.Node> nodes = new ArrayList<>();
 	private static ArrayList<Dijstra.Edge> edges = new ArrayList<>();
@@ -29,7 +31,14 @@ public class GUI extends JComponent {
 	private XMLEditor xmlEditor;
 	private JFrame frame;
 	
-	private boolean mapMoving = false;
+	
+	private boolean mapMoveUp = false;
+	private boolean mapMoveDown = false;
+
+	private boolean mapMoveLeft = false;
+
+	private boolean mapMoveRight = false;
+
 	
 	
 	
@@ -75,19 +84,33 @@ public class GUI extends JComponent {
 		Graphics2D g2 = (Graphics2D) g;
 		drawMap(g2);
 		for (Dijstra.Node n : nodes) {
-			System.out.println("node painted");
 			n.drawOn(g2);
 		}
-		if (edges != null && edges.size() > 0) {
-			for (Dijstra.Edge e : edges) {
+		if (Dijstra.shortestPathEdges != null && Dijstra.shortestPathEdges.size() > 0) {
+			System.out.println("EDGE pAINTED");
+			for (Dijstra.Edge e : Dijstra.shortestPathEdges) {
 				e.drawOn(g2);
 			}
 		}
 		
-		if (mapMoving) {
-			
+		if (mapMoveUp) {
+			this.moveMapUp();
 			
 		}
+		
+		if (mapMoveRight) {
+			this.moveMapRight();
+		}
+		
+		if (mapMoveLeft) {
+			this.moveMapLeft();
+		}
+		
+		if (mapMoveDown) {
+			this.moveMapDown();
+		}
+		
+		
 		
 		g2.dispose();
 		
@@ -166,26 +189,49 @@ public class GUI extends JComponent {
 	}
 
 	public void moveMapUp() {
-		GUI.yOffset -= 5;
+		this.setMapMoveUp(true);
+		GUI.yOffset -= mapMoveAmount;
 		this.repaint();
 	
 	}
 	
 	public void moveMapDown() {
-		GUI.yOffset += 5;
+		this.mapMoveDown = true;
+		GUI.yOffset += mapMoveAmount;
 		this.repaint();
 	
 	}
 	
 	public void moveMapRight() {
-		GUI.xOffset += 5;
+		this.mapMoveRight = true;
+
+		GUI.xOffset += mapMoveAmount;
 		this.repaint();
 	
 	}
 	
 	public void moveMapLeft() {
-		GUI.xOffset -= 5;
+		this.mapMoveLeft = true;
+
+		GUI.xOffset -= mapMoveAmount;
 		this.repaint();
 	
+	}
+
+	public void setMapMoveUp(boolean mapMoveUp) {
+		this.mapMoveUp = mapMoveUp;
+		this.repaint();
+	}
+	public void setMapMoveRight(boolean mapMoveRight) {
+		this.mapMoveRight = mapMoveRight;
+		this.repaint();
+	}
+	public void setMapMoveDown(boolean mapMoveDown) {
+		this.mapMoveDown = mapMoveDown;
+		this.repaint();
+	}
+	public void setMapMoveLeft(boolean mapMoveLeft) {
+		this.mapMoveLeft = mapMoveLeft;
+		this.repaint();
 	}
 }

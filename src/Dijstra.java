@@ -35,10 +35,13 @@ public class Dijstra
 		GUI.draw(shortestPathMap.get(endNode));
 		shortestPathEdges = shortestPathMap.get(endNode);
 		
+		
+
+		
 	}
 	
 	public void setShortestPathFromSave(ArrayList<Edge> edges) {
-		this.shortestPathEdges = edges;
+		Dijstra.shortestPathEdges = edges;
 		GUI.draw(edges);
 	}
 	

@@ -23,10 +23,7 @@ public class Main {
 		GUI gui = new GUI(frame);
 		
 		frame.addKeyListener(new KeyListener(){
-			private boolean up = false;
-			private boolean left = false;
-			private boolean right = false;
-			private boolean down = false;
+
 
 			@Override
 			public void keyPressed(KeyEvent event) {
@@ -57,7 +54,22 @@ public class Main {
 
 				
 				if (keyCode == event.VK_UP) {
-					up = false;
+					gui.setMapMoveUp(false);
+
+					}
+				
+				if (keyCode == event.VK_LEFT) {
+					gui.setMapMoveLeft(false);
+
+					}
+				
+				if (keyCode == event.VK_RIGHT) {
+					gui.setMapMoveRight(false);
+
+					}
+				
+				if (keyCode == event.VK_DOWN) {
+					gui.setMapMoveDown(false);
 
 					}
 				
@@ -71,15 +83,16 @@ public class Main {
 			}
 			
 		});
+		
+
 
 		frame.add(gui, BorderLayout.CENTER);
 		
-		frame.validate();
 
+		gui.calculatePath("n5", "n6");
 
-		gui.calculatePath("n4", "n6");
-		gui.savePath("N4ToN6");
 		gui.loadSavedPath("n4ToN6");
+		frame.validate();
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
