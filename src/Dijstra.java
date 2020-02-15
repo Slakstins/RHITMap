@@ -198,8 +198,8 @@ public class Dijstra
 		
 		public Ellipse2D convertNodeEllipseToDraw() 
 		{
-
-			return new Ellipse2D.Double(GUI.xScreenRatio * x + GUI.xOffset, GUI.yScreenRatio * y + GUI.yOffset, size, size);
+			
+			return new Ellipse2D.Double((GUI.xScreenRatio * x + GUI.xOffset) * GUI.zoomLevel , (GUI.yScreenRatio * y + GUI.yOffset) * GUI.zoomLevel, size * GUI.zoomLevel, size * GUI.zoomLevel);
 		}
 		
 		public String toString() 

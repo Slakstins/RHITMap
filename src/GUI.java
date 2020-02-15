@@ -31,6 +31,7 @@ public class GUI extends JComponent {
 	private XMLEditor xmlEditor;
 	private JFrame frame;
 	
+	public static double zoomLevel = 1;
 	
 	private boolean mapMoveUp = false;
 	private boolean mapMoveDown = false;
@@ -127,7 +128,7 @@ public class GUI extends JComponent {
 			System.out.println("did not find RHITMap.png");
 			e.printStackTrace();
 		}
-		g.drawImage(RHITMap, xOffset, yOffset, screenWidth + xOffset, screenHeight + yOffset, 0, 0, RHITMap.getWidth(), RHITMap.getHeight(), null);
+		g.drawImage(RHITMap, (int)(xOffset  * zoomLevel), (int)(yOffset  * zoomLevel), (int)((screenWidth + xOffset) * zoomLevel), (int)((screenHeight + yOffset) * zoomLevel), 0, 0, RHITMap.getWidth(), RHITMap.getHeight(), null);
 	}
 
 	public void generateNodeNameMap() {
@@ -232,6 +233,17 @@ public class GUI extends JComponent {
 	}
 	public void setMapMoveLeft(boolean mapMoveLeft) {
 		this.mapMoveLeft = mapMoveLeft;
+		this.repaint();
+	}
+	
+	public void zoomIn() {
+		zoomLevel += 0.1;
+		this.repaint();
+		
+	}
+
+	public void zoomOut() {
+		zoomLevel -= 0.1;
 		this.repaint();
 	}
 }
