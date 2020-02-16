@@ -33,11 +33,7 @@ public class Dijstra
 			queue.poll().calculatePath();
 		}
 		GUI.draw(shortestPathMap.get(endNode));
-		shortestPathEdges = shortestPathMap.get(endNode);
-		
-		
-
-		
+		shortestPathEdges = shortestPathMap.get(endNode);	
 	}
 	
 	public void setShortestPathFromSave(ArrayList<Edge> edges) {
@@ -134,6 +130,10 @@ public class Dijstra
 		
 		public void drawOn(Graphics2D g) 
 		{
+			edge.x1 = n1.getX() + n1.getSize()/2;
+			edge.y1 = n1.getY() + n1.getSize()/2;
+			edge.x2 = n2.getX() + n2.getSize()/2;
+			edge.y2 = n2.getY() + n1.getSize()/2;
 			g.setColor(Color.BLACK);
 			g.fill(this.edge);
 			g.draw(edge);
@@ -146,13 +146,13 @@ public class Dijstra
 	}
 	public static class Node implements Comparable<Node>, Serializable
 	{
-		private int x;
-		private int y;
+		private double x;
+		private double y;
 		private String name;
 		private ArrayList<Edge> edges = new ArrayList<>();
 		private Edge zeroEdge;
 		private Ellipse2D.Double nodeToDraw;
-		private final int size = 40;
+		private final int size = 20;
 		
 		public Node() 
 		{
@@ -169,22 +169,27 @@ public class Dijstra
 			this.nodeToDraw = new Ellipse2D.Double(x, y, size, size);
 		}
 		
-		public int getX()
+		public double getX()
 		{
-			return x;
+			return (GUI.xScreenRatio * x + GUI.xOffset) * GUI.zoomLevel;
 		}
-		public void setX(int x) 
+		public void setX(double x) 
 		{
 			this.x = x;
 		}
 		
-		public int getY()
+		public double getY()
 		{
-			return y;
+			return (GUI.yScreenRatio * y + GUI.yOffset) * GUI.zoomLevel;
 		}
 		
-		public void setY(int y) {
+		public void setY(double y) {
 			this.y = y;
+		}
+		
+		public double getSize()
+		{
+			return size * GUI.zoomLevel;
 		}
 		
 		public void setName(String name) {
@@ -198,7 +203,6 @@ public class Dijstra
 		
 		public Ellipse2D convertNodeEllipseToDraw() 
 		{
-			
 			return new Ellipse2D.Double((GUI.xScreenRatio * x + GUI.xOffset) * GUI.zoomLevel , (GUI.yScreenRatio * y + GUI.yOffset) * GUI.zoomLevel, size * GUI.zoomLevel, size * GUI.zoomLevel);
 		}
 		

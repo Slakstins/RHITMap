@@ -38,7 +38,7 @@ public class Main {
 
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				gui.zoomIn();
+				gui.zoom(.1);
 			}
 			
 		});
@@ -47,7 +47,7 @@ public class Main {
 
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				gui.zoomOut();
+				gui.zoom(-.1);
 				
 			}
 			
@@ -65,79 +65,13 @@ public class Main {
 		panel.add(zoomInButton);
 		frame.add(panel);
 		
+		new ClickHandler(frame, gui);
 		
-		
-		
-		frame.addKeyListener(new KeyListener(){
-
-
-			@Override
-			public void keyPressed(KeyEvent event) {
-				int keyCode = event.getKeyCode();
-
-				if (keyCode == KeyEvent.VK_UP) {
-					gui.moveMapUp();
-				}
-				
-				if (keyCode == KeyEvent.VK_LEFT) {
-					gui.moveMapLeft();
-				}
-				
-				if (keyCode == KeyEvent.VK_RIGHT) {
-					gui.moveMapRight();
-				}
-				
-				if (keyCode == KeyEvent.VK_DOWN) {
-					gui.moveMapDown();
-				}
-								
-			}
-
-			@Override
-			public void keyReleased(KeyEvent event) {
-				// TODO Auto-generated method stub
-				int keyCode = event.getKeyCode();
-
-				
-				if (keyCode == event.VK_UP) {
-					gui.setMapMoveUp(false);
-
-					}
-				
-				if (keyCode == event.VK_LEFT) {
-					gui.setMapMoveLeft(false);
-
-					}
-				
-				if (keyCode == event.VK_RIGHT) {
-					gui.setMapMoveRight(false);
-
-					}
-				
-				if (keyCode == event.VK_DOWN) {
-					gui.setMapMoveDown(false);
-
-					}
-				
-				
-			}
-
-			@Override
-			public void keyTyped(KeyEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-		});
-		
-
-
 		frame.add(gui, BorderLayout.CENTER);
 		
 
-		gui.calculatePath("n5", "n6");
+		gui.calculatePath("n3", "n6");
 
-		gui.loadSavedPath("n4ToN6");
 		frame.validate();
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

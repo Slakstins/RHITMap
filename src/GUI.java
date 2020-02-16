@@ -1,6 +1,7 @@
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
@@ -19,10 +20,14 @@ public class GUI extends JComponent {
 	public static double xScreenRatio;
 	public static double yScreenRatio;
 	
-	public static int xOffset = 0;
-	public static int yOffset = 0;
+	public static double xOffset = 0;
+	public static double yOffset = 0;
+	private double startX = 0;
+	private double startY = 0;
+	private double lastX = 0;
+	private double lastY = 0;
 	
-	private int mapMoveAmount = 10;
+	private int mapMoveAmount = 1;
 	
 	
 	private static ArrayList<Dijstra.Node> nodes = new ArrayList<>();
@@ -33,20 +38,12 @@ public class GUI extends JComponent {
 	
 	public static double zoomLevel = 1;
 	
-	private boolean mapMoveUp = false;
-	private boolean mapMoveDown = false;
-
-	private boolean mapMoveLeft = false;
-
-	private boolean mapMoveRight = false;
-
+	private boolean moveUp = false;
+	private boolean moveDown = false;
+	private boolean moveLeft = false;
+	private boolean moveRight = false;
 	
-	
-	
-	
-	
-	
-	
+	private BufferedImage RHITMap;
 
 	private Dijstra dijstra = new Dijstra();
 
@@ -74,6 +71,13 @@ public class GUI extends JComponent {
 			}
 
 		}
+		try {
+			RHITMap = ImageIO.read(new File("src/RHITMap-HighDef.jpeg"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println("did not find RHITMap");
+			e.printStackTrace();
+		}
 
 		generateNodeNameMap();
 
@@ -87,47 +91,30 @@ public class GUI extends JComponent {
 		for (Dijstra.Node n : nodes) {
 			n.drawOn(g2);
 		}
-		if (Dijstra.shortestPathEdges != null && Dijstra.shortestPathEdges.size() > 0) {
-			System.out.println("EDGE pAINTED");
-			for (Dijstra.Edge e : Dijstra.shortestPathEdges) {
-				e.drawOn(g2);
-			}
+		for (Dijstra.Edge e : edges) {
+			e.drawOn(g2);
 		}
 		
-		if (mapMoveUp) {
-			this.moveMapUp();
+		if (moveUp) {
+			this.moveUp();
+		}
+		
+		if (moveRight) {
+			this.moveRight();
+		}
+		
+		if (moveLeft) {
+			this.moveLeft();
+		}
+		
+		if (moveDown) {
+			this.moveDown();
+		}
 			
-		}
-		
-		if (mapMoveRight) {
-			this.moveMapRight();
-		}
-		
-		if (mapMoveLeft) {
-			this.moveMapLeft();
-		}
-		
-		if (mapMoveDown) {
-			this.moveMapDown();
-		}
-		
-		
-		
 		g2.dispose();
-		
-		
-
 	}
 
 	private void drawMap(Graphics2D g) {
-		BufferedImage RHITMap = null;
-		try {
-			RHITMap = ImageIO.read(new File("src/RHITMap.jpg"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			System.out.println("did not find RHITMap.png");
-			e.printStackTrace();
-		}
 		g.drawImage(RHITMap, (int)(xOffset  * zoomLevel), (int)(yOffset  * zoomLevel), (int)((screenWidth + xOffset) * zoomLevel), (int)((screenHeight + yOffset) * zoomLevel), 0, 0, RHITMap.getWidth(), RHITMap.getHeight(), null);
 	}
 
@@ -141,7 +128,7 @@ public class GUI extends JComponent {
 		ArrayList<Dijstra.Edge> path = new ArrayList<>();
 		if((path = loadSavedPath(startNode + "To" + endNode)) != null)
 		{
-			edges = path;
+			draw(path);
 		}
 		else
 		{
@@ -177,9 +164,6 @@ public class GUI extends JComponent {
 		return readEdges;
 	}
 
-
-
-	
 	public static void draw(ArrayList<Dijstra.Edge> pathEdges) {
 		int cost = 0;
 		edges = pathEdges;
@@ -189,61 +173,76 @@ public class GUI extends JComponent {
 		System.out.println(cost);
 	}
 
-	public void moveMapUp() {
-		this.setMapMoveUp(true);
-		GUI.yOffset -= mapMoveAmount;
-		this.repaint();
-	
-	}
-	
-	public void moveMapDown() {
-		this.mapMoveDown = true;
+	public void moveUp() {
+		this.moveUp = true;
 		GUI.yOffset += mapMoveAmount;
 		this.repaint();
-	
 	}
 	
-	public void moveMapRight() {
-		this.mapMoveRight = true;
-
-		GUI.xOffset += mapMoveAmount;
+	public void moveDown() {
+		this.moveDown = true;
+		GUI.yOffset -= mapMoveAmount;
 		this.repaint();
-	
 	}
 	
-	public void moveMapLeft() {
-		this.mapMoveLeft = true;
+	public void moveRight() {
+		this.moveRight = true;
 
 		GUI.xOffset -= mapMoveAmount;
 		this.repaint();
+	}
 	
+	public void moveLeft() {
+		this.moveLeft = true;
+
+		GUI.xOffset += mapMoveAmount;
+		this.repaint();
 	}
 
-	public void setMapMoveUp(boolean mapMoveUp) {
-		this.mapMoveUp = mapMoveUp;
+	public void setMoveUp(boolean mapMoveUp) {
+		this.moveUp = mapMoveUp;
 		this.repaint();
 	}
-	public void setMapMoveRight(boolean mapMoveRight) {
-		this.mapMoveRight = mapMoveRight;
+	public void setMoveRight(boolean mapMoveRight) {
+		this.moveRight = mapMoveRight;
 		this.repaint();
 	}
-	public void setMapMoveDown(boolean mapMoveDown) {
-		this.mapMoveDown = mapMoveDown;
+	public void setMoveDown(boolean mapMoveDown) {
+		this.moveDown = mapMoveDown;
 		this.repaint();
 	}
-	public void setMapMoveLeft(boolean mapMoveLeft) {
-		this.mapMoveLeft = mapMoveLeft;
+	public void setMoveLeft(boolean mapMoveLeft) {
+		this.moveLeft = mapMoveLeft;
 		this.repaint();
 	}
 	
-	public void zoomIn() {
-		zoomLevel += 0.1;
+	public void zoom(double zoom) 
+	{
+		zoomLevel += zoom;
 		this.repaint();
+	}
+	
+	public void moveOffset(double x, double y)
+	{
+		double deltaX = x - startX - lastX;
+		double deltaY = y - startY - lastY;
 		
+		lastX = x - startX;
+		lastY = y - startY;
+		
+		xOffset += deltaX;
+		yOffset += deltaY;
+		repaint();
 	}
-
-	public void zoomOut() {
-		zoomLevel -= 0.1;
-		this.repaint();
+	
+	public void setMousePos()
+	{
+		startX = getMousePosition().getX();
+		startY = getMousePosition().getY();
+	}
+	
+	public void close()
+	{
+		frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
 	}
 }
