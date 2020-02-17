@@ -27,7 +27,6 @@ public class TextGetListener implements ActionListener {
 									// gui
 
 		toName.setName(this.textField.getText());
-		// set nameAsked to false
 
 		this.frame.getContentPane().remove(panel);
 		this.frame.requestFocus();

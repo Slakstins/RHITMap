@@ -19,8 +19,8 @@ import javax.swing.JTextField;
 
 
 public class GUI extends JComponent {
-	static int screenHeight;
-	static int screenWidth;
+	static double screenHeight;
+	static double screenWidth;
 	public static double xScreenRatio;
 	public static double yScreenRatio;
 	

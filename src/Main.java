@@ -69,8 +69,10 @@ public class Main {
 		
 		frame.add(gui, BorderLayout.CENTER);
 		
+		
+		
 
-		gui.calculatePath("n3", "n6");
+		gui.calculatePath("n1", "n6");
 
 		frame.validate();
 

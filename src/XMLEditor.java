@@ -217,7 +217,6 @@ public class XMLEditor {
 	
 	public void updateMapXML() {
 		try {
-			
 			this.writeEdges(edges, "AllEdges.xml");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -272,6 +271,7 @@ public class XMLEditor {
 		}
 		HashMap<Dijstra.Node, ArrayList<Dijstra.Edge>> output = new HashMap<Dijstra.Node, ArrayList<Dijstra.Edge>>();
 		for (int i = 0; i < edges.size(); i++) {
+			System.out.println(edges.get(i).getN1().getX());
 			output.put(edges.get(i).getN1(), edges.get(i).getN1().getEdges());
 			output.put(edges.get(i).getN2(), edges.get(i).getN2().getEdges());
 
@@ -292,6 +292,7 @@ public class XMLEditor {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		
 		
 
