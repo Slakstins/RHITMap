@@ -16,8 +16,7 @@ public class XMLEditor {
 	// storing edges instead of nodes in the XML allows for faster retrieval of
 	// nodes for restoring saved class path data, but
 	// it will make Dijstra's slower.
-	// Saves are not yet implemented, but the map can be generated using a temporary
-	// java file to create the XML to be stored.
+
 
 	ArrayList<Dijstra.Edge> edges;
 	ArrayList<Dijstra.Node> nodes;
@@ -195,6 +194,15 @@ public class XMLEditor {
 		edges.add(testEdge56);
 		edges.add(testEdge34);
 
+	}
+	
+	public Dijstra.Node initializeNewNode(int x, int y, String name) {
+		Dijstra.Node newNode = new Dijstra.Node();
+		newNode.setX(x);
+		newNode.setY(y);
+		newNode.setName(name);
+		nodes.add(newNode);
+		return newNode;
 	}
 	
 	public void updateMapXML() {

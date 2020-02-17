@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<java version="13.0.2" class="java.beans.XMLDecoder">
+<java version="1.8.0_221" class="java.beans.XMLDecoder">
  <object class="Dijstra$Edge" id="Dijstra$Edge0">
   <void property="cost">
    <int>7</int>

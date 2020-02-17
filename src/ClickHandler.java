@@ -12,6 +12,7 @@ public class ClickHandler
 {
 	public ClickHandler(JFrame frame, GUI gui)
 	{
+		
 		frame.addKeyListener(new KeyListener()
 		{
 			public void keyPressed(KeyEvent event) 
@@ -86,7 +87,19 @@ public class ClickHandler
 		
 		frame.addMouseListener(new MouseListener()
 		{
+			
+			/**
+			 * for creating nodes and edges
+			 */
 			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() == 2) {
+					Dijstra.Node newNode = gui.getXMLEditor().initializeNewNode(e.getX(), e.getY(), "TBD");
+					gui.addNode(newNode);
+					gui.askName(e.getX(), e.getY(), newNode );
+					
+					
+					
+				}
 				
 			}
 

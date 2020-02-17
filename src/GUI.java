@@ -1,6 +1,7 @@
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
@@ -13,6 +14,8 @@ import java.util.Set;
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class GUI extends JComponent {
 	static int screenHeight;
@@ -116,6 +119,16 @@ public class GUI extends JComponent {
 
 	private void drawMap(Graphics2D g) {
 		g.drawImage(RHITMap, (int)(xOffset  * zoomLevel), (int)(yOffset  * zoomLevel), (int)((screenWidth + xOffset) * zoomLevel), (int)((screenHeight + yOffset) * zoomLevel), 0, 0, RHITMap.getWidth(), RHITMap.getHeight(), null);
+	}
+	
+	
+	/**
+	 * for use when adding additional nodes - not for initial rendering
+	 * @param newNode
+	 */
+	public void addNode(Dijstra.Node newNode) {
+		this.nodes.add(newNode);
+		this.repaint();
 	}
 
 	public void generateNodeNameMap() {
@@ -244,5 +257,29 @@ public class GUI extends JComponent {
 	public void close()
 	{
 		frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+	}
+	
+	public XMLEditor getXMLEditor() {
+		return this.xmlEditor;
+	}
+
+	public void askName(int x, int y, Dijstra.Node node) {
+		JTextField textGet = new JTextField(20);
+		textGet.setToolTipText("Input node name");
+		JPanel panel = new JPanel();
+		panel.add(textGet);
+		textGet.setVisible(true);
+		panel.setBounds(x, y, 100, 100);
+		this.frame.getContentPane().add(panel);
+		this.frame.validate();
+		
+		textGet.addActionListener(new TextGetListener(textGet, panel, node, this.frame));
+
+	
+		
+		textGet.grabFocus();
+
+		
+		
 	}
 }
