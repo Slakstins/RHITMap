@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<java version="1.8.0_221" class="java.beans.XMLDecoder">
+<java version="13.0.1" class="java.beans.XMLDecoder">
  <object class="Dijstra$Edge" id="Dijstra$Edge0">
   <void property="cost">
    <int>7</int>
@@ -67,10 +67,10 @@
                     <string>n2</string>
                    </void>
                    <void property="x">
-                    <double>500.0</double>
+                    <double>400.0</double>
                    </void>
                    <void property="y">
-                    <double>710.0</double>
+                    <double>568.0</double>
                    </void>
                   </object>
                  </void>
@@ -147,10 +147,10 @@
                          <string>n6</string>
                         </void>
                         <void property="x">
-                         <double>100.0</double>
+                         <double>80.0</double>
                         </void>
                         <void property="y">
-                         <double>100.0</double>
+                         <double>80.0</double>
                         </void>
                        </object>
                       </void>
@@ -167,10 +167,10 @@
                     <string>n5</string>
                    </void>
                    <void property="x">
-                    <double>600.0</double>
+                    <double>480.0</double>
                    </void>
                    <void property="y">
-                    <double>70.0</double>
+                    <double>56.0</double>
                    </void>
                   </object>
                  </void>
@@ -184,10 +184,10 @@
                <string>n4</string>
               </void>
               <void property="x">
-               <double>950.0</double>
+               <double>760.0</double>
               </void>
               <void property="y">
-               <double>450.0</double>
+               <double>360.0</double>
               </void>
              </object>
             </void>
@@ -210,10 +210,10 @@
           <string>n3</string>
          </void>
          <void property="x">
-          <double>500.0</double>
+          <double>400.0</double>
          </void>
          <void property="y">
-          <double>350.0</double>
+          <double>280.0</double>
          </void>
         </object>
        </void>
@@ -230,10 +230,10 @@
      <string>n1</string>
     </void>
     <void property="x">
-     <double>69.0</double>
+     <double>55.2</double>
     </void>
     <void property="y">
-     <double>700.0</double>
+     <double>560.0</double>
     </void>
    </object>
   </void>

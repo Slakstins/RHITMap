@@ -19,8 +19,8 @@ import javax.swing.JTextField;
 
 
 public class GUI extends JComponent {
-	static int screenHeight;
-	static int screenWidth;
+	static double screenHeight;
+	static double screenWidth;
 	public static double xScreenRatio;
 	public static double yScreenRatio;
 	
@@ -50,6 +50,7 @@ public class GUI extends JComponent {
 	private boolean moveRight = false;
 	
 	private BufferedImage RHITMap;
+	
 
 	private Dijstra dijstra = new Dijstra();
 
@@ -141,20 +142,20 @@ public class GUI extends JComponent {
 		}
 	}
 
-	public void calculatePath(String startNode, String endNode) {
+	public void calculatePath(String startNode, String endNode, boolean outside, boolean wca) {
 		ArrayList<Dijstra.Edge> path = new ArrayList<>();
-		if((path = loadSavedPath(startNode + "To" + endNode)) != null)
+		if((path = loadSavedPath(startNode + endNode + outside + wca)) != null)
 		{
 			draw(path);
 		}
 		else
 		{
 			this.dijstra.calculatePath(nodeNameMap.get(startNode), nodeNameMap.get(endNode));
-			savePath(startNode + "To" + endNode);
-		}	
+			savePath(startNode + endNode + outside + wca);
+		}
 	}
 
-	public void savePath(String fileName) {
+	private void savePath(String fileName) {
 		try {
 			xmlEditor.writeEdges(Dijstra.shortestPathEdges, fileName);
 			if (Dijstra.shortestPathEdges.isEmpty()) {
@@ -167,7 +168,7 @@ public class GUI extends JComponent {
 		}
 	}
 
-	public ArrayList<Dijstra.Edge> loadSavedPath(String fileName) {
+	private ArrayList<Dijstra.Edge> loadSavedPath(String fileName) {
 		ArrayList<Dijstra.Edge> readEdges = null;
 		try {
 			readEdges = xmlEditor.read(fileName);
@@ -247,8 +248,8 @@ public class GUI extends JComponent {
 		lastX = x - startX;
 		lastY = y - startY;
 		
-		xOffset += deltaX;
-		yOffset += deltaY;
+		xOffset += deltaX / zoomLevel;
+		yOffset += deltaY / zoomLevel;
 		repaint();
 	}
 	
@@ -302,14 +303,8 @@ public class GUI extends JComponent {
 		
 		textGet.grabFocus();
 
-		
-		
 	}
 	
-	
-	
-	
-
 	/**
 	 * when edges are deleted, they need to be deleted from all the nodes that have them too. IMPLEMENT this
 	 * @param selNode

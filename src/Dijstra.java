@@ -12,8 +12,6 @@ public class Dijstra {
 
 	private static HashMap<Node, ArrayList<Edge>> shortestPathMap = new HashMap<>();
 	public static ArrayList<Edge> shortestPathEdges = new ArrayList<>();
-	private final static int size = 20;
-
 	private static PriorityQueue<Node> queue = new PriorityQueue<>();
 
 	public Dijstra() {
@@ -51,24 +49,26 @@ public class Dijstra {
 		private Node n2;
 		private int cost;
 		private boolean outside;
+		private boolean wca;
 		private Line2D.Double edge;
 
 		public Edge() {
 
 		}
 
-		public Edge(Node n1, Node n2, int cost, boolean outside) {
+		public Edge(Node n1, Node n2, int cost, boolean outside, boolean wca) {
 			this.n1 = n1;
 			this.n2 = n2;
 			this.cost = cost;
 			this.outside = outside;
-			this.edge = new Line2D.Double(new Point2D.Double(n1.x + size / 2 - size / 2, n1.y + size / 2 - size / 2),
-					new Point2D.Double(n2.x + size / 2 - size / 2, n2.y + size / 2 - size / 2));
+			this.wca = wca;
+			this.edge = new Line2D.Double(new Point2D.Double(n1.x + Constants.nodeSize / 2 - Constants.nodeSize / 2, n1.y + Constants.nodeSize / 2 - Constants.nodeSize / 2),
+					new Point2D.Double(n2.x + Constants.nodeSize / 2 - Constants.nodeSize / 2, n2.y + Constants.nodeSize / 2 - Constants.nodeSize / 2));
 		}
 
 		public void addEdgeLineToDraw() {
-			this.edge = new Line2D.Double(new Point2D.Double(n1.x + size / 2 - size / 2, n1.y + size / 2 - size / 2),
-					new Point2D.Double(n2.x + size / 2 - size / 2, n2.y + size / 2 - size / 2));
+			this.edge = new Line2D.Double(new Point2D.Double(n1.x + Constants.nodeSize / 2 - Constants.nodeSize / 2, n1.y + Constants.nodeSize / 2 - Constants.nodeSize / 2),
+					new Point2D.Double(n2.x + Constants.nodeSize / 2 - Constants.nodeSize / 2, n2.y + Constants.nodeSize / 2 - Constants.nodeSize / 2));
 		}
 
 		public Node getN1() {
@@ -102,6 +102,16 @@ public class Dijstra {
 		public void setOutside(boolean outside) {
 			this.outside = outside;
 		}
+		
+		public boolean getWCA()
+		{
+			return wca;
+		}
+		
+		public void setWCA(boolean wca)
+		{
+			this.wca = wca;
+		}
 
 		public Node getEndNode(Node n) {
 			if (n1 == n) {
@@ -133,19 +143,23 @@ public class Dijstra {
 		private Edge zeroEdge;
 		private Ellipse2D.Double nodeToDraw;
 		private boolean selected;
+		private Building building;
+		private int floor;
 
 		public Node() {
-			zeroEdge = new Edge(this, this, 0, false);
+			zeroEdge = new Edge(this, this, 0, false, false);
 			this.selected = false;
 		}
 
-		public Node(int x, int y, String name, ArrayList<Edge> edges) {
+		public Node(int x, int y, String name, ArrayList<Edge> edges, Building building, int floor) {
 			this.x = x;
 			this.y = y;
 			this.name = name;
-			zeroEdge = new Edge(this, this, 0, false);
+			zeroEdge = new Edge(this, this, 0, false, false);
 			this.edges = edges;
-			this.nodeToDraw = new Ellipse2D.Double(x, y, size, size);
+			this.nodeToDraw = new Ellipse2D.Double(x, y, Constants.nodeSize, Constants.nodeSize);
+			this.building = building;
+			this.floor = floor;
 		}
 
 		public double getX() {
@@ -165,7 +179,7 @@ public class Dijstra {
 		}
 
 		public double getSize() {
-			return size * GUI.zoomLevel;
+			return Constants.nodeSize * GUI.zoomLevel;
 		}
 
 		public void setName(String name) {
@@ -177,9 +191,9 @@ public class Dijstra {
 		}
 
 		public Ellipse2D convertNodeEllipseToDraw() {
-			return new Ellipse2D.Double(((GUI.xScreenRatio * x + GUI.xOffset) * GUI.zoomLevel) - (size / 2),
-					(GUI.yScreenRatio * y + GUI.yOffset) * GUI.zoomLevel - (size / 2), size * GUI.zoomLevel,
-					size * GUI.zoomLevel);
+			return new Ellipse2D.Double(((GUI.xScreenRatio * x + GUI.xOffset) * GUI.zoomLevel) - (Constants.nodeSize / 2),
+					(GUI.yScreenRatio * y + GUI.yOffset) * GUI.zoomLevel - (Constants.nodeSize / 2), Constants.nodeSize * GUI.zoomLevel,
+					Constants.nodeSize * GUI.zoomLevel);
 		}
 
 		public String toString() {
@@ -192,6 +206,26 @@ public class Dijstra {
 
 		public ArrayList<Edge> getEdges() {
 			return this.edges;
+		}
+		
+		public Building getBuilding()
+		{
+			return building;
+		}
+		
+		public void setBuilding(Building building)
+		{
+			this.building = building;
+		}
+		
+		public int getFloor()
+		{
+			return floor;
+		}
+		
+		public void setFloor(int floor)
+		{
+			this.floor = floor;
 		}
 
 		public void calculatePath() {
