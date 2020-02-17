@@ -196,6 +196,16 @@ public class XMLEditor {
 
 	}
 	
+	
+	/**
+	 * for use when creating a new node.
+	 * Allows XMLEditor to track the node for addition of the edges
+	 * to an XML file
+	 * @param x
+	 * @param y
+	 * @param name
+	 * @return
+	 */
 	public Dijstra.Node initializeNewNode(int x, int y, String name) {
 		Dijstra.Node newNode = new Dijstra.Node();
 		newNode.setX(x);

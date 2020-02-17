@@ -8,159 +8,138 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 
-public class Dijstra 
-{	
+public class Dijstra {
 
-	
 	private static HashMap<Node, ArrayList<Edge>> shortestPathMap = new HashMap<>();
 	public static ArrayList<Edge> shortestPathEdges = new ArrayList<>();
-	
+	private final static int size = 20;
+
 	private static PriorityQueue<Node> queue = new PriorityQueue<>();
-	
-	public Dijstra()
-	{
-		
+
+	public Dijstra() {
+
 	}
-	
-	public void calculatePath(Node startNode, Node endNode)
-	{
+
+	public void calculatePath(Node startNode, Node endNode) {
 		ArrayList<Edge> path = new ArrayList<>();
 		path.add(startNode.zeroEdge);
 		shortestPathMap.put(startNode, path);
 		queue.offer(startNode);
-		while(!queue.isEmpty())
-		{
+		while (!queue.isEmpty()) {
 			queue.poll().calculatePath();
 		}
 		GUI.draw(shortestPathMap.get(endNode));
-		shortestPathEdges = shortestPathMap.get(endNode);	
+		shortestPathEdges = shortestPathMap.get(endNode);
 	}
-	
+
 	public void setShortestPathFromSave(ArrayList<Edge> edges) {
 		Dijstra.shortestPathEdges = edges;
 		GUI.draw(edges);
 	}
-	
-	
-	public static int cost(Node n)
-	{
+
+	public static int cost(Node n) {
 		int cost = 0;
 		ArrayList<Edge> path = shortestPathMap.get(n);
-		for(int i = 0; i < path.size(); i++)
-		{
-			cost+=path.get(i).getCost();
+		for (int i = 0; i < path.size(); i++) {
+			cost += path.get(i).getCost();
 		}
 		return cost;
 	}
-	
-	public static class Edge implements Serializable
-	{
+
+	public static class Edge implements Serializable {
 		private Node n1;
 		private Node n2;
 		private int cost;
 		private boolean outside;
 		private Line2D.Double edge;
-		
-		public Edge() 
-		{
-			
+
+		public Edge() {
+
 		}
-		
-		public Edge(Node n1, Node n2, int cost, boolean outside)
-		{
+
+		public Edge(Node n1, Node n2, int cost, boolean outside) {
 			this.n1 = n1;
 			this.n2 = n2;
 			this.cost = cost;
 			this.outside = outside;
-			this.edge = new Line2D.Double(new Point2D.Double(n1.x+n1.size/2, n1.y+n1.size/2), new Point2D.Double(n2.x+n2.size/2, n2.y+n2.size/2));
+			this.edge = new Line2D.Double(new Point2D.Double(n1.x + size / 2 - size / 2, n1.y + size / 2 - size / 2),
+					new Point2D.Double(n2.x + size / 2 - size / 2, n2.y + size / 2 - size / 2));
 		}
-		
+
 		public void addEdgeLineToDraw() {
-			this.edge = new Line2D.Double(new Point2D.Double(n1.x+n1.size/2, n1.y+n1.size/2), new Point2D.Double(n2.x+n2.size/2, n2.y+n2.size/2));
+			this.edge = new Line2D.Double(new Point2D.Double(n1.x + size / 2 - size / 2, n1.y + size / 2 - size / 2),
+					new Point2D.Double(n2.x + size / 2 - size / 2, n2.y + size / 2 - size / 2));
 		}
-		
-		public Node getN1() 
-		{
+
+		public Node getN1() {
 			return n1;
 		}
-		
-		public void setN1(Node n)
-		{
+
+		public void setN1(Node n) {
 			n1 = n;
 		}
 
-		public Node getN2() 
-		{
+		public Node getN2() {
 			return n2;
 		}
-		
-		public void setN2(Node n)
-		{
+
+		public void setN2(Node n) {
 			n2 = n;
 		}
-		
-		public int getCost() 
-		{
+
+		public int getCost() {
 			return cost;
 		}
-		
-		public void setCost(int cost) 
-		{
+
+		public void setCost(int cost) {
 			this.cost = cost;
 		}
-		
-		public boolean getOutside() 
-		{
+
+		public boolean getOutside() {
 			return this.outside;
 		}
-		
-		public void setOutside(boolean outside) 
-		{
+
+		public void setOutside(boolean outside) {
 			this.outside = outside;
 		}
-		
-		public Node getEndNode(Node n)
-		{
-			if(n1 == n)
-			{
+
+		public Node getEndNode(Node n) {
+			if (n1 == n) {
 				return n2;
 			}
 			return n1;
 		}
-		
-		public void drawOn(Graphics2D g) 
-		{
-			edge.x1 = n1.getX() + n1.getSize()/2;
-			edge.y1 = n1.getY() + n1.getSize()/2;
-			edge.x2 = n2.getX() + n2.getSize()/2;
-			edge.y2 = n2.getY() + n1.getSize()/2;
+
+		public void drawOn(Graphics2D g) {
+			edge.x1 = n1.getX() + n1.getSize() / 2;
+			edge.y1 = n1.getY() + n1.getSize() / 2;
+			edge.x2 = n2.getX() + n2.getSize() / 2;
+			edge.y2 = n2.getY() + n1.getSize() / 2;
 			g.setColor(Color.BLACK);
 			g.fill(this.edge);
 			g.draw(edge);
 		}
-		
-		public String toString()
-		{
-			return "From: " + n1.name + "\nTo: " + n2.name + "\nCost: " + cost +'\n';
+
+		public String toString() {
+			return "From: " + n1.name + "\nTo: " + n2.name + "\nCost: " + cost + '\n';
 		}
 	}
-	public static class Node implements Comparable<Node>, Serializable
-	{
+
+	public static class Node implements Comparable<Node>, Serializable {
 		private double x;
 		private double y;
 		private String name;
 		private ArrayList<Edge> edges = new ArrayList<>();
 		private Edge zeroEdge;
 		private Ellipse2D.Double nodeToDraw;
-		private final int size = 20;
-		
-		public Node() 
-		{
+		private boolean selected;
+
+		public Node() {
 			zeroEdge = new Edge(this, this, 0, false);
+			this.selected = false;
 		}
-		
-		public Node(int x, int y, String name, ArrayList<Edge> edges)
-		{
+
+		public Node(int x, int y, String name, ArrayList<Edge> edges) {
 			this.x = x;
 			this.y = y;
 			this.name = name;
@@ -168,81 +147,69 @@ public class Dijstra
 			this.edges = edges;
 			this.nodeToDraw = new Ellipse2D.Double(x, y, size, size);
 		}
-		
-		public double getX()
-		{
+
+		public double getX() {
 			return (GUI.xScreenRatio * x + GUI.xOffset) * GUI.zoomLevel;
 		}
-		public void setX(double x) 
-		{
+
+		public void setX(double x) {
 			this.x = x;
 		}
-		
-		public double getY()
-		{
+
+		public double getY() {
 			return (GUI.yScreenRatio * y + GUI.yOffset) * GUI.zoomLevel;
 		}
-		
+
 		public void setY(double y) {
 			this.y = y;
 		}
-		
-		public double getSize()
-		{
+
+		public double getSize() {
 			return size * GUI.zoomLevel;
 		}
-		
+
 		public void setName(String name) {
 			this.name = name;
 		}
-		
-		public String getName()
-		{
+
+		public String getName() {
 			return name;
 		}
-		
-		public Ellipse2D convertNodeEllipseToDraw() 
-		{
-			return new Ellipse2D.Double(((GUI.xScreenRatio * x + GUI.xOffset) * GUI.zoomLevel) - (this.size / 2) , (GUI.yScreenRatio * y + GUI.yOffset) * GUI.zoomLevel - (this.size / 2), size * GUI.zoomLevel, size * GUI.zoomLevel);
+
+		public Ellipse2D convertNodeEllipseToDraw() {
+			return new Ellipse2D.Double(((GUI.xScreenRatio * x + GUI.xOffset) * GUI.zoomLevel) - (size / 2),
+					(GUI.yScreenRatio * y + GUI.yOffset) * GUI.zoomLevel - (size / 2), size * GUI.zoomLevel,
+					size * GUI.zoomLevel);
 		}
-		
-		public String toString() 
-		{
-			return ("Name: " + name + "\nX: " + this.x + "\nY: " + this.y );
+
+		public String toString() {
+			return ("Name: " + name + "\nX: " + this.x + "\nY: " + this.y);
 		}
-		
-		public void setEdges(ArrayList<Edge> edges) 
-		{
+
+		public void setEdges(ArrayList<Edge> edges) {
 			this.edges = edges;
 		}
-		
-		public ArrayList<Edge> getEdges()
-		{
+
+		public ArrayList<Edge> getEdges() {
 			return this.edges;
 		}
-		
-		public void calculatePath()
-		{
-			for(int i = 0; i < edges.size(); i++)
-			{
+
+		public void calculatePath() {
+			for (int i = 0; i < edges.size(); i++) {
 				Node n = edges.get(i).getEndNode(this);
-				if(shortestPathMap.containsKey(n))
-				{
+				if (shortestPathMap.containsKey(n)) {
 					int oldCost = cost(n);
-					
+
 					int newCost = edges.get(i).getCost() + cost(this);
-					
-					if(oldCost > newCost)
-					{
+
+					if (oldCost > newCost) {
 						ArrayList<Edge> newPath = new ArrayList<>();
 						newPath.addAll(shortestPathMap.get(this));
 						newPath.add(edges.get(i));
 						shortestPathMap.put(n, newPath);
 						queue.offer(n);
 					}
-				}
-				else
-				{
+				} else {
 					ArrayList<Edge> newPath = new ArrayList<>();
 					newPath.addAll(shortestPathMap.get(this));
 					newPath.add(edges.get(i));
@@ -251,28 +218,36 @@ public class Dijstra
 				}
 			}
 		}
-		
-		public void drawOn(Graphics2D g) 
-		{
+
+		public void drawOn(Graphics2D g) {
 			Ellipse2D converted = this.convertNodeEllipseToDraw();
 			g.setColor(Color.BLACK);
+			if (this.getSelected()) {
+				g.setColor(Color.red);
+			}
 			g.fill(converted);
 			g.draw(converted);
 		}
 
-		public int compareTo(Node n) 
-		{
+		public int compareTo(Node n) {
 			int thisCost = cost(this);
 			int nCost = cost(n);
-			if(thisCost < nCost)
-			{
+			if (thisCost < nCost) {
 				return -1;
 			}
-			if(thisCost == nCost)
-			{
+			if (thisCost == nCost) {
 				return 0;
 			}
 			return 1;
+		}
+
+		public void setSelected(boolean selected) {
+			this.selected = selected;
+			
+		}
+
+		public boolean getSelected() {
+			return selected;
 		}
 	}
 

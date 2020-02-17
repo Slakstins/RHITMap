@@ -17,6 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+
 public class GUI extends JComponent {
 	static int screenHeight;
 	static int screenWidth;
@@ -31,6 +32,8 @@ public class GUI extends JComponent {
 	private double lastY = 0;
 	
 	private int mapMoveAmount = 1;
+	private JPanel currentText;
+	private boolean nameAsked;
 	
 	
 	private static ArrayList<Dijstra.Node> nodes = new ArrayList<>();
@@ -51,6 +54,7 @@ public class GUI extends JComponent {
 	private Dijstra dijstra = new Dijstra();
 
 	public GUI(JFrame frame) {
+		this.nameAsked = false;
 		screenHeight = frame.getHeight();
 		screenWidth = frame.getWidth();
 		xScreenRatio = screenWidth/1920;
@@ -262,24 +266,60 @@ public class GUI extends JComponent {
 	public XMLEditor getXMLEditor() {
 		return this.xmlEditor;
 	}
-
-	public void askName(int x, int y, Dijstra.Node node) {
-		JTextField textGet = new JTextField(20);
+	
+	public ArrayList<Dijstra.Node> getNodes(){
+		return this.nodes;
+	}
+	
+	public void setNameAsked(boolean nameAsked) {
+		this.nameAsked = nameAsked;
+	}
+	/**
+	 * set the name for the node that was just created using a text box
+	 * @param x
+	 * @param y
+	 * @param node
+	 */
+	public void askName(Dijstra.Node node) {
+		if (currentText != null) {
+			frame.remove(currentText);
+		}
+		this.nameAsked = true;
+		JTextField textGet = new JTextField(node.getName(), 40);
+		textGet.selectAll();
 		textGet.setToolTipText("Input node name");
 		JPanel panel = new JPanel();
+		this.currentText = panel;
 		panel.add(textGet);
 		textGet.setVisible(true);
-		panel.setBounds(x, y, 100, 100);
+		panel.setBounds(0, 40, 100, 100);
 		this.frame.getContentPane().add(panel);
 		this.frame.validate();
 		
-		textGet.addActionListener(new TextGetListener(textGet, panel, node, this.frame));
+		textGet.addActionListener(new TextGetListener(textGet, panel, node, this.frame, this));
 
 	
 		
 		textGet.grabFocus();
 
 		
+		
+	}
+	
+	/**
+	 * when edges are deleted, they need to be deleted from all the nodes that have them too. IMPLEMENT this
+	 * @param selNode1
+	 * @param selNode2
+	 */
+	public void deleteNode(Dijstra.Node selNode1, Dijstra.Node selNode2) {
+		for (Dijstra.Edge e : selNode1.getEdges()) {
+			edges.remove(e);
+		}
+		for (Dijstra.Edge e : selNode2.getEdges()) {
+			edges.remove(e);
+		}
+		nodes.remove(selNode1);
+		nodes.remove(selNode2);
 		
 	}
 }
