@@ -187,7 +187,7 @@ public class GUI extends JComponent {
 		for (int i = 0; i < edges.size(); i++) {
 			cost += edges.get(i).getCost();
 		}
-		System.out.println(cost);
+//		System.out.println(cost);
 	}
 
 	public void moveUp() {
@@ -315,6 +315,7 @@ public class GUI extends JComponent {
 	 * @param selNode
 	 */
 	public void deleteNode(Dijstra.Node selNode) {
+		System.out.println(selNode.getEdges().toString());  //edges contains not edges, but the drawable line
 		for (Dijstra.Edge e : selNode.getEdges()) {
 			edges.remove(e);
 		}

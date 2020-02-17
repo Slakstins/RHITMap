@@ -45,8 +45,10 @@ public class ClickHandler {
 					if (selNode1 != null) {
 
 						gui.deleteNode(selNode1);
+						selNode1 = null;
 					} else if (selNode2 != null) {
 						gui.deleteNode(selNode2);
+						selNode2 = null;
 					}
 					break;
 
@@ -105,7 +107,7 @@ public class ClickHandler {
 					//check each node to see if it was clicked
 					for (Dijstra.Node i : gui.getNodes()) {
 
-						Rectangle bounds = new Rectangle((int) i.getX(), (int) i.getY(), (int) i.getSize(),
+						Rectangle bounds = new Rectangle((int) (i.getX() - i.getSize() / 2), (int) (i.getY() - i.getSize() / 2), (int) i.getSize(),
 								(int) i.getSize());
 						
 						//a node was clicked
@@ -154,8 +156,7 @@ public class ClickHandler {
 
 					frame.repaint();
 
-					// need a method to select nodes that acts through gui
-					// for creation of edges!
+
 
 				}
 

@@ -111,10 +111,10 @@ public class Dijstra {
 		}
 
 		public void drawOn(Graphics2D g) {
-			edge.x1 = n1.getX() + n1.getSize() / 2;
-			edge.y1 = n1.getY() + n1.getSize() / 2;
-			edge.x2 = n2.getX() + n2.getSize() / 2;
-			edge.y2 = n2.getY() + n1.getSize() / 2;
+			edge.x1 = n1.getX();
+			edge.y1 = n1.getY();
+			edge.x2 = n2.getX();
+			edge.y2 = n2.getY();
 			g.setColor(Color.BLACK);
 			g.fill(this.edge);
 			g.draw(edge);
