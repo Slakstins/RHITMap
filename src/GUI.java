@@ -306,20 +306,20 @@ public class GUI extends JComponent {
 		
 	}
 	
+	
+	
+	
+
 	/**
 	 * when edges are deleted, they need to be deleted from all the nodes that have them too. IMPLEMENT this
-	 * @param selNode1
-	 * @param selNode2
+	 * @param selNode
 	 */
-	public void deleteNode(Dijstra.Node selNode1, Dijstra.Node selNode2) {
-		for (Dijstra.Edge e : selNode1.getEdges()) {
+	public void deleteNode(Dijstra.Node selNode) {
+		for (Dijstra.Edge e : selNode.getEdges()) {
 			edges.remove(e);
 		}
-		for (Dijstra.Edge e : selNode2.getEdges()) {
-			edges.remove(e);
-		}
-		nodes.remove(selNode1);
-		nodes.remove(selNode2);
-		
+		nodes.remove(selNode);
+		frame.repaint();
+
 	}
 }

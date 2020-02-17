@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_221" class="java.beans.XMLDecoder">
+ <object class="Dijstra$Edge">
+  <void property="n1">
+   <object class="Dijstra$Node" id="Dijstra$Node0">
+    <void property="edges">
+     <void method="add">
+      <object class="Dijstra$Edge" id="Dijstra$Edge0">
+       <void property="cost">
+        <int>11</int>
+       </void>
+       <void property="n1">
+        <object idref="Dijstra$Node0"/>
+       </void>
+       <void property="n2">
+        <object class="Dijstra$Node" id="Dijstra$Node1">
+         <void property="edges">
+          <void method="add">
+           <object class="Dijstra$Edge" id="Dijstra$Edge1">
+            <void property="cost">
+             <int>15</int>
+            </void>
+            <void property="n1">
+             <object class="Dijstra$Node" id="Dijstra$Node2">
+              <void property="edges">
+               <void method="add">
+                <object class="Dijstra$Edge" id="Dijstra$Edge2">
+                 <void property="cost">
+                  <int>7</int>
+                 </void>
+                 <void property="n1">
+                  <object class="Dijstra$Node" id="Dijstra$Node3">
+                   <void property="edges">
+                    <void method="add">
+                     <object idref="Dijstra$Edge2"/>
+                    </void>
+                    <void method="add">
+                     <object class="Dijstra$Edge" id="Dijstra$Edge3">
+                      <void property="cost">
+                       <int>9</int>
+                      </void>
+                      <void property="n1">
+                       <object idref="Dijstra$Node3"/>
+                      </void>
+                      <void property="n2">
+                       <object idref="Dijstra$Node0"/>
+                      </void>
+                      <void property="outside">
+                       <boolean>true</boolean>
+                      </void>
+                     </object>
+                    </void>
+                    <void method="add">
+                     <object class="Dijstra$Edge" id="Dijstra$Edge4">
+                      <void property="cost">
+                       <int>14</int>
+                      </void>
+                      <void property="n1">
+                       <object idref="Dijstra$Node3"/>
+                      </void>
+                      <void property="n2">
+                       <object class="Dijstra$Node" id="Dijstra$Node4">
+                        <void property="edges">
+                         <void method="add">
+                          <object class="Dijstra$Edge" id="Dijstra$Edge5">
+                           <void property="cost">
+                            <int>2</int>
+                           </void>
+                           <void property="n1">
+                            <object idref="Dijstra$Node0"/>
+                           </void>
+                           <void property="n2">
+                            <object idref="Dijstra$Node4"/>
+                           </void>
+                           <void property="outside">
+                            <boolean>true</boolean>
+                           </void>
+                          </object>
+                         </void>
+                         <void method="add">
+                          <object idref="Dijstra$Edge4"/>
+                         </void>
+                         <void method="add">
+                          <object class="Dijstra$Edge" id="Dijstra$Edge6">
+                           <void property="cost">
+                            <int>9</int>
+                           </void>
+                           <void property="n1">
+                            <object class="Dijstra$Node" id="Dijstra$Node5">
+                             <void property="edges">
+                              <void method="add">
+                               <object idref="Dijstra$Edge6"/>
+                              </void>
+                              <void method="add">
+                               <object class="Dijstra$Edge" id="Dijstra$Edge7">
+                                <void property="cost">
+                                 <int>6</int>
+                                </void>
+                                <void property="n1">
+                                 <object idref="Dijstra$Node1"/>
+                                </void>
+                                <void property="n2">
+                                 <object idref="Dijstra$Node5"/>
+                                </void>
+                                <void property="outside">
+                                 <boolean>true</boolean>
+                                </void>
+                               </object>
+                              </void>
+                             </void>
+                             <void property="name">
+                              <string>n5</string>
+                             </void>
+                             <void property="x">
+                              <double>600.0</double>
+                             </void>
+                             <void property="y">
+                              <double>70.0</double>
+                             </void>
+                            </object>
+                           </void>
+                           <void property="n2">
+                            <object idref="Dijstra$Node4"/>
+                           </void>
+                           <void property="outside">
+                            <boolean>true</boolean>
+                           </void>
+                          </object>
+                         </void>
+                        </void>
+                        <void property="name">
+                         <string>n6</string>
+                        </void>
+                        <void property="x">
+                         <double>100.0</double>
+                        </void>
+                        <void property="y">
+                         <double>100.0</double>
+                        </void>
+                       </object>
+                      </void>
+                      <void property="outside">
+                       <boolean>true</boolean>
+                      </void>
+                     </object>
+                    </void>
+                   </void>
+                   <void property="name">
+                    <string>n1</string>
+                   </void>
+                   <void property="x">
+                    <double>69.0</double>
+                   </void>
+                   <void property="y">
+                    <double>700.0</double>
+                   </void>
+                  </object>
+                 </void>
+                 <void property="n2">
+                  <object idref="Dijstra$Node2"/>
+                 </void>
+                 <void property="outside">
+                  <boolean>true</boolean>
+                 </void>
+                </object>
+               </void>
+               <void method="add">
+                <object class="Dijstra$Edge" id="Dijstra$Edge8">
+                 <void property="cost">
+                  <int>10</int>
+                 </void>
+                 <void property="n1">
+                  <object idref="Dijstra$Node2"/>
+                 </void>
+                 <void property="n2">
+                  <object idref="Dijstra$Node0"/>
+                 </void>
+                 <void property="outside">
+                  <boolean>true</boolean>
+                 </void>
+                </object>
+               </void>
+               <void method="add">
+                <object idref="Dijstra$Edge1"/>
+               </void>
+              </void>
+              <void property="name">
+               <string>n2</string>
+              </void>
+              <void property="x">
+               <double>500.0</double>
+              </void>
+              <void property="y">
+               <double>710.0</double>
+              </void>
+             </object>
+            </void>
+            <void property="n2">
+             <object idref="Dijstra$Node1"/>
+            </void>
+            <void property="outside">
+             <boolean>true</boolean>
+            </void>
+           </object>
+          </void>
+          <void method="add">
+           <object idref="Dijstra$Edge0"/>
+          </void>
+          <void method="add">
+           <object idref="Dijstra$Edge7"/>
+          </void>
+         </void>
+         <void property="name">
+          <string>n4</string>
+         </void>
+         <void property="x">
+          <double>950.0</double>
+         </void>
+         <void property="y">
+          <double>450.0</double>
+         </void>
+        </object>
+       </void>
+       <void property="outside">
+        <boolean>true</boolean>
+       </void>
+      </object>
+     </void>
+     <void method="add">
+      <object idref="Dijstra$Edge8"/>
+     </void>
+     <void method="add">
+      <object idref="Dijstra$Edge3"/>
+     </void>
+     <void method="add">
+      <object idref="Dijstra$Edge5"/>
+     </void>
+    </void>
+    <void property="name">
+     <string>n3</string>
+    </void>
+    <void property="x">
+     <double>500.0</double>
+    </void>
+    <void property="y">
+     <double>350.0</double>
+    </void>
+   </object>
+  </void>
+  <void property="n2">
+   <object idref="Dijstra$Node0"/>
+  </void>
+ </object>
+ <object idref="Dijstra$Edge5"/>
+</java>
