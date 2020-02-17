@@ -72,7 +72,7 @@ public class Main {
 		
 		
 
-		gui.calculatePath("n1", "n6");
+		gui.calculatePath("n4", "n6");
 
 		frame.validate();
 

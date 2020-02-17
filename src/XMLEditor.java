@@ -24,10 +24,10 @@ public class XMLEditor {
 	public XMLEditor() {
 		edges = new ArrayList<Dijstra.Edge>();
 		nodes = new ArrayList<Dijstra.Node>();
-		initializeNodesEdges();
+//		initializeNodesEdges();
 		
 		//can get rid of this when the XML map file is done
-		updateMapXML();
+//		updateMapXML();
 
 	}
 

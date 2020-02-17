@@ -31,6 +31,8 @@ public class TextGetListener implements ActionListener {
 		this.frame.getContentPane().remove(panel);
 		this.frame.requestFocus();
 		this.frame.repaint();
+		
+		gui.getXMLEditor().updateMapXML();
 
 	}
 
