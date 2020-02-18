@@ -40,6 +40,7 @@ public class ClickHandler {
 					break;
 				case KeyEvent.VK_ESCAPE:
 					gui.close();
+					
 					break;
 				case KeyEvent.VK_DELETE:
 					if (selNode1 != null) {
@@ -50,6 +51,7 @@ public class ClickHandler {
 						gui.deleteNode(selNode2);
 						selNode2 = null;
 					}
+					
 					break;
 				case KeyEvent.VK_E:
 					if (selNode1 != null && selNode2 != null && !(selNode1.equals(selNode2))) {

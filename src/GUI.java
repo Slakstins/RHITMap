@@ -177,17 +177,16 @@ public class GUI extends JComponent {
 	}
 
 	private ArrayList<Dijstra.Edge> loadSavedPath(String fileName) {
-		ArrayList<Dijstra.Edge> readEdges = null;
 		try {
-			readEdges = xmlEditor.read(fileName);
+			xmlEditor.read(fileName);
 		} catch (Exception e) {
 			return null;
 		}
 
-		if (readEdges == null) {
+		if (this.edges.size() == 0) {
 			System.out.println("file not read " + fileName);
 		}
-		return readEdges;
+		return this.edges;
 	}
 
 	public static void draw(ArrayList<Dijstra.Edge> pathEdges) {
@@ -319,7 +318,6 @@ public class GUI extends JComponent {
 	 * @param selNode
 	 */
 	public void deleteNode(Dijstra.Node selNode) {
-		System.out.println(selNode.getEdges().toString()); 
 		for (Dijstra.Edge e : selNode.getEdges()) {
 			edges.remove(e);
 		}

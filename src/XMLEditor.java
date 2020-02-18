@@ -24,10 +24,8 @@ public class XMLEditor {
 	public XMLEditor() {
 		edges = new ArrayList<Dijstra.Edge>();
 		nodes = new ArrayList<Dijstra.Node>();
-//		initializeNodesEdges();
 		
 		//can get rid of this when the XML map file is done
-		updateMapXML();
 
 	}
 
@@ -225,7 +223,7 @@ public class XMLEditor {
 	
 	public void updateMapXML() {
 		try {
-			this.writeEdges(edges, "AllEdges.xml");
+			this.writeEdges(edges, "SomeEdges.xml");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -233,6 +231,7 @@ public class XMLEditor {
 	}
 
 	/**
+	 * 
 	 * write all of the edges to the XML file for retrieval with read
 	 * 
 	 * @param E
@@ -254,20 +253,21 @@ public class XMLEditor {
 	 * @return
 	 * @throws Exception
 	 */
-	public ArrayList<Dijstra.Edge> read(String filename) throws Exception {
+	public void read(String filename) throws Exception {
 		XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(filename)));
-		ArrayList<Dijstra.Edge> edges = new ArrayList<Dijstra.Edge>();
 		while (true) {
 			try {
-				edges.add((Dijstra.Edge) decoder.readObject());
-
+				Object tempEdgeMaybe = decoder.readObject();
+				if (tempEdgeMaybe instanceof Dijstra.Edge) {
+					this.edges.add((Dijstra.Edge)tempEdgeMaybe);
+				}
+				System.out.println("size is of edges is: " + this.edges.size());
 			} catch (ArrayIndexOutOfBoundsException e) {
 				break;
 			}
 		}
 
 		decoder.close();
-		return edges;
 	}
 
 	public HashMap<Dijstra.Node, ArrayList<Dijstra.Edge>> formatEdges(ArrayList<Dijstra.Edge> edges) {
@@ -290,17 +290,24 @@ public class XMLEditor {
 	}
 
 	public HashMap<Dijstra.Node, ArrayList<Dijstra.Edge>> getNodeToEdgeMap() {
-		ArrayList<Dijstra.Edge> edges = null;
 		try {
-			edges = read("AllEdges.xml");
+			read("SomeEdges.xml");
+			
+//			if (this.edges.size() == 0) {
+//				throw new Exception();
+//			}
+			return formatEdges(this.edges);
+
 		} catch (Exception e) {
+			System.out.println("either SomeEdges.xml is empty or does not exist");
 			e.printStackTrace();
 		}
+		
+		return null;
 		
 		
 		
 
-		return formatEdges(edges);
 
 	}
 
