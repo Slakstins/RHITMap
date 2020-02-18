@@ -51,6 +51,15 @@ public class ClickHandler {
 						selNode2 = null;
 					}
 					break;
+				case KeyEvent.VK_E:
+					if (selNode1 != null && selNode2 != null && !(selNode1.equals(selNode2))) {
+						Dijstra.Edge newEdge = gui.getXMLEditor().initializeNewEdge(selNode1, selNode2);
+						gui.addEdge(newEdge);
+						System.out.println("did it");
+						frame.repaint();
+					}
+					break;
+					
 
 				}
 			}

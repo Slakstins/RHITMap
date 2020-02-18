@@ -18,6 +18,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 
+
+
 public class GUI extends JComponent {
 	static double screenHeight;
 	static double screenWidth;
@@ -323,4 +325,14 @@ public class GUI extends JComponent {
 		frame.repaint();
 
 	}
+
+	public void addEdge(Dijstra.Edge newEdge) {
+		//check to make sure there isn't already a node with this connection
+		
+		this.edges.add(newEdge);
+		// TODO Auto-generated method stub
+		
+	}
+
+
 }

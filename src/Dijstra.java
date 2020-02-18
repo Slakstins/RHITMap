@@ -111,6 +111,7 @@ public class Dijstra {
 		}
 
 		public void drawOn(Graphics2D g) {
+			this.addEdgeLineToDraw();
 			edge.x1 = n1.getX();
 			edge.y1 = n1.getY();
 			edge.x2 = n2.getX();

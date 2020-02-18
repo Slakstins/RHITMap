@@ -27,7 +27,7 @@ public class XMLEditor {
 //		initializeNodesEdges();
 		
 		//can get rid of this when the XML map file is done
-//		updateMapXML();
+		updateMapXML();
 
 	}
 
@@ -215,6 +215,14 @@ public class XMLEditor {
 		return newNode;
 	}
 	
+	public Dijstra.Edge initializeNewEdge(Dijstra.Node node1, Dijstra.Node node2){
+		Dijstra.Edge newEdge = new Dijstra.Edge();
+		newEdge.setN1(node1);
+		newEdge.setN2(node2);
+		edges.add(newEdge);
+		return newEdge;
+	}
+	
 	public void updateMapXML() {
 		try {
 			this.writeEdges(edges, "AllEdges.xml");
@@ -257,9 +265,7 @@ public class XMLEditor {
 				break;
 			}
 		}
-		for (int i = 0; i < edges.size(); i++) {
-			edges.get(i).addEdgeLineToDraw();
-		}
+
 		decoder.close();
 		return edges;
 	}
@@ -271,7 +277,6 @@ public class XMLEditor {
 		}
 		HashMap<Dijstra.Node, ArrayList<Dijstra.Edge>> output = new HashMap<Dijstra.Node, ArrayList<Dijstra.Edge>>();
 		for (int i = 0; i < edges.size(); i++) {
-			System.out.println(edges.get(i).getN1().getX());
 			output.put(edges.get(i).getN1(), edges.get(i).getN1().getEdges());
 			output.put(edges.get(i).getN2(), edges.get(i).getN2().getEdges());
 
@@ -289,7 +294,6 @@ public class XMLEditor {
 		try {
 			edges = read("AllEdges.xml");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
