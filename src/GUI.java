@@ -17,42 +17,37 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-
-
-
 public class GUI extends JComponent {
 	static double screenHeight;
 	static double screenWidth;
 	public static double xScreenRatio;
 	public static double yScreenRatio;
-	
+
 	public static double xOffset = 0;
 	public static double yOffset = 0;
 	private double startX = 0;
 	private double startY = 0;
 	private double lastX = 0;
 	private double lastY = 0;
-	
+
 	private int mapMoveAmount = 1;
 	private JPanel currentText;
 	private boolean nameAsked;
-	
-	
+
 	private static ArrayList<Dijstra.Node> nodes = new ArrayList<>();
 	private static ArrayList<Dijstra.Edge> edges = new ArrayList<>();
 	private HashMap<String, Dijstra.Node> nodeNameMap = new HashMap<>();
 	private XMLEditor xmlEditor;
 	private JFrame frame;
-	
+
 	public static double zoomLevel = 1;
-	
+
 	private boolean moveUp = false;
 	private boolean moveDown = false;
 	private boolean moveLeft = false;
 	private boolean moveRight = false;
-	
+
 	private BufferedImage RHITMap;
-	
 
 	private Dijstra dijstra = new Dijstra();
 
@@ -60,14 +55,13 @@ public class GUI extends JComponent {
 		this.nameAsked = false;
 		screenHeight = frame.getHeight();
 		screenWidth = frame.getWidth();
-		xScreenRatio = screenWidth/1920;
-		yScreenRatio = screenHeight/1080;
+		xScreenRatio = screenWidth / 1920;
+		yScreenRatio = screenHeight / 1080;
 
 		// put xml inside of graphics since it looks like it will be handling all of the
 		// clicks
 		xmlEditor = new XMLEditor();
 		HashMap<Dijstra.Node, ArrayList<Dijstra.Edge>> nodeEdgeMap = xmlEditor.getNodeToEdgeMap();
-		
 
 		this.frame = frame;
 		Set<Dijstra.Node> keys = nodeEdgeMap.keySet();
@@ -92,7 +86,7 @@ public class GUI extends JComponent {
 		generateNodeNameMap();
 
 	}
-	
+
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
@@ -104,38 +98,43 @@ public class GUI extends JComponent {
 		for (Dijstra.Edge e : edges) {
 			e.drawOn(g2);
 		}
-		
+
 		if (moveUp) {
 			this.moveUp();
 		}
-		
+
 		if (moveRight) {
 			this.moveRight();
 		}
-		
+
 		if (moveLeft) {
 			this.moveLeft();
 		}
-		
+
 		if (moveDown) {
 			this.moveDown();
 		}
-			
+
 		g2.dispose();
 	}
 
 	private void drawMap(Graphics2D g) {
-		g.drawImage(RHITMap, (int)(xOffset  * zoomLevel), (int)(yOffset  * zoomLevel), (int)((screenWidth + xOffset) * zoomLevel), (int)((screenHeight + yOffset) * zoomLevel), 0, 0, RHITMap.getWidth(), RHITMap.getHeight(), null);
+		g.drawImage(RHITMap, (int) (xOffset * zoomLevel), (int) (yOffset * zoomLevel),
+				(int) ((screenWidth + xOffset) * zoomLevel), (int) ((screenHeight + yOffset) * zoomLevel), 0, 0,
+				RHITMap.getWidth(), RHITMap.getHeight(), null);
 	}
-	
-	
+
 	/**
 	 * for use when adding additional nodes - not for initial rendering
+	 * 
 	 * @param newNode
 	 */
 	public void addNode(Dijstra.Node newNode) {
 		this.nodes.add(newNode);
+
 		this.repaint();
+		this.getXMLEditor().updateMapXML();
+
 	}
 
 	public void generateNodeNameMap() {
@@ -146,14 +145,21 @@ public class GUI extends JComponent {
 
 	public void calculatePath(String startNode, String endNode, boolean outside, boolean wca) {
 		ArrayList<Dijstra.Edge> path = new ArrayList<>();
-		if((path = loadSavedPath(startNode + endNode + outside + wca)) != null)
-		{
+		if ((path = loadSavedPath(startNode + endNode + outside + wca)) != null) {
 			draw(path);
-		}
-		else
-		{
-			this.dijstra.calculatePath(nodeNameMap.get(startNode), nodeNameMap.get(endNode));
-			savePath(startNode + endNode + outside + wca);
+		} else {
+			try {
+				if (nodeNameMap.get(startNode) == null || nodeNameMap.get(endNode) == null) {
+					throw new Exception();
+				}
+				this.dijstra.calculatePath(nodeNameMap.get(startNode), nodeNameMap.get(endNode));
+				// make sure nodenamepath communicated with XML
+				savePath(startNode + endNode + outside + wca);
+
+			} catch (Exception e) {
+				System.out.println("Cannot calculate path, one of the specified nodes does not exist");
+			}
+
 		}
 	}
 
@@ -198,20 +204,20 @@ public class GUI extends JComponent {
 		GUI.yOffset += mapMoveAmount;
 		this.repaint();
 	}
-	
+
 	public void moveDown() {
 		this.moveDown = true;
 		GUI.yOffset -= mapMoveAmount;
 		this.repaint();
 	}
-	
+
 	public void moveRight() {
 		this.moveRight = true;
 
 		GUI.xOffset -= mapMoveAmount;
 		this.repaint();
 	}
-	
+
 	public void moveLeft() {
 		this.moveLeft = true;
 
@@ -223,62 +229,63 @@ public class GUI extends JComponent {
 		this.moveUp = mapMoveUp;
 		this.repaint();
 	}
+
 	public void setMoveRight(boolean mapMoveRight) {
 		this.moveRight = mapMoveRight;
 		this.repaint();
 	}
+
 	public void setMoveDown(boolean mapMoveDown) {
 		this.moveDown = mapMoveDown;
 		this.repaint();
 	}
+
 	public void setMoveLeft(boolean mapMoveLeft) {
 		this.moveLeft = mapMoveLeft;
 		this.repaint();
 	}
-	
-	public void zoom(double zoom) 
-	{
+
+	public void zoom(double zoom) {
 		zoomLevel += zoom;
 		this.repaint();
 	}
-	
-	public void moveOffset(double x, double y)
-	{
+
+	public void moveOffset(double x, double y) {
 		double deltaX = x - startX - lastX;
 		double deltaY = y - startY - lastY;
-		
+
 		lastX = x - startX;
 		lastY = y - startY;
-		
+
 		xOffset += deltaX / zoomLevel;
 		yOffset += deltaY / zoomLevel;
 		repaint();
 	}
-	
-	public void setMousePos()
-	{
+
+	public void setMousePos() {
 		startX = getMousePosition().getX();
 		startY = getMousePosition().getY();
 	}
-	
-	public void close()
-	{
+
+	public void close() {
 		frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
 	}
-	
+
 	public XMLEditor getXMLEditor() {
 		return this.xmlEditor;
 	}
-	
-	public ArrayList<Dijstra.Node> getNodes(){
+
+	public ArrayList<Dijstra.Node> getNodes() {
 		return this.nodes;
 	}
-	
+
 	public void setNameAsked(boolean nameAsked) {
 		this.nameAsked = nameAsked;
 	}
+
 	/**
 	 * set the name for the node that was just created using a text box
+	 * 
 	 * @param x
 	 * @param y
 	 * @param node
@@ -298,36 +305,38 @@ public class GUI extends JComponent {
 		panel.setBounds(0, 40, 100, 100);
 		this.frame.getContentPane().add(panel);
 		this.frame.validate();
-		
+
 		textGet.addActionListener(new TextGetListener(textGet, panel, node, this.frame, this));
 
-	
-		
 		textGet.grabFocus();
 
 	}
-	
+
 	/**
-	 * when edges are deleted, they need to be deleted from all the nodes that have them too. IMPLEMENT this
+	 * when edges are deleted, they need to be deleted from all the nodes that have
+	 * them too. IMPLEMENT this
+	 * 
 	 * @param selNode
 	 */
 	public void deleteNode(Dijstra.Node selNode) {
-		System.out.println(selNode.getEdges().toString());  //edges contains not edges, but the drawable line
+		System.out.println(selNode.getEdges().toString()); 
 		for (Dijstra.Edge e : selNode.getEdges()) {
 			edges.remove(e);
 		}
 		nodes.remove(selNode);
 		frame.repaint();
+		this.getXMLEditor().updateMapXML();
+
 
 	}
 
 	public void addEdge(Dijstra.Edge newEdge) {
-		//check to make sure there isn't already a node with this connection
-		
-		this.edges.add(newEdge);
-		// TODO Auto-generated method stub
-		
-	}
+		// check to make sure there isn't already a node with this connection
 
+		this.edges.add(newEdge);
+		this.getXMLEditor().updateMapXML();
+
+
+	}
 
 }
