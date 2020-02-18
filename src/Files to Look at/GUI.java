@@ -1,6 +1,14 @@
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GridLayout;
+import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.Image;
+import java.awt.LayoutManager;
 import java.awt.Rectangle;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
@@ -10,19 +18,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
-
+import javax.swing.JButton;
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
-
+import javax.swing.border.EmptyBorder;
 
 
 public class GUI extends JComponent {
-	static double screenHeight;
-	static double screenWidth;
+	static int screenHeight;
+	static int screenWidth;
 	public static double xScreenRatio;
 	public static double yScreenRatio;
 	
@@ -43,6 +52,8 @@ public class GUI extends JComponent {
 	private HashMap<String, Dijstra.Node> nodeNameMap = new HashMap<>();
 	private XMLEditor xmlEditor;
 	private JFrame frame;
+	private Dimension panelSize = new Dimension(300, 300);
+	private Dimension textboxSize = new Dimension(100, 20);
 	
 	public static double zoomLevel = 1;
 	
@@ -52,7 +63,6 @@ public class GUI extends JComponent {
 	private boolean moveRight = false;
 	
 	private BufferedImage RHITMap;
-	
 
 	private Dijstra dijstra = new Dijstra();
 
@@ -70,6 +80,86 @@ public class GUI extends JComponent {
 		
 
 		this.frame = frame;
+		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+				
+		JPanel master = new JPanel();
+		master.setBackground(Color.WHITE);
+		frame.setLayout(null);
+		master.setSize(panelSize);
+		master.setLayout(new GridLayout(1,1));
+		master.setBorder(new EmptyBorder(10,10,10,10));
+		frame.getContentPane().add(master);
+
+		JPanel textPanel = new JPanel();
+		textPanel.setBackground(Color.WHITE);
+		textPanel.setLayout(new GridLayout(0,1,10,10));
+		master.add(textPanel, BorderLayout.SOUTH);
+
+		JPanel topPanel = new JPanel();
+		topPanel.setBackground(Color.WHITE);
+		topPanel.setLayout(new GridLayout(0,2,10,10));
+		textPanel.add(topPanel);
+
+		JLabel schedule = new JLabel("Schedule");
+		topPanel.add(schedule);
+		
+		JButton importButton = new JButton("Import");
+		topPanel.add(importButton);
+		
+		importButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				System.out.println("Imported");
+			}
+			
+		});
+		
+		JTextField textbox1 = new JTextField();
+		textPanel.add(textbox1);
+		
+		JTextField textbox2 = new JTextField();
+		textPanel.add(textbox2);
+		
+		JTextField textbox3 = new JTextField();
+		textPanel.add(textbox3);
+		
+		JTextField textbox4 = new JTextField();
+		textPanel.add(textbox4);
+		
+		JTextField textbox5 = new JTextField();
+		textPanel.add(textbox5);
+		
+		JTextField textbox6 = new JTextField();
+		textPanel.add(textbox6);
+		
+		JPanel bottomPanel = new JPanel();
+		bottomPanel.setBackground(Color.WHITE);
+		bottomPanel.setLayout(new GridLayout(0,3));
+		textPanel.add(bottomPanel);
+		
+		JLabel blank1 = new JLabel();
+		bottomPanel.add(blank1);
+		
+		JButton generateButton = new JButton("Generate");
+		bottomPanel.add(generateButton);
+		
+		generateButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				System.out.println("Generated");
+			}
+			
+		});
+		
+
+		
+		frame.setVisible(true);
+		
+		
 		Set<Dijstra.Node> keys = nodeEdgeMap.keySet();
 		for (Dijstra.Node i : keys) {
 			nodes.add(i);
@@ -144,20 +234,20 @@ public class GUI extends JComponent {
 		}
 	}
 
-	public void calculatePath(String startNode, String endNode, boolean outside, boolean wca) {
+	public void calculatePath(String startNode, String endNode) {
 		ArrayList<Dijstra.Edge> path = new ArrayList<>();
-		if((path = loadSavedPath(startNode + endNode + outside + wca)) != null)
+		if((path = loadSavedPath(startNode + "To" + endNode)) != null)
 		{
 			draw(path);
 		}
 		else
 		{
 			this.dijstra.calculatePath(nodeNameMap.get(startNode), nodeNameMap.get(endNode));
-			savePath(startNode + endNode + outside + wca);
-		}
+			savePath(startNode + "To" + endNode);
+		}	
 	}
 
-	private void savePath(String fileName) {
+	public void savePath(String fileName) {
 		try {
 			xmlEditor.writeEdges(Dijstra.shortestPathEdges, fileName);
 			if (Dijstra.shortestPathEdges.isEmpty()) {
@@ -170,7 +260,7 @@ public class GUI extends JComponent {
 		}
 	}
 
-	private ArrayList<Dijstra.Edge> loadSavedPath(String fileName) {
+	public ArrayList<Dijstra.Edge> loadSavedPath(String fileName) {
 		ArrayList<Dijstra.Edge> readEdges = null;
 		try {
 			readEdges = xmlEditor.read(fileName);
@@ -250,8 +340,8 @@ public class GUI extends JComponent {
 		lastX = x - startX;
 		lastY = y - startY;
 		
-		xOffset += deltaX / zoomLevel;
-		yOffset += deltaY / zoomLevel;
+		xOffset += deltaX;
+		yOffset += deltaY;
 		repaint();
 	}
 	
@@ -305,8 +395,14 @@ public class GUI extends JComponent {
 		
 		textGet.grabFocus();
 
+		
+		
 	}
 	
+	
+	
+	
+
 	/**
 	 * when edges are deleted, they need to be deleted from all the nodes that have them too. IMPLEMENT this
 	 * @param selNode
@@ -320,14 +416,4 @@ public class GUI extends JComponent {
 		frame.repaint();
 
 	}
-
-	public void addEdge(Dijstra.Edge newEdge) {
-		//check to make sure there isn't already a node with this connection
-		
-		this.edges.add(newEdge);
-		// TODO Auto-generated method stub
-		
-	}
-
-
 }

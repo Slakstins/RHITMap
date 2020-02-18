@@ -7,6 +7,7 @@ import java.awt.event.KeyListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
 public class Main {
@@ -19,10 +20,12 @@ public class Main {
 	public Main() {
 
 		JFrame frame = new JFrame("RHIT School Map");
-
+		JLayeredPane master = new JLayeredPane();
+		frame.setSize(350, 350);
+		GUI textgui = new GUI(frame);
+		frame.getContentPane().add(textgui, BorderLayout.WEST);
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setUndecorated(true);
-
 		frame.setVisible(true);
 
 		GUI gui = new GUI(frame);
@@ -68,12 +71,12 @@ public class Main {
 		new ClickHandler(frame, gui);
 		
 		frame.add(gui, BorderLayout.CENTER);
-		
-		gui.calculatePath("n4", "n6", false, false);
 
+		gui.calculatePath("n3", "n6");
 
 		frame.validate();
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 	}
 }
