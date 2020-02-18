@@ -261,7 +261,6 @@ public class XMLEditor {
 				if (tempEdgeMaybe instanceof Dijstra.Edge) {
 					this.edges.add((Dijstra.Edge)tempEdgeMaybe);
 				}
-				System.out.println("size is of edges is: " + this.edges.size());
 			} catch (ArrayIndexOutOfBoundsException e) {
 				break;
 			}
@@ -282,7 +281,6 @@ public class XMLEditor {
 
 		}
 		
-		Set<Dijstra.Node> keys = output.keySet();
 
 		
 		
@@ -293,9 +291,9 @@ public class XMLEditor {
 		try {
 			read("SomeEdges.xml");
 			
-//			if (this.edges.size() == 0) {
-//				throw new Exception();
-//			}
+			if (this.edges.size() == 0) {
+				throw new Exception();
+			}
 			return formatEdges(this.edges);
 
 		} catch (Exception e) {

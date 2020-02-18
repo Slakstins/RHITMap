@@ -67,8 +67,9 @@ public class GUI extends JComponent {
 		Set<Dijstra.Node> keys = nodeEdgeMap.keySet();
 		for (Dijstra.Node i : keys) {
 			nodes.add(i);
+			System.out.println(i.getEdges().size());
 			for (Dijstra.Edge j : i.getEdges()) {
-				// edges.add(j);***
+				 if (!edges.contains(j))edges.add(j);
 				// this adds duplicates of the edges, as multiple nodes have the same edge.
 				// could store edges in a set (sets don't allow dulicates)
 				// to avoid this problem
