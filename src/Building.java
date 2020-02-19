@@ -16,6 +16,9 @@ public class Building implements Serializable{
 	private String floorThree;
 	private String floorFour;
 	
+	private double x;
+	private double y;
+	
 	public Building()
 	{
 		
@@ -134,5 +137,25 @@ public class Building implements Serializable{
 			return true;
 		}
 		return false;
+	}
+	
+	public void setX(double x)
+	{
+		this.x = x;
+	}
+	
+	public double getX()
+	{
+		return x;
+	}
+	
+	public void setY(double y)
+	{
+		this.y = y;
+	}
+	
+	public double getY()
+	{
+		return y;
 	}
 }

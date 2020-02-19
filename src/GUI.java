@@ -139,6 +139,17 @@ public class GUI extends JComponent {
 				(int) ((screenWidth + xOffset) * zoomLevel), (int) ((screenHeight + yOffset) * zoomLevel), 0, 0,
 				RHITMap.getWidth(), RHITMap.getHeight(), null);
 	}
+	
+	private void drawFloors(Graphics2D g)
+	{
+		for(int i = 0; i < buildings.size(); i++)
+		{
+			BufferedImage temp = buildings.get(i).getFloorImage();
+			g.drawImage(temp, (int) (xOffset * zoomLevel), (int) (yOffset * zoomLevel),
+			(int) ((screenWidth + xOffset) * zoomLevel), (int) ((screenHeight + yOffset) * zoomLevel), 
+			0, 0, temp.getWidth(), temp.getHeight(), null);
+		}
+	}
 
 	/**
 	 * for use when adding additional nodes - not for initial rendering
