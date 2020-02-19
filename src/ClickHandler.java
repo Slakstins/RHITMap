@@ -15,9 +15,11 @@ public class ClickHandler {
 	private Dijstra.Node selNode1;
 	private Dijstra.Node selNode2;
 
+
 	public ClickHandler(JFrame frame, GUI gui)
 
 	{
+
 		selNode1 = null;
 		selNode2 = null;
 
@@ -100,7 +102,9 @@ public class ClickHandler {
 
 		frame.addMouseMotionListener(new MouseMotionListener() {
 			public void mouseDragged(MouseEvent e) {
-				gui.moveOffset(e.getX(), e.getY());
+			
+
+				gui.moveOffset(e.getX(), e.getY() );
 			}
 
 			public void mouseMoved(MouseEvent e) {

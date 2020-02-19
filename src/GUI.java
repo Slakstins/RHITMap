@@ -22,6 +22,9 @@ public class GUI extends JComponent {
 	static double screenWidth;
 	public static double xScreenRatio;
 	public static double yScreenRatio;
+	
+	private double currentXOffset;
+	private double currentYOffset;
 
 	public static double xOffset = 0;
 	public static double yOffset = 0;
@@ -30,7 +33,7 @@ public class GUI extends JComponent {
 	private double lastX = 0;
 	private double lastY = 0;
 
-	private int mapMoveAmount = 1;
+	private int mapMoveAmount = 2;
 	private JPanel currentText;
 	private boolean nameAsked;
 
@@ -38,7 +41,7 @@ public class GUI extends JComponent {
 	private static ArrayList<Dijstra.Edge> edges = new ArrayList<Dijstra.Edge>();
 	private HashMap<String, Dijstra.Node> nodeNameMap = new HashMap<>();
 	private XMLEditor xmlEditor;
-	private JFrame frame;
+	private static JFrame frame;
 
 	public static double zoomLevel = 1;
 
@@ -52,6 +55,8 @@ public class GUI extends JComponent {
 	private Dijstra dijstra = new Dijstra();
 
 	public GUI(JFrame frame) {
+		this.currentXOffset = 0;
+		this.currentYOffset = 0;
 		this.edges = new ArrayList<Dijstra.Edge>();
 		this.nodes = new ArrayList<Dijstra.Node>();
 		this.nameAsked = false;
@@ -91,13 +96,15 @@ public class GUI extends JComponent {
 
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		System.out.println("edges size is: " + edges.size());
+
 
 		Graphics2D g2 = (Graphics2D) g;
 		drawMap(g2);
 		for (Dijstra.Node n : nodes) {
 			n.drawOn(g2);
 		}
-		for (Dijstra.Edge e : edges) {
+		for (Dijstra.Edge e : edges) { //edges is null for some reason?
 			e.drawOn(g2);
 		}
 
@@ -194,10 +201,14 @@ public class GUI extends JComponent {
 	public static void draw(ArrayList<Dijstra.Edge> pathEdges) {
 		int cost = 0;
 		edges = pathEdges;
+
 		for (int i = 0; i < edges.size(); i++) {
+			edges.get(i).setOnPath(true);
 			cost += edges.get(i).getCost();
 		}
+		frame.repaint();
 		System.out.println(cost);
+		
 	}
 
 	public void moveUp() {
@@ -254,6 +265,8 @@ public class GUI extends JComponent {
 	public void moveOffset(double x, double y) {
 		double deltaX = x - startX - lastX;
 		double deltaY = y - startY - lastY;
+		
+
 
 		lastX = x - startX;
 		lastY = y - startY;
@@ -330,16 +343,31 @@ public class GUI extends JComponent {
 
 
 			if (xmlEditor.edges.get(i).getN1().equals(selNode)) {
+				for (int j = 0; j < xmlEditor.nodes.size(); j++) {
+					for (int a = 0; a <xmlEditor.nodes.get(j).getEdges().size(); a++) {
+						if (xmlEditor.nodes.get(j).getEdges().get(a).equals(xmlEditor.edges.get(i))){
+							xmlEditor.nodes.get(j).getEdges().remove(a);
+							System.out.println("it happened OH");
+						}
+					}
+				}
 				xmlEditor.edges.remove(i);
 			}
-			if (xmlEditor.edges.get(i).getN2().equals(selNode)) {
+			if (i < xmlEditor.edges.size() && xmlEditor.edges.get(i).getN2().equals(selNode)) {
+				for (int j = 0; j < xmlEditor.nodes.size(); j++) {
+					for (int a = 0; a <xmlEditor.nodes.get(j).getEdges().size(); a++) {
+						if (xmlEditor.nodes.get(j).getEdges().get(a).equals(xmlEditor.edges.get(i))){
+							xmlEditor.nodes.get(j).getEdges().remove(a);
+							System.out.println("it happened OH");
+						}
+					}
+				}
 				xmlEditor.edges.remove(i);
 			}
 		}
+		
 		nodes.remove(selNode);
-		System.out.println(xmlEditor.nodes.size() + " nodes size");
 		this.xmlEditor.nodes.remove(selNode);
-		System.out.println(xmlEditor.nodes.size() + " nodes size");
 
 		frame.repaint();
 		this.getXMLEditor().updateMapXML();
@@ -352,6 +380,14 @@ public class GUI extends JComponent {
 		this.edges.add(newEdge);
 		this.getXMLEditor().updateMapXML();
 
+	}
+
+	public double getCurrentXOffset() {
+		return currentXOffset;
+	}
+
+	public double getCurrentYOffset() {
+		return currentYOffset;
 	}
 
 }

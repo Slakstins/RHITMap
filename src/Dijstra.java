@@ -51,12 +51,14 @@ public class Dijstra {
 		private boolean outside;
 		private boolean wca;
 		private Line2D.Double edge;
+		private boolean onPath;
 
 		public Edge() {
 
 		}
 
 		public Edge(Node n1, Node n2, int cost, boolean outside, boolean wca) {
+			this.onPath = false;
 			this.n1 = n1;
 			this.n2 = n2;
 			this.cost = cost;
@@ -126,13 +128,22 @@ public class Dijstra {
 			edge.y1 = n1.getY();
 			edge.x2 = n2.getX();
 			edge.y2 = n2.getY();
+			if (this.onPath) {
+				g.setColor(Color.RED);
+			} else {
 			g.setColor(Color.BLACK);
+			}
 			g.fill(this.edge);
 			g.draw(edge);
 		}
 
 		public String toString() {
 			return "From: " + n1.name + "\nTo: " + n2.name + "\nCost: " + cost + '\n';
+		}
+
+		public void setOnPath(boolean b) {
+			// TODO Auto-generated method stub
+			this.onPath = b;
 		}
 	}
 

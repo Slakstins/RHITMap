@@ -312,11 +312,8 @@ public class XMLEditor {
 	public HashMap<Dijstra.Node, ArrayList<Dijstra.Edge>> getNodeToEdgeMap() {
 		try {
 			read(fileNameToRead);
-			System.out.println(this.edges.size());
 
-//			if (this.edges.size() == 0) {
-//				throw new Exception();
-//			}
+
 			return formatEdges(this.edges);
 
 		} catch (Exception e) {
