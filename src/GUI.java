@@ -22,7 +22,7 @@ public class GUI extends JComponent {
 	static double screenWidth;
 	public static double xScreenRatio;
 	public static double yScreenRatio;
-	
+
 	private double currentXOffset;
 	private double currentYOffset;
 
@@ -96,15 +96,13 @@ public class GUI extends JComponent {
 
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		System.out.println("edges size is: " + edges.size());
-
 
 		Graphics2D g2 = (Graphics2D) g;
 		drawMap(g2);
 		for (Dijstra.Node n : nodes) {
 			n.drawOn(g2);
 		}
-		for (Dijstra.Edge e : edges) { //edges is null for some reason?
+		for (Dijstra.Edge e : edges) { // edges is null for some reason?
 			e.drawOn(g2);
 		}
 
@@ -154,22 +152,21 @@ public class GUI extends JComponent {
 
 	public void calculatePath(String startNode, String endNode, boolean outside, boolean wca) {
 		ArrayList<Dijstra.Edge> path = new ArrayList<>();
-		if ((path = loadSavedPath(startNode + endNode + outside + wca)) != null) {
-			draw(path);
-		} else {
-			try {
-				if (nodeNameMap.get(startNode) == null || nodeNameMap.get(endNode) == null) {
-					throw new Exception();
-				}
-				this.dijstra.calculatePath(nodeNameMap.get(startNode), nodeNameMap.get(endNode));
-				// make sure nodenamepath communicated with XML
-				savePath(startNode + endNode + outside + wca);
-
-			} catch (Exception e) {
-				System.out.println("Cannot calculate path, one of the specified nodes does not exist");
+//		if ((path = loadSavedPath(startNode + endNode + outside + wca)) != null) {
+//			draw(path);
+//		} else {
+		try {
+			if (nodeNameMap.get(startNode) == null || nodeNameMap.get(endNode) == null) {
+				throw new Exception();
 			}
+			this.dijstra.calculatePath(nodeNameMap.get(startNode), nodeNameMap.get(endNode));
+			// make sure nodenamepath communicated with XML
+//			savePath(startNode + endNode + outside + wca);
 
+		} catch (Exception e) {
+			System.out.println("Cannot calculate path, one of the specified nodes does not exist");
 		}
+
 	}
 
 	private void savePath(String fileName) {
@@ -200,15 +197,22 @@ public class GUI extends JComponent {
 
 	public static void draw(ArrayList<Dijstra.Edge> pathEdges) {
 		int cost = 0;
+		if (Main.calculatingMultiplePaths == false) {
 		edges = pathEdges;
+		}else {
+			for (Dijstra.Edge i : pathEdges) {
+				edges.add(i);
+			}
+		}
+		
 
 		for (int i = 0; i < edges.size(); i++) {
 			edges.get(i).setOnPath(true);
 			cost += edges.get(i).getCost();
 		}
 		frame.repaint();
-		System.out.println(cost);
-		
+		System.out.println("cost: " + cost);
+
 	}
 
 	public void moveUp() {
@@ -265,8 +269,6 @@ public class GUI extends JComponent {
 	public void moveOffset(double x, double y) {
 		double deltaX = x - startX - lastX;
 		double deltaY = y - startY - lastY;
-		
-
 
 		lastX = x - startX;
 		lastY = y - startY;
@@ -320,7 +322,8 @@ public class GUI extends JComponent {
 		this.frame.getContentPane().add(panel);
 		this.frame.validate();
 
-		textGet.addActionListener(new TextGetListener(textGet, panel, node, this.frame, this));
+		textGet.addActionListener(new NodeNameGetListener
+				(textGet, panel, node, this.frame, this));
 
 		textGet.grabFocus();
 
@@ -336,18 +339,16 @@ public class GUI extends JComponent {
 		ArrayList<Dijstra.Edge> tempEdges = selNode.getEdges();
 		for (Dijstra.Edge e : tempEdges) {
 			edges.remove(e);
-			
-		}
-		
-		for (int i = 0; i < xmlEditor.edges.size(); i++) {
 
+		}
+
+		for (int i = 0; i < xmlEditor.edges.size(); i++) {
 
 			if (xmlEditor.edges.get(i).getN1().equals(selNode)) {
 				for (int j = 0; j < xmlEditor.nodes.size(); j++) {
-					for (int a = 0; a <xmlEditor.nodes.get(j).getEdges().size(); a++) {
-						if (xmlEditor.nodes.get(j).getEdges().get(a).equals(xmlEditor.edges.get(i))){
+					for (int a = 0; a < xmlEditor.nodes.get(j).getEdges().size(); a++) {
+						if (xmlEditor.nodes.get(j).getEdges().get(a).equals(xmlEditor.edges.get(i))) {
 							xmlEditor.nodes.get(j).getEdges().remove(a);
-							System.out.println("it happened OH");
 						}
 					}
 				}
@@ -355,17 +356,16 @@ public class GUI extends JComponent {
 			}
 			if (i < xmlEditor.edges.size() && xmlEditor.edges.get(i).getN2().equals(selNode)) {
 				for (int j = 0; j < xmlEditor.nodes.size(); j++) {
-					for (int a = 0; a <xmlEditor.nodes.get(j).getEdges().size(); a++) {
-						if (xmlEditor.nodes.get(j).getEdges().get(a).equals(xmlEditor.edges.get(i))){
+					for (int a = 0; a < xmlEditor.nodes.get(j).getEdges().size(); a++) {
+						if (xmlEditor.nodes.get(j).getEdges().get(a).equals(xmlEditor.edges.get(i))) {
 							xmlEditor.nodes.get(j).getEdges().remove(a);
-							System.out.println("it happened OH");
 						}
 					}
 				}
 				xmlEditor.edges.remove(i);
 			}
 		}
-		
+
 		nodes.remove(selNode);
 		this.xmlEditor.nodes.remove(selNode);
 

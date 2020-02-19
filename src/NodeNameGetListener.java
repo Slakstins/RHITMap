@@ -5,14 +5,14 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class TextGetListener implements ActionListener {
+public class NodeNameGetListener implements ActionListener {
 	private Dijstra.Node toName;
 	private JTextField textField;
 	private JPanel panel;
 	private JFrame frame;
 	private GUI gui;
 
-	public TextGetListener(JTextField textField, JPanel panel, Dijstra.Node toName, JFrame frame, GUI gui) {
+	public NodeNameGetListener(JTextField textField, JPanel panel, Dijstra.Node toName, JFrame frame, GUI gui) {
 		this.toName = toName;
 		this.textField = textField;
 		this.panel = panel;

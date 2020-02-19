@@ -18,8 +18,8 @@ public class XMLEditor {
 	// storing edges instead of nodes in the XML allows for faster retrieval of
 	// nodes for restoring saved class path data, but
 	// it will make Dijstra's slower.
-	private String fileNameToRead = "n1Ton6";
-	private String fileNameToWrite = "n1Ton6";
+	private String fileNameToRead = "AllEdges.xml";
+	private String fileNameToWrite = "AllEdges.xml";
 
 	private boolean pastDeleted = false;
 
