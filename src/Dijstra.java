@@ -130,6 +130,9 @@ public class Dijstra {
 			edge.y2 = n2.getY();
 			if (this.onPath) {
 				g.setColor(Color.RED);
+			}
+			else if (this.outside) {
+				g.setColor(Color.yellow);
 			} else {
 			g.setColor(Color.BLACK);
 			}
@@ -144,6 +147,13 @@ public class Dijstra {
 		public void setOnPath(boolean b) {
 			// TODO Auto-generated method stub
 			this.onPath = b;
+		}
+
+		public boolean flipOutside() {
+			this.outside = !this.outside;
+			return this.outside;
+			// TODO Auto-generated method stub
+			
 		}
 	}
 

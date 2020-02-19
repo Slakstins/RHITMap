@@ -151,15 +151,10 @@ public class Main {
 		gui.calculatePath(className6, className7, false, false);
 		this.calculatingMultiplePaths = false;
 
+		//dijstra does not have error handling for if a path is not found between 2 nodes. This will 
+		//not be a problem eventually when all nodes can get to all other nodes
 		
-		
-		System.out.println(class1);
-		System.out.println(class2);
-		System.out.println(class3);
-		System.out.println(class4);
-		System.out.println(class5);
-		System.out.println(class6);
-		System.out.println(class7);
+
 
 
 		

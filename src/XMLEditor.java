@@ -13,13 +13,14 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Set;
 
+
 public class XMLEditor {
 
 	// storing edges instead of nodes in the XML allows for faster retrieval of
 	// nodes for restoring saved class path data, but
 	// it will make Dijstra's slower.
-	private String fileNameToRead = "AllEdges.xml";
-	private String fileNameToWrite = "AllEdges.xml";
+	private String fileNameToRead = "ANewFile1.xml";
+	private String fileNameToWrite = "ANewFile1.xml";
 
 	private boolean pastDeleted = false;
 
@@ -210,12 +211,28 @@ public class XMLEditor {
 		Dijstra.Edge newEdge = new Dijstra.Edge();
 		newEdge.setN1(node1);
 		newEdge.setN2(node2);
-		newEdge.setCost(5);
+		newEdge.setCost((int)this.calculateCost(node1, node2));
 		node1.getEdges().add(newEdge);
 		node2.getEdges().add(newEdge);
 
 		edges.add(newEdge);
 		return newEdge;
+	}
+	
+	private double calculateCost(Dijstra.Node node1, Dijstra.Node node2) {
+		// TODO Auto-generated method stub
+		double xdiff = node1.getX() - node2.getX();
+		double ydiff = node1.getY() - node2.getY();
+		
+		return Math.sqrt((Math.pow(xdiff, 2) + Math.pow(ydiff, 2)));
+	}
+
+	public void setEdgeOutside(Dijstra.Edge e, boolean b) {
+		for (Dijstra.Edge edge : edges) {
+			if (edge.equals(e)) {
+				e.setOutside(b);
+			}
+		}
 	}
 
 	public void updateMapXML() {
@@ -265,7 +282,14 @@ public class XMLEditor {
 	 * @throws Exception
 	 */
 	public void read(String filename) throws Exception {
-		FileInputStream file = new FileInputStream(filename);
+		FileInputStream file;
+		try {
+		file = new FileInputStream(filename);
+		} catch (Exception e) {
+			this.writeEdges(edges, filename);
+			file = new FileInputStream(filename);
+
+		}
 		XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(file));
 		int edgeCount = 0;
 

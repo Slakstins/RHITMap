@@ -97,6 +97,7 @@ public class GUI extends JComponent {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
+
 		Graphics2D g2 = (Graphics2D) g;
 		drawMap(g2);
 		for (Dijstra.Node n : nodes) {
@@ -164,7 +165,6 @@ public class GUI extends JComponent {
 //			savePath(startNode + endNode + outside + wca);
 
 		} catch (Exception e) {
-			System.out.println("Cannot calculate path, one of the specified nodes does not exist");
 		}
 
 	}

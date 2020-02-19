@@ -15,7 +15,6 @@ public class ClickHandler {
 	private Dijstra.Node selNode1;
 	private Dijstra.Node selNode2;
 
-
 	public ClickHandler(JFrame frame, GUI gui)
 
 	{
@@ -58,15 +57,37 @@ public class ClickHandler {
 					
 					break;
 				case KeyEvent.VK_E:
+					boolean doAdd = true;
 					if (selNode1 != null && selNode2 != null && !(selNode1.equals(selNode2))) {
+						for (Dijstra.Edge e : gui.getXMLEditor().edges) {
+							if ((e.getN1().equals(selNode1) && e.getN2().equals(selNode2)) || (e.getN2().equals(selNode1) && e.getN1().equals(selNode2))) {
+								doAdd = false;
+								break;
+							}
+						}
+						if (doAdd) {
 						Dijstra.Edge newEdge = gui.getXMLEditor().initializeNewEdge(selNode1, selNode2);
-						gui.addEdge(newEdge);
+						gui.addEdge(newEdge); //adding the edge does not add the edge to the nodes' array lists
+						System.out.println("edge add");
 						frame.repaint();
+						}
+					}
+					break;
+					
+				case KeyEvent.VK_O:
+					for (Dijstra.Edge e: gui.getXMLEditor().edges) {
+						if ((e.getN1().equals(selNode1) && e.getN2().equals(selNode2)) || (e.getN2().equals(selNode1) && e.getN1().equals(selNode2))) {
+							gui.getXMLEditor().setEdgeOutside(e, e.flipOutside());
+							gui.repaint();
+							gui.getXMLEditor().updateMapXML();
+						}
 					}
 					break;
 					
 
 				}
+				
+				
 			}
 
 			public void keyReleased(KeyEvent event) {
