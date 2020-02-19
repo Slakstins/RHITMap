@@ -1,23 +1,138 @@
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Building {
+import javax.imageio.ImageIO;
+
+
+public class Building implements Serializable{
 	
-	private ArrayList<BufferedImage> floors;
 	private int floor;
-	Building(ArrayList<BufferedImage> floors)
+	private ArrayList<BufferedImage> floors = new ArrayList<>();
+	private String floorOne;
+	private String floorTwo;
+	private String floorThree;
+	private String floorFour;
+	
+	public Building()
 	{
-		this.floors = floors;
-		floor = 0;
+		
 	}
 	
-	public int getFloorNumber()
+	public int getFloor()
 	{
 		return floor;
+	}
+
+	public void setFloor(int floor) 
+	{
+		this.floor = floor;
 	}
 	
 	public BufferedImage getFloorImage()
 	{
 		return floors.get(floor);
+	}
+	
+	public void loadImages()
+	{
+		if(floorOne != null)
+		{
+			try {
+				floors.add(ImageIO.read(new File(floorOne)));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if(floorTwo != null)
+			{
+				try {
+					floors.add(ImageIO.read(new File(floorTwo)));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				if(floorThree != null)
+				{
+					try {
+						floors.add(ImageIO.read(new File(floorThree)));
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					if(floorFour != null)
+					{
+						try {
+							floors.add(ImageIO.read(new File(floorFour)));
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	public void setFloorOne(String floor)
+	{
+		floorOne = floor;
+	}
+	
+	public void setFloorTwo(String floor)
+	{
+		floorTwo = floor;
+	}
+	
+	public void setFloorThree(String floor)
+	{
+		floorThree = floor;
+	}
+	
+	public void setFloorFour(String floor)
+	{
+		floorFour = floor;
+	}
+	
+	public String getFloorOne()
+	{
+		return floorOne;
+	}
+	
+	public String getFloorTwo()
+	{
+		return floorTwo;
+	}
+	
+	public String getFloorThree()
+	{
+		return floorThree;
+	}
+	
+	public String getFloorFour()
+	{
+		return floorFour;
+	}
+	
+	public boolean increaseFloor()
+	{
+		if((floor + 1) <= floors.size())
+		{
+			floor++;
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean decreaseFloor()
+	{
+		if((floor - 1) >= 0)
+		{
+			floor--;
+			return true;
+		}
+		return false;
 	}
 }

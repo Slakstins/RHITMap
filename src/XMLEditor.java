@@ -26,13 +26,17 @@ public class XMLEditor {
 
 	ArrayList<Dijstra.Edge> edges;
 	ArrayList<Dijstra.Node> nodes;
+	ArrayList<Building> buildings;
 
 	public XMLEditor() {
 		edges = new ArrayList<Dijstra.Edge>();
 		nodes = new ArrayList<Dijstra.Node>();
-
+		buildings = new ArrayList<>();
+		
+	
 		// can get rid of this when the XML map file is done
-
+		initializeBuildings();
+		updateBuildingXML();
 	}
 
 //	public void initializeNodesEdges() {
@@ -186,6 +190,71 @@ public class XMLEditor {
 //		edges.add(testEdge34);
 //
 //	}
+	
+	public void initializeBuildings()
+	{
+		Building temp = new Building();
+		temp.setFloorOne("School Floor Plans/png/Branam Innovation Center.png");
+		temp.setFloor(1);
+		buildings.add(temp);
+		
+		Building temp2 = new Building();
+		temp2.setFloorOne("School Floor Plans/png/Crapo Hall 1st Floor.png");
+		temp2.setFloorTwo("School Floor Plans/png/Crapo Hall 2nd Floor.png");
+		temp2.setFloorThree("School Floor Plans/png/Crapo Hall 3rd Floor.png");
+		temp2.setFloor(0);
+		buildings.add(temp2);
+		
+		Building temp3 = new Building();
+		temp3.setFloorOne("School Floor Plans/png/Facilities Admin Srvs Building.png");
+		temp3.setFloor(0);
+		buildings.add(temp3);
+		
+		Building temp4 = new Building();
+		temp4.setFloorOne("School Floor Plans/png/Hadley Hall 1st Floor.png");
+		temp4.setFloorTwo("School Floor Plans/png/Hadley Hall 2nd Floor.png");
+		temp4.setFloor(0);
+		buildings.add(temp4);
+		
+		Building temp5 = new Building();
+		temp5.setFloorOne("School Floor Plans/png/Hatfield Hall Lower Level.png");
+		temp5.setFloorTwo("School Floor Plans/png/Hatfield Hall 1st Floor.png");
+		temp5.setFloorThree("School Floor Plans/png/Hatfield Hall 2nd Floor.png");
+		temp5.setFloor(0);
+		buildings.add(temp5);
+		
+		Building temp6 = new Building();
+		temp6.setFloorOne("School Floor Plans/png/Kremer Innovation Center.png");
+		temp6.setFloor(0);
+		buildings.add(temp6);
+		
+		Building temp7 = new Building();
+		temp7.setFloorOne("School Floor Plans/png/Logan Library 1st Floor.png");
+		temp7.setFloorTwo("School Floor Plans/png/Logan Library 2nd Floor.png");
+		temp7.setFloorThree("School Floor Plans/png/Logan Library 3rd Floor.png");
+		temp7.setFloor(0);
+		buildings.add(temp7);
+		
+		Building temp8 = new Building();
+		temp8.setFloorOne("School Floor Plans/png/Moench Hall Lower Level 2.png");
+		temp8.setFloorTwo("School Floor Plans/png/Moench Hall Lower Level 1.png");
+		temp8.setFloorThree("School Floor Plans/png/Moench Hall 1st Floor.png");
+		temp8.setFloorFour("School Floor Plans/png/Moench Hall 2nd Floor.png");
+		temp8.setFloor(2);
+		buildings.add(temp8);
+		
+		Building temp9 = new Building();
+		temp9.setFloorOne("School Floor Plans/png/Myers Hall 1st Floor.png");
+		temp9.setFloorTwo("School Floor Plans/png/Myers Hall 2nd Floor.png");
+		temp9.setFloor(0);
+		buildings.add(temp9);
+		
+		Building temp10 = new Building();
+		temp10.setFloorOne("School Floor Plans/png/Olin Hall 1st Floor.png");
+		temp10.setFloorTwo("School Floor Plans/png/Olin Hall 2nd Floor.png");
+		temp10.setFloor(0);
+		buildings.add(temp10);
+	}
 
 	/**
 	 * for use when creating a new node. Allows XMLEditor to track the node for
@@ -272,6 +341,18 @@ public class XMLEditor {
 		}
 
 	}
+	
+	public void updateBuildingXML()
+	{
+		try
+		{
+			this.writeBuildings(buildings, "AllBuildings.xml");
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * 
@@ -288,6 +369,13 @@ public class XMLEditor {
 			
 			encoder.writeObject(edges.get(i)); // how to make this delete the current file and then recreate it?
 		}
+		encoder.close();
+	}
+	
+	public static void writeBuildings(ArrayList<Building> buildings, String filename) throws Exception
+	{
+		XMLEncoder encoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(filename)));
+		encoder.writeObject(buildings);
 		encoder.close();
 	}
 
@@ -323,6 +411,25 @@ public class XMLEditor {
 		}
 
 		decoder.close();
+	}
+	
+	public ArrayList<Building> readBuildings(String filename) throws Exception
+	{
+		XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(filename)));
+		ArrayList<Building> buildings = new ArrayList<>();
+		while(true)
+		{
+			try
+			{
+				buildings.addAll((ArrayList<Building>) decoder.readObject());
+			}
+			catch(ArrayIndexOutOfBoundsException e)
+			{
+				break;
+			}
+		}
+		decoder.close();
+		return buildings;
 	}
 
 	public HashMap<Dijstra.Node, ArrayList<Dijstra.Edge>> formatEdges(ArrayList<Dijstra.Edge> edges) {

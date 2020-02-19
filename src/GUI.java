@@ -38,6 +38,7 @@ public class GUI extends JComponent {
 
 	private static ArrayList<Dijstra.Node> nodes = new ArrayList<>();
 	private static ArrayList<Dijstra.Edge> edges = new ArrayList<Dijstra.Edge>();
+	private static ArrayList<Building> buildings = new ArrayList<>();
 	private HashMap<String, Dijstra.Node> nodeNameMap = new HashMap<>();
 	private XMLEditor xmlEditor;
 	private static JFrame frame;
@@ -66,7 +67,17 @@ public class GUI extends JComponent {
 
 		xmlEditor = new XMLEditor();
 		HashMap<Dijstra.Node, ArrayList<Dijstra.Edge>> nodeEdgeMap = xmlEditor.getNodeToEdgeMap();
-
+		try {
+			buildings = xmlEditor.readBuildings("AllBuildings.xml");
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		for(int i = 0; i < buildings.size(); i++)
+		{
+			buildings.get(i).loadImages();
+		}
+		
 		this.frame = frame;
 		Set<Dijstra.Node> keys = nodeEdgeMap.keySet();
 		for (Dijstra.Node i : keys) {
