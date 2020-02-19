@@ -69,6 +69,8 @@ public class ClickHandler {
 							}
 						}
 						if (doAdd) {
+							//could set node 1 and 2 based on ratio and offset
+							
 							Dijstra.Edge newEdge = gui.getXMLEditor().initializeNewEdge(selNode1, selNode2);
 							gui.addEdge(newEdge); // adding the edge does not add the edge to the nodes' array lists
 							gui.askCost(newEdge);
@@ -155,13 +157,16 @@ public class ClickHandler {
 				if (e.getClickCount() == 2) {
 					boolean foundContains = false;
 					// check each node to see if it was clicked
-					for (Dijstra.Node i : gui.getNodes()) {
+					for (Dijstra.Node i : gui.getXMLEditor().nodes) {
 
-						Rectangle bounds = new Rectangle((int) (i.getX() - i.getSize() / 2),
-								(int) (i.getY() - i.getSize() / 2), (int) i.getSize(), (int) i.getSize());
+						Rectangle bounds = new Rectangle((int) (i.specialGetEx() - i.getSize() / 2),
+								(int) (i.specialGetWhy() - i.getSize() / 2), (int) i.getSize(), (int) i.getSize());
 
 						// a node was clicked
-						if (bounds.contains(new Point(e.getX(), e.getY()))) {
+						if (bounds.contains(new Point(e.getX(), e.getY()))) { //nodes x y are incorrect here
+							System.out.println("gui node x: " + i.specialGetEx());
+							System.out.println("gui node y: " + i.specialGetWhy());
+
 
 							foundContains = true;
 
@@ -203,7 +208,7 @@ public class ClickHandler {
 
 						Dijstra.Node newNode = gui.getXMLEditor().initializeNewNode(
 								newX,
-								newY, "TBD"); //saves with the correct value!
+								newY, "TBD"); //Initializes with the correct value! Maybe edge is saved wrong? Saves with wrong values
 						gui.addNode(newNode);
 						gui.askName(newNode);
 					}
@@ -233,25 +238,5 @@ public class ClickHandler {
 		});
 	}
 
-//	public void checkAskEdgeCost() {
-//		Dijstra.Edge e;
-//		if ((e = this.node1Node2checkForEdge()) != null) {
-//			this.gui.askCost(e);
-//		}
-//	}
 
-//	public Dijstra.Edge node1Node2checkForEdge() {
-//		if (selNode1 != null && selNode2 != null) {
-//
-//			for (Dijstra.Edge e : selNode1.getEdges()) {
-//				for (Dijstra.Edge e1: selNode2.getEdges()) {
-//					if (e1.equals(e)) {
-//						return e;
-//					}
-//				}
-//			}
-//		}
-//		
-//		return null;
-//	}
 }

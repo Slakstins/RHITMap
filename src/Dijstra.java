@@ -124,10 +124,10 @@ public class Dijstra {
 
 		public void drawOn(Graphics2D g) {
 			this.addEdgeLineToDraw();
-			edge.x1 = n1.getX();
-			edge.y1 = n1.getY();
-			edge.x2 = n2.getX();
-			edge.y2 = n2.getY();
+			edge.x1 = n1.specialGetEx();
+			edge.y1 = n1.specialGetWhy();
+			edge.x2 = n2.specialGetEx();
+			edge.y2 = n2.specialGetWhy();
 			if (this.onPath) {
 				g.setColor(Color.RED);
 			}
@@ -194,7 +194,19 @@ public class Dijstra {
 		}
 
 		public double getX() {
+			return this.x;
+		}
+		
+		public double specialGetEx() {
 			return (GUI.xScreenRatio * x + GUI.xOffset) * GUI.zoomLevel;
+
+			
+		}
+		
+		public double specialGetWhy() {
+			return (GUI.yScreenRatio * y + GUI.yOffset) * GUI.zoomLevel;
+
+			
 		}
 
 		public void setX(double x) {
@@ -202,7 +214,7 @@ public class Dijstra {
 		}
 
 		public double getY() {
-			return (GUI.yScreenRatio * y + GUI.yOffset) * GUI.zoomLevel;
+			return this.y;
 		}
 
 		public void setY(double y) {
