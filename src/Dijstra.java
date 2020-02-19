@@ -131,9 +131,13 @@ public class Dijstra {
 			if (this.onPath) {
 				g.setColor(Color.RED);
 			}
-			else if (this.outside) {
+			else if (this.outside && this.wca) {
 				g.setColor(Color.yellow);
-			} else {
+			} else if (!this.wca) {
+				g.setColor(Color.MAGENTA);
+			}
+			
+			else {
 			g.setColor(Color.BLACK);
 			}
 			g.fill(this.edge);
@@ -154,6 +158,11 @@ public class Dijstra {
 			return this.outside;
 			// TODO Auto-generated method stub
 			
+		}
+		
+		public boolean flipWCA() {
+			this.wca = !this.wca;
+			return this.wca;
 		}
 	}
 
@@ -213,6 +222,10 @@ public class Dijstra {
 		}
 
 		public Ellipse2D convertNodeEllipseToDraw() {
+			
+			
+			
+			
 			return new Ellipse2D.Double(((GUI.xScreenRatio * x + GUI.xOffset) * GUI.zoomLevel) - (Constants.nodeSize / 2),
 					(GUI.yScreenRatio * y + GUI.yOffset) * GUI.zoomLevel - (Constants.nodeSize / 2), Constants.nodeSize * GUI.zoomLevel,
 					Constants.nodeSize * GUI.zoomLevel);

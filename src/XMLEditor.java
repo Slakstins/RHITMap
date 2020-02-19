@@ -19,8 +19,8 @@ public class XMLEditor {
 	// storing edges instead of nodes in the XML allows for faster retrieval of
 	// nodes for restoring saved class path data, but
 	// it will make Dijstra's slower.
-	private String fileNameToRead = "ANewFile1.xml";
-	private String fileNameToWrite = "ANewFile1.xml";
+	private String fileNameToRead = "ANewFile4.xml";
+	private String fileNameToWrite = "ANewFile4.xml";
 
 	private boolean pastDeleted = false;
 
@@ -192,12 +192,16 @@ public class XMLEditor {
 	 * addition of the edges to an XML file
 	 * 
 	 * @param x
+	 * 
 	 * @param y
 	 * @param name
 	 * @return
 	 */
 	public Dijstra.Node initializeNewNode(int x, int y, String name) {
+		
+
 		Dijstra.Node newNode = new Dijstra.Node();
+
 		newNode.setX(x);
 		newNode.setY(y);
 		newNode.setName(name);
@@ -209,6 +213,8 @@ public class XMLEditor {
 
 	public Dijstra.Edge initializeNewEdge(Dijstra.Node node1, Dijstra.Node node2) {
 		Dijstra.Edge newEdge = new Dijstra.Edge();
+		newEdge.setWCA(true);
+		newEdge.setOutside(true);
 		newEdge.setN1(node1);
 		newEdge.setN2(node2);
 		newEdge.setCost((int)this.calculateCost(node1, node2));
@@ -231,6 +237,14 @@ public class XMLEditor {
 		for (Dijstra.Edge edge : edges) {
 			if (edge.equals(e)) {
 				e.setOutside(b);
+			}
+		}
+	}
+	
+	public void setEdgeWCA(Dijstra.Edge e, boolean b) {
+		for (Dijstra.Edge edge : edges) {
+			if (edge.equals(e)) {
+				e.setWCA(b);
 			}
 		}
 	}

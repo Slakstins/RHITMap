@@ -14,10 +14,12 @@ import javax.swing.JFrame;
 public class ClickHandler {
 	private Dijstra.Node selNode1;
 	private Dijstra.Node selNode2;
+	private GUI gui;
 
 	public ClickHandler(JFrame frame, GUI gui)
 
 	{
+		this.gui = gui;
 
 		selNode1 = null;
 		selNode2 = null;
@@ -62,12 +64,14 @@ public class ClickHandler {
 						for (Dijstra.Edge e : gui.getXMLEditor().edges) {
 							if ((e.getN1().equals(selNode1) && e.getN2().equals(selNode2)) || (e.getN2().equals(selNode1) && e.getN1().equals(selNode2))) {
 								doAdd = false;
+								gui.askCost(e);
 								break;
 							}
 						}
 						if (doAdd) {
 						Dijstra.Edge newEdge = gui.getXMLEditor().initializeNewEdge(selNode1, selNode2);
 						gui.addEdge(newEdge); //adding the edge does not add the edge to the nodes' array lists
+						gui.askCost(newEdge);
 						System.out.println("edge add");
 						frame.repaint();
 						}
@@ -78,6 +82,16 @@ public class ClickHandler {
 					for (Dijstra.Edge e: gui.getXMLEditor().edges) {
 						if ((e.getN1().equals(selNode1) && e.getN2().equals(selNode2)) || (e.getN2().equals(selNode1) && e.getN1().equals(selNode2))) {
 							gui.getXMLEditor().setEdgeOutside(e, e.flipOutside());
+							gui.repaint();
+							gui.getXMLEditor().updateMapXML();
+						}
+					}
+					break;
+					
+				case KeyEvent.VK_W:
+					for (Dijstra.Edge e: gui.getXMLEditor().edges) {
+						if ((e.getN1().equals(selNode1) && e.getN2().equals(selNode2)) || (e.getN2().equals(selNode1) && e.getN1().equals(selNode2))) {
+							gui.getXMLEditor().setEdgeWCA(e, e.flipWCA());
 							gui.repaint();
 							gui.getXMLEditor().updateMapXML();
 						}
@@ -124,8 +138,7 @@ public class ClickHandler {
 		frame.addMouseMotionListener(new MouseMotionListener() {
 			public void mouseDragged(MouseEvent e) {
 			
-
-				gui.moveOffset(e.getX(), e.getY() );
+//				gui.moveOffset(e.getX(), e.getY() );
 			}
 
 			public void mouseMoved(MouseEvent e) {
@@ -167,6 +180,8 @@ public class ClickHandler {
 								//the node clicked should be selected
 								i.setSelected(true);
 								gui.askName(i);
+								checkAskEdgeCost();
+								
 								if (selNode1 == null && selNode2 != i) {
 									selNode1 = i;
 								} else if (selNode2 == null && selNode1 != i) {
@@ -198,9 +213,11 @@ public class ClickHandler {
 				}
 
 			}
+			
+
 
 			public void mousePressed(MouseEvent e) {
-				gui.setMousePos();
+
 			}
 
 			public void mouseReleased(MouseEvent e) {
@@ -216,5 +233,30 @@ public class ClickHandler {
 			}
 
 		});
+	}
+	
+	public void checkAskEdgeCost() {
+		Dijstra.Edge e;
+		if ((e = this.node1Node2checkForEdge()) != null) {
+			this.gui.askCost(e);
+			System.out.println("asked");
+		}
+	}
+	
+	
+	public Dijstra.Edge node1Node2checkForEdge() {
+		if (selNode1 != null && selNode2 != null) {
+			System.out.println("made it");
+
+			for (Dijstra.Edge e : selNode1.getEdges()) {
+				for (Dijstra.Edge e1: selNode2.getEdges()) {
+					if (e1.equals(e)) {
+						return e;
+					}
+				}
+			}
+		}
+		
+		return null;
 	}
 }

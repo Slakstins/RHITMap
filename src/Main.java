@@ -29,7 +29,8 @@ public class Main {
 	}
 
 	public Main() {
-		this.calculatingMultiplePaths = false;
+		this.calculatingMultiplePaths = false; //prevents replacement of the shortest path in dijstra when
+		//calculating multiple paths
 
 		JFrame frame = new JFrame("RHIT School Map");
 
@@ -61,7 +62,9 @@ public class Main {
 		JTextField class7 = new JTextField(10);
 		
 		JButton submitButton = new JButton("Calculate");
+		submitButton.setFocusable(false);
 		panel2.add(submitButton);
+		
 		submitButton.addActionListener(new ClassNameListener(this, class1, class2, class3, class4, class5, class6, class7));
 
 

@@ -23,8 +23,7 @@ public class GUI extends JComponent {
 	public static double xScreenRatio;
 	public static double yScreenRatio;
 
-	private double currentXOffset;
-	private double currentYOffset;
+
 
 	public static double xOffset = 0;
 	public static double yOffset = 0;
@@ -55,8 +54,7 @@ public class GUI extends JComponent {
 	private Dijstra dijstra = new Dijstra();
 
 	public GUI(JFrame frame) {
-		this.currentXOffset = 0;
-		this.currentYOffset = 0;
+	
 		this.edges = new ArrayList<Dijstra.Edge>();
 		this.nodes = new ArrayList<Dijstra.Node>();
 		this.nameAsked = false;
@@ -65,8 +63,7 @@ public class GUI extends JComponent {
 		xScreenRatio = screenWidth / 1920;
 		yScreenRatio = screenHeight / 1080;
 
-		// put xml inside of graphics since it looks like it will be handling all of the
-		// clicks
+
 		xmlEditor = new XMLEditor();
 		HashMap<Dijstra.Node, ArrayList<Dijstra.Edge>> nodeEdgeMap = xmlEditor.getNodeToEdgeMap();
 
@@ -278,9 +275,12 @@ public class GUI extends JComponent {
 		repaint();
 	}
 
-	public void setMousePos() {
+	public void setMousePos() { //this method is not used
+		
 		startX = getMousePosition().getX();
 		startY = getMousePosition().getY();
+		System.out.println(startX);
+		System.out.println(startY);
 	}
 
 	public void close() {
@@ -327,6 +327,27 @@ public class GUI extends JComponent {
 
 		textGet.grabFocus();
 
+	}
+	
+	public void askCost(Dijstra.Edge edge) {
+		
+
+		JTextField costGet = new JTextField(String.valueOf(edge.getCost()), 40);
+		costGet.selectAll();
+		costGet.setToolTipText("Input cost");
+		JPanel panel = new JPanel();
+		panel.add(costGet);
+		costGet.setVisible(true);
+		panel.setBounds(0, 40, 100, 100);
+		this.frame.getContentPane().add(panel);
+		this.frame.validate();
+		costGet.addActionListener(new EdgeCostGetListener
+				(costGet, panel, edge, this.frame, this));
+
+		costGet.grabFocus();
+		
+		
+		
 	}
 
 	/**
@@ -382,12 +403,6 @@ public class GUI extends JComponent {
 
 	}
 
-	public double getCurrentXOffset() {
-		return currentXOffset;
-	}
 
-	public double getCurrentYOffset() {
-		return currentYOffset;
-	}
 
 }
