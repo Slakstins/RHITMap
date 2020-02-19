@@ -180,7 +180,6 @@ public class ClickHandler {
 								//the node clicked should be selected
 								i.setSelected(true);
 								gui.askName(i);
-								checkAskEdgeCost();
 								
 								if (selNode1 == null && selNode2 != i) {
 									selNode1 = i;
@@ -235,28 +234,26 @@ public class ClickHandler {
 		});
 	}
 	
-	public void checkAskEdgeCost() {
-		Dijstra.Edge e;
-		if ((e = this.node1Node2checkForEdge()) != null) {
-			this.gui.askCost(e);
-			System.out.println("asked");
-		}
-	}
+//	public void checkAskEdgeCost() {
+//		Dijstra.Edge e;
+//		if ((e = this.node1Node2checkForEdge()) != null) {
+//			this.gui.askCost(e);
+//		}
+//	}
 	
 	
-	public Dijstra.Edge node1Node2checkForEdge() {
-		if (selNode1 != null && selNode2 != null) {
-			System.out.println("made it");
-
-			for (Dijstra.Edge e : selNode1.getEdges()) {
-				for (Dijstra.Edge e1: selNode2.getEdges()) {
-					if (e1.equals(e)) {
-						return e;
-					}
-				}
-			}
-		}
-		
-		return null;
-	}
+//	public Dijstra.Edge node1Node2checkForEdge() {
+//		if (selNode1 != null && selNode2 != null) {
+//
+//			for (Dijstra.Edge e : selNode1.getEdges()) {
+//				for (Dijstra.Edge e1: selNode2.getEdges()) {
+//					if (e1.equals(e)) {
+//						return e;
+//					}
+//				}
+//			}
+//		}
+//		
+//		return null;
+//	}
 }

@@ -226,8 +226,8 @@ public class Dijstra {
 			
 			
 			
-			return new Ellipse2D.Double(((GUI.xScreenRatio * x + GUI.xOffset) * GUI.zoomLevel) - (Constants.nodeSize / 2),
-					(GUI.yScreenRatio * y + GUI.yOffset) * GUI.zoomLevel - (Constants.nodeSize / 2), Constants.nodeSize * GUI.zoomLevel,
+			return new Ellipse2D.Double(((GUI.xScreenRatio * x + GUI.xOffset) * GUI.zoomLevel) - (Constants.nodeSize * GUI.zoomLevel/ 2),
+					(GUI.yScreenRatio * y + GUI.yOffset) * GUI.zoomLevel - (Constants.nodeSize * GUI.zoomLevel / 2), Constants.nodeSize * GUI.zoomLevel,
 					Constants.nodeSize * GUI.zoomLevel);
 		}
 
