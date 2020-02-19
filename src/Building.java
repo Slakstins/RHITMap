@@ -18,6 +18,8 @@ public class Building implements Serializable{
 	
 	private double x;
 	private double y;
+	private double defaultZoom;
+	private double rotation;
 	
 	public Building()
 	{
@@ -157,5 +159,25 @@ public class Building implements Serializable{
 	public double getY()
 	{
 		return y;
+	}
+	
+	public void setDefaultZoom(double defaultZoom)
+	{
+		this.defaultZoom = defaultZoom;
+	}
+	
+	public double getDefaultZoom()
+	{
+		return defaultZoom;
+	}
+	
+	public void setRotation(double rotation)
+	{
+		this.rotation = rotation;
+	}
+	
+	public double getRotation()
+	{
+		return rotation;
 	}
 }

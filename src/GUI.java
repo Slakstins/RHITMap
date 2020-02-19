@@ -32,7 +32,7 @@ public class GUI extends JComponent {
 	private double lastX = 0;
 	private double lastY = 0;
 
-	private int mapMoveAmount = 2;
+	private double mapMoveAmount = 2;
 	private JPanel currentText;
 	private boolean nameAsked;
 
@@ -108,6 +108,7 @@ public class GUI extends JComponent {
 
 		Graphics2D g2 = (Graphics2D) g;
 		drawMap(g2);
+		drawFloors(g2);
 		for (Dijstra.Node n : nodes) {
 			n.drawOn(g2);
 		}
@@ -144,9 +145,13 @@ public class GUI extends JComponent {
 	{
 		for(int i = 0; i < buildings.size(); i++)
 		{
+			double zoom = buildings.get(i).getDefaultZoom();
 			BufferedImage temp = buildings.get(i).getFloorImage();
-			g.drawImage(temp, (int) (xOffset * zoomLevel), (int) (yOffset * zoomLevel),
-			(int) ((screenWidth + xOffset) * zoomLevel), (int) ((screenHeight + yOffset) * zoomLevel), 
+			double x = xOffset + buildings.get(i).getX();
+			double y = yOffset + buildings.get(i).getY();
+			
+			g.drawImage(temp, (int) (x * zoomLevel), (int) (y * zoomLevel),
+			(int) ((temp.getWidth() * zoom + x) * zoomLevel), (int) ((temp.getHeight() * zoom + y) * zoomLevel), 
 			0, 0, temp.getWidth(), temp.getHeight(), null);
 		}
 	}
@@ -237,27 +242,27 @@ public class GUI extends JComponent {
 
 	public void moveUp() {
 		this.moveUp = true;
-		GUI.yOffset += mapMoveAmount;
+		GUI.yOffset += mapMoveAmount / zoomLevel;
 		this.repaint();
 	}
 
 	public void moveDown() {
 		this.moveDown = true;
-		GUI.yOffset -= mapMoveAmount;
+		GUI.yOffset -= mapMoveAmount / zoomLevel;
 		this.repaint();
 	}
 
 	public void moveRight() {
 		this.moveRight = true;
 
-		GUI.xOffset -= mapMoveAmount;
+		GUI.xOffset -= mapMoveAmount / zoomLevel;
 		this.repaint();
 	}
 
 	public void moveLeft() {
 		this.moveLeft = true;
 
-		GUI.xOffset += mapMoveAmount;
+		GUI.xOffset += mapMoveAmount / zoomLevel;
 		this.repaint();
 	}
 

@@ -195,36 +195,51 @@ public class XMLEditor {
 	{
 		Building temp = new Building();
 		temp.setFloorOne("School Floor Plans/png/Branam Innovation Center.png");
-		temp.setFloor(1);
+		temp.setFloor(0);
+		temp.setX(1330);
+		temp.setY(310);
+		temp.setDefaultZoom(.08);
 		buildings.add(temp);
 		
 		Building temp2 = new Building();
 		temp2.setFloorOne("School Floor Plans/png/Crapo Hall 1st Floor.png");
 		temp2.setFloorTwo("School Floor Plans/png/Crapo Hall 2nd Floor.png");
 		temp2.setFloorThree("School Floor Plans/png/Crapo Hall 3rd Floor.png");
-		temp2.setFloor(0);
+		temp2.setFloor(1);
+		temp2.setX(1000);
+		temp2.setY(485);
+		temp2.setDefaultZoom(.05);
 		buildings.add(temp2);
 		
-		Building temp3 = new Building();
-		temp3.setFloorOne("School Floor Plans/png/Facilities Admin Srvs Building.png");
-		temp3.setFloor(0);
-		buildings.add(temp3);
+//		Building temp3 = new Building();
+//		temp3.setFloorOne("School Floor Plans/png/Facilities Admin Srvs Building.png");
+//		temp3.setFloor(0);
+//		buildings.add(temp3);
 		
 		Building temp4 = new Building();
 		temp4.setFloorOne("School Floor Plans/png/Hadley Hall 1st Floor.png");
 		temp4.setFloorTwo("School Floor Plans/png/Hadley Hall 2nd Floor.png");
 		temp4.setFloor(0);
+		temp4.setX(1050);
+		temp4.setY(640);
+		temp4.setDefaultZoom(.05);
 		buildings.add(temp4);
 		
 		Building temp5 = new Building();
 		temp5.setFloorOne("School Floor Plans/png/Hatfield Hall Lower Level.png");
 		temp5.setFloorTwo("School Floor Plans/png/Hatfield Hall 1st Floor.png");
 		temp5.setFloorThree("School Floor Plans/png/Hatfield Hall 2nd Floor.png");
+		temp5.setX(1230);
+		temp5.setY(840);
+		temp5.setDefaultZoom(.05);
 		temp5.setFloor(0);
 		buildings.add(temp5);
 		
 		Building temp6 = new Building();
 		temp6.setFloorOne("School Floor Plans/png/Kremer Innovation Center.png");
+		temp6.setX(1335);
+		temp6.setY(360);
+		temp6.setDefaultZoom(.05);
 		temp6.setFloor(0);
 		buildings.add(temp6);
 		
@@ -232,6 +247,9 @@ public class XMLEditor {
 		temp7.setFloorOne("School Floor Plans/png/Logan Library 1st Floor.png");
 		temp7.setFloorTwo("School Floor Plans/png/Logan Library 2nd Floor.png");
 		temp7.setFloorThree("School Floor Plans/png/Logan Library 3rd Floor.png");
+		temp7.setX(960);
+		temp7.setY(515);
+		temp7.setDefaultZoom(.05);
 		temp7.setFloor(0);
 		buildings.add(temp7);
 		
@@ -240,18 +258,27 @@ public class XMLEditor {
 		temp8.setFloorTwo("School Floor Plans/png/Moench Hall Lower Level 1.png");
 		temp8.setFloorThree("School Floor Plans/png/Moench Hall 1st Floor.png");
 		temp8.setFloorFour("School Floor Plans/png/Moench Hall 2nd Floor.png");
+		temp8.setX(1110);
+		temp8.setY(490);
+		temp8.setDefaultZoom(.05);
 		temp8.setFloor(2);
 		buildings.add(temp8);
 		
 		Building temp9 = new Building();
 		temp9.setFloorOne("School Floor Plans/png/Myers Hall 1st Floor.png");
 		temp9.setFloorTwo("School Floor Plans/png/Myers Hall 2nd Floor.png");
+		temp9.setX(1200);
+		temp9.setY(485);
+		temp9.setDefaultZoom(.05);
 		temp9.setFloor(0);
 		buildings.add(temp9);
 		
 		Building temp10 = new Building();
 		temp10.setFloorOne("School Floor Plans/png/Olin Hall 1st Floor.png");
 		temp10.setFloorTwo("School Floor Plans/png/Olin Hall 2nd Floor.png");
+		temp10.setX(880);
+		temp10.setY(610);
+		temp10.setDefaultZoom(.05);
 		temp10.setFloor(0);
 		buildings.add(temp10);
 	}
