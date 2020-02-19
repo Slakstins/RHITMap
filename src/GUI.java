@@ -135,6 +135,7 @@ public class GUI extends JComponent {
 	 * @param newNode
 	 */
 	public void addNode(Dijstra.Node newNode) {
+		
 		this.nodes.add(newNode);
 
 		this.repaint();

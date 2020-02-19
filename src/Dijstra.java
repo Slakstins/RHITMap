@@ -230,7 +230,7 @@ public class Dijstra {
 					(GUI.yScreenRatio * y + GUI.yOffset) * GUI.zoomLevel - (Constants.nodeSize * GUI.zoomLevel / 2), Constants.nodeSize * GUI.zoomLevel,
 					Constants.nodeSize * GUI.zoomLevel);
 		}
-
+		
 		public String toString() {
 			return ("Name: " + name + "\nX: " + this.x + "\nY: " + this.y);
 		}
