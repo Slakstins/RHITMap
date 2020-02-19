@@ -69,7 +69,7 @@ public class Main {
 		
 		frame.add(gui, BorderLayout.CENTER);
 		
-		gui.calculatePath("n4", "n6", false, false);
+		gui.calculatePath("Carl", "Jerry", false, false);
 		
 		
 	

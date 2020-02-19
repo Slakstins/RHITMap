@@ -35,7 +35,7 @@ public class GUI extends JComponent {
 	private boolean nameAsked;
 
 	private static ArrayList<Dijstra.Node> nodes = new ArrayList<>();
-	private static ArrayList<Dijstra.Edge> edges = new ArrayList<>();
+	private static ArrayList<Dijstra.Edge> edges = new ArrayList<Dijstra.Edge>();
 	private HashMap<String, Dijstra.Node> nodeNameMap = new HashMap<>();
 	private XMLEditor xmlEditor;
 	private JFrame frame;
@@ -52,6 +52,8 @@ public class GUI extends JComponent {
 	private Dijstra dijstra = new Dijstra();
 
 	public GUI(JFrame frame) {
+		this.edges = new ArrayList<Dijstra.Edge>();
+		this.nodes = new ArrayList<Dijstra.Node>();
 		this.nameAsked = false;
 		screenHeight = frame.getHeight();
 		screenWidth = frame.getWidth();
@@ -67,9 +69,9 @@ public class GUI extends JComponent {
 		Set<Dijstra.Node> keys = nodeEdgeMap.keySet();
 		for (Dijstra.Node i : keys) {
 			nodes.add(i);
-			System.out.println(i.getEdges().size());
 			for (Dijstra.Edge j : i.getEdges()) {
-				 if (!edges.contains(j))edges.add(j);
+				if (!edges.contains(j))
+					edges.add(j);
 				// this adds duplicates of the edges, as multiple nodes have the same edge.
 				// could store edges in a set (sets don't allow dulicates)
 				// to avoid this problem
@@ -83,7 +85,6 @@ public class GUI extends JComponent {
 			System.out.println("did not find RHITMap");
 			e.printStackTrace();
 		}
-
 		generateNodeNameMap();
 
 	}
@@ -196,7 +197,7 @@ public class GUI extends JComponent {
 		for (int i = 0; i < edges.size(); i++) {
 			cost += edges.get(i).getCost();
 		}
-//		System.out.println(cost);
+		System.out.println(cost);
 	}
 
 	public void moveUp() {
@@ -319,13 +320,29 @@ public class GUI extends JComponent {
 	 * @param selNode
 	 */
 	public void deleteNode(Dijstra.Node selNode) {
-		for (Dijstra.Edge e : selNode.getEdges()) {
+		ArrayList<Dijstra.Edge> tempEdges = selNode.getEdges();
+		for (Dijstra.Edge e : tempEdges) {
 			edges.remove(e);
+			
+		}
+		
+		for (int i = 0; i < xmlEditor.edges.size(); i++) {
+
+
+			if (xmlEditor.edges.get(i).getN1().equals(selNode)) {
+				xmlEditor.edges.remove(i);
+			}
+			if (xmlEditor.edges.get(i).getN2().equals(selNode)) {
+				xmlEditor.edges.remove(i);
+			}
 		}
 		nodes.remove(selNode);
+		System.out.println(xmlEditor.nodes.size() + " nodes size");
+		this.xmlEditor.nodes.remove(selNode);
+		System.out.println(xmlEditor.nodes.size() + " nodes size");
+
 		frame.repaint();
 		this.getXMLEditor().updateMapXML();
-
 
 	}
 
@@ -334,7 +351,6 @@ public class GUI extends JComponent {
 
 		this.edges.add(newEdge);
 		this.getXMLEditor().updateMapXML();
-
 
 	}
 
