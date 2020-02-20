@@ -73,13 +73,11 @@ public class Dijstra {
 					new Point2D.Double(n2.x + Constants.nodeSize / 2 - Constants.nodeSize / 2, n2.y + Constants.nodeSize / 2 - Constants.nodeSize / 2));
 		}
 		
-		public int getFloorOne()
-		{
+		public int getFloorOne() {
 			return n1.getFloor();
 		}
 		
-		public int getFLoorTwo()
-		{
+		public int getFLoorTwo() {
 			return n2.getFloor();
 		}
 

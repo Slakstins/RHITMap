@@ -102,7 +102,7 @@ public class GUI extends JComponent {
 				n.drawOn(g2);
 			}	
 		}
-		for (Dijstra.Edge e : edges) { // edges is null for some reason?
+		for (Dijstra.Edge e : edges) {
 			if(e.getFloorOne() == floor.getFloor() || e.getFLoorTwo() == floor.getFloor())
 			{
 				e.drawOn(g2);
