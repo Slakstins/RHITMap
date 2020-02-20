@@ -188,9 +188,9 @@ public class GUI extends JComponent {
 		}
 	}
 
-	private ArrayList<Dijstra.Edge> loadSavedPath(String fileName) {
+	public ArrayList<Dijstra.Edge> loadSavedPath(String fileName) {
 		try {
-			xmlEditor.read(fileName);
+			xmlEditor.read(fileName); //problem with loading paths because this returns this.edges instead of the special path edges
 		} catch (Exception e) {
 			return null;
 		}

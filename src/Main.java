@@ -145,11 +145,15 @@ public class Main {
 		schedulePanel.add(class5);
 		schedulePanel.add(class6);
 		schedulePanel.add(class7);
-		
+		JButton loadPathButton = new JButton("Load Saved Path");
 		JButton savePathButton = new JButton("Save Path");
+		loadPathButton.setFocusable(true);
 		savePathButton.setFocusable(false);
 
+		
 		savePathButton.addActionListener(new SaveButtonListener(frame, this.gui));
+		loadPathButton.addActionListener(new LoadButtonListener(frame, this.gui));
+		schedulePanel.add(loadPathButton);
 		schedulePanel.add(savePathButton);
 
 		//listener should give a text box that then when closed writes the edges to a new file of the name in the textbox
