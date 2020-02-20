@@ -208,7 +208,8 @@ public class ClickHandler {
 
 						Dijstra.Node newNode = gui.getXMLEditor().initializeNewNode(
 								newX,
-								newY, "TBD"); //Initializes with the correct value! Maybe edge is saved wrong? Saves with wrong values
+
+								newY, Floor.getFloor(), "TBD"); //saves with the correct value!
 						gui.addNode(newNode);
 						gui.askName(newNode);
 					}

@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="13.0.2" class="java.beans.XMLDecoder">
+ <object class="java.util.ArrayList">
+  <void method="add">
+   <object class="Building">
+    <void property="defaultZoom">
+     <double>0.08</double>
+    </void>
+    <void property="floorOne">
+     <string>School Floor Plans/png/Branam Innovation Center.png</string>
+    </void>
+    <void property="x">
+     <double>1330.0</double>
+    </void>
+    <void property="y">
+     <double>310.0</double>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="Building">
+    <void property="defaultZoom">
+     <double>0.05</double>
+    </void>
+    <void property="floor">
+     <int>1</int>
+    </void>
+    <void property="floorOne">
+     <string>School Floor Plans/png/Crapo Hall 1st Floor.png</string>
+    </void>
+    <void property="floorThree">
+     <string>School Floor Plans/png/Crapo Hall 3rd Floor.png</string>
+    </void>
+    <void property="floorTwo">
+     <string>School Floor Plans/png/Crapo Hall 2nd Floor.png</string>
+    </void>
+    <void property="x">
+     <double>1000.0</double>
+    </void>
+    <void property="y">
+     <double>485.0</double>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="Building">
+    <void property="defaultZoom">
+     <double>0.05</double>
+    </void>
+    <void property="floorOne">
+     <string>School Floor Plans/png/Hadley Hall 1st Floor.png</string>
+    </void>
+    <void property="floorTwo">
+     <string>School Floor Plans/png/Hadley Hall 2nd Floor.png</string>
+    </void>
+    <void property="x">
+     <double>1050.0</double>
+    </void>
+    <void property="y">
+     <double>640.0</double>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="Building">
+    <void property="defaultZoom">
+     <double>0.05</double>
+    </void>
+    <void property="floorOne">
+     <string>School Floor Plans/png/Hatfield Hall Lower Level.png</string>
+    </void>
+    <void property="floorThree">
+     <string>School Floor Plans/png/Hatfield Hall 2nd Floor.png</string>
+    </void>
+    <void property="floorTwo">
+     <string>School Floor Plans/png/Hatfield Hall 1st Floor.png</string>
+    </void>
+    <void property="x">
+     <double>1230.0</double>
+    </void>
+    <void property="y">
+     <double>840.0</double>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="Building">
+    <void property="defaultZoom">
+     <double>0.05</double>
+    </void>
+    <void property="floorOne">
+     <string>School Floor Plans/png/Kremer Innovation Center.png</string>
+    </void>
+    <void property="x">
+     <double>1335.0</double>
+    </void>
+    <void property="y">
+     <double>360.0</double>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="Building">
+    <void property="defaultZoom">
+     <double>0.05</double>
+    </void>
+    <void property="floorOne">
+     <string>School Floor Plans/png/Logan Library 1st Floor.png</string>
+    </void>
+    <void property="floorThree">
+     <string>School Floor Plans/png/Logan Library 3rd Floor.png</string>
+    </void>
+    <void property="floorTwo">
+     <string>School Floor Plans/png/Logan Library 2nd Floor.png</string>
+    </void>
+    <void property="x">
+     <double>960.0</double>
+    </void>
+    <void property="y">
+     <double>515.0</double>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="Building">
+    <void property="defaultZoom">
+     <double>0.05</double>
+    </void>
+    <void property="floor">
+     <int>2</int>
+    </void>
+    <void property="floorFour">
+     <string>School Floor Plans/png/Moench Hall 2nd Floor.png</string>
+    </void>
+    <void property="floorOne">
+     <string>School Floor Plans/png/Moench Hall Lower Level 2.png</string>
+    </void>
+    <void property="floorThree">
+     <string>School Floor Plans/png/Moench Hall 1st Floor.png</string>
+    </void>
+    <void property="floorTwo">
+     <string>School Floor Plans/png/Moench Hall Lower Level 1.png</string>
+    </void>
+    <void property="x">
+     <double>1110.0</double>
+    </void>
+    <void property="y">
+     <double>490.0</double>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="Building">
+    <void property="defaultZoom">
+     <double>0.05</double>
+    </void>
+    <void property="floorOne">
+     <string>School Floor Plans/png/Myers Hall 1st Floor.png</string>
+    </void>
+    <void property="floorTwo">
+     <string>School Floor Plans/png/Myers Hall 2nd Floor.png</string>
+    </void>
+    <void property="x">
+     <double>1200.0</double>
+    </void>
+    <void property="y">
+     <double>485.0</double>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="Building">
+    <void property="defaultZoom">
+     <double>0.05</double>
+    </void>
+    <void property="floorOne">
+     <string>School Floor Plans/png/Olin Hall 1st Floor.png</string>
+    </void>
+    <void property="floorTwo">
+     <string>School Floor Plans/png/Olin Hall 2nd Floor.png</string>
+    </void>
+    <void property="x">
+     <double>880.0</double>
+    </void>
+    <void property="y">
+     <double>610.0</double>
+    </void>
+   </object>
+  </void>
+ </object>
+</java>

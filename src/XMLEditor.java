@@ -30,8 +30,7 @@ public class XMLEditor {
 	public XMLEditor() {
 		edges = new ArrayList<Dijstra.Edge>();
 		nodes = new ArrayList<Dijstra.Node>();
-
-
+		
 	}
 
 
@@ -46,7 +45,7 @@ public class XMLEditor {
 	 * @param name
 	 * @return
 	 */
-	public Dijstra.Node initializeNewNode(int x, int y, String name) {
+	public Dijstra.Node initializeNewNode(int x, int y, int floor, String name) {
 		
 
 		Dijstra.Node newNode = new Dijstra.Node();
@@ -56,9 +55,8 @@ public class XMLEditor {
 
 		newNode.setX(x);
 		newNode.setY(y);
-		System.out.println(newNode);
-		System.out.println("x newNode: " + newNode.getX());
-		System.out.println("y newNode: " + newNode.getY());
+
+		newNode.setFloor(floor);
 		newNode.setName(name);
 		newNode.setSelected(false);
 		nodes.add(newNode);

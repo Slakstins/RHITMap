@@ -174,25 +174,13 @@ public class Dijstra {
 		private Edge zeroEdge;
 		private Ellipse2D.Double nodeToDraw;
 		private boolean selected;
-		private Building building;
 		private int floor;
 
 		public Node() {
 			zeroEdge = new Edge(this, this, 0, false, false);
 			this.selected = false;
 		}
-
-		public Node(int x, int y, String name, ArrayList<Edge> edges, Building building, int floor) {
-			this.x = x;
-			this.y = y;
-			this.name = name;
-			zeroEdge = new Edge(this, this, 0, false, false);
-			this.edges = edges;
-			this.nodeToDraw = new Ellipse2D.Double(x, y, Constants.nodeSize, Constants.nodeSize);
-			this.building = building;
-			this.floor = floor;
-		}
-
+		
 		public double getX() {
 			return this.x;
 		}
@@ -234,10 +222,6 @@ public class Dijstra {
 		}
 
 		public Ellipse2D convertNodeEllipseToDraw() {
-			
-			
-			
-			
 			return new Ellipse2D.Double(((GUI.xScreenRatio * x + GUI.xOffset) * GUI.zoomLevel) - (Constants.nodeSize * GUI.zoomLevel/ 2),
 					(GUI.yScreenRatio * y + GUI.yOffset) * GUI.zoomLevel - (Constants.nodeSize * GUI.zoomLevel / 2), Constants.nodeSize * GUI.zoomLevel,
 					Constants.nodeSize * GUI.zoomLevel);
@@ -253,16 +237,6 @@ public class Dijstra {
 
 		public ArrayList<Edge> getEdges() {
 			return this.edges;
-		}
-		
-		public Building getBuilding()
-		{
-			return building;
-		}
-		
-		public void setBuilding(Building building)
-		{
-			this.building = building;
 		}
 		
 		public int getFloor()

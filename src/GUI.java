@@ -23,8 +23,6 @@ public class GUI extends JComponent {
 	public static double xScreenRatio;
 	public static double yScreenRatio;
 
-
-
 	public static double xOffset = 0;
 	public static double yOffset = 0;
 	private double startX = 0;
@@ -32,7 +30,7 @@ public class GUI extends JComponent {
 	private double lastX = 0;
 	private double lastY = 0;
 
-	private int mapMoveAmount = 2;
+	private double mapMoveAmount = 2;
 	private JPanel currentText;
 	private boolean nameAsked;
 
@@ -48,6 +46,8 @@ public class GUI extends JComponent {
 	private boolean moveDown = false;
 	private boolean moveLeft = false;
 	private boolean moveRight = false;
+	
+	private Floor floor = new Floor();
 
 	private BufferedImage RHITMap;
 
@@ -63,10 +63,9 @@ public class GUI extends JComponent {
 		xScreenRatio = screenWidth / 1920;
 		yScreenRatio = screenHeight / 1080;
 
-
 		xmlEditor = new XMLEditor();
 		HashMap<Dijstra.Node, ArrayList<Dijstra.Edge>> nodeEdgeMap = xmlEditor.getNodeToEdgeMap();
-
+		
 		this.frame = frame;
 		Set<Dijstra.Node> keys = nodeEdgeMap.keySet();
 		for (Dijstra.Node i : keys) {
@@ -97,6 +96,7 @@ public class GUI extends JComponent {
 
 		Graphics2D g2 = (Graphics2D) g;
 		drawMap(g2);
+		drawFloor(g2);
 		for (Dijstra.Node n : nodes) {
 			n.drawOn(g2);
 		}
@@ -127,6 +127,14 @@ public class GUI extends JComponent {
 		g.drawImage(RHITMap, (int) (xOffset * zoomLevel), (int) (yOffset * zoomLevel),
 				(int) ((screenWidth + xOffset) * zoomLevel), (int) ((screenHeight + yOffset) * zoomLevel), 0, 0,
 				RHITMap.getWidth(), RHITMap.getHeight(), null);
+	}
+	
+	private void drawFloor(Graphics2D g)
+	{
+		BufferedImage temp = floor.getImage();
+		g.drawImage(temp, (int) (xOffset * zoomLevel), (int) (yOffset * zoomLevel),
+				(int) ((screenWidth + xOffset) * zoomLevel), (int) ((screenHeight + yOffset) * zoomLevel), 0, 0,
+				temp.getWidth(), temp.getHeight(), null);
 	}
 
 	/**
@@ -215,27 +223,27 @@ public class GUI extends JComponent {
 
 	public void moveUp() {
 		this.moveUp = true;
-		GUI.yOffset += mapMoveAmount;
+		GUI.yOffset += mapMoveAmount / zoomLevel;
 		this.repaint();
 	}
 
 	public void moveDown() {
 		this.moveDown = true;
-		GUI.yOffset -= mapMoveAmount;
+		GUI.yOffset -= mapMoveAmount / zoomLevel;
 		this.repaint();
 	}
 
 	public void moveRight() {
 		this.moveRight = true;
 
-		GUI.xOffset -= mapMoveAmount;
+		GUI.xOffset -= mapMoveAmount / zoomLevel;
 		this.repaint();
 	}
 
 	public void moveLeft() {
 		this.moveLeft = true;
 
-		GUI.xOffset += mapMoveAmount;
+		GUI.xOffset += mapMoveAmount / zoomLevel;
 		this.repaint();
 	}
 
@@ -403,7 +411,4 @@ public class GUI extends JComponent {
 		this.getXMLEditor().updateMapXML();
 
 	}
-
-
-
 }
