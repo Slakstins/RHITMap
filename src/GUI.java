@@ -23,8 +23,6 @@ public class GUI extends JComponent {
 	public static double xScreenRatio;
 	public static double yScreenRatio;
 
-
-
 	public static double xOffset = 0;
 	public static double yOffset = 0;
 	private double startX = 0;
@@ -38,7 +36,6 @@ public class GUI extends JComponent {
 
 	private static ArrayList<Dijstra.Node> nodes = new ArrayList<>();
 	private static ArrayList<Dijstra.Edge> edges = new ArrayList<Dijstra.Edge>();
-	private static ArrayList<Building> buildings = new ArrayList<>();
 	private HashMap<String, Dijstra.Node> nodeNameMap = new HashMap<>();
 	private XMLEditor xmlEditor;
 	private static JFrame frame;
@@ -49,6 +46,8 @@ public class GUI extends JComponent {
 	private boolean moveDown = false;
 	private boolean moveLeft = false;
 	private boolean moveRight = false;
+	
+	private Floor floor = new Floor();
 
 	private BufferedImage RHITMap;
 
@@ -64,19 +63,8 @@ public class GUI extends JComponent {
 		xScreenRatio = screenWidth / 1920;
 		yScreenRatio = screenHeight / 1080;
 
-
 		xmlEditor = new XMLEditor();
 		HashMap<Dijstra.Node, ArrayList<Dijstra.Edge>> nodeEdgeMap = xmlEditor.getNodeToEdgeMap();
-		try {
-			buildings = xmlEditor.readBuildings("AllBuildings.xml");
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		for(int i = 0; i < buildings.size(); i++)
-		{
-			buildings.get(i).loadImages();
-		}
 		
 		this.frame = frame;
 		Set<Dijstra.Node> keys = nodeEdgeMap.keySet();
@@ -108,7 +96,7 @@ public class GUI extends JComponent {
 
 		Graphics2D g2 = (Graphics2D) g;
 		drawMap(g2);
-		drawFloors(g2);
+		drawFloor(g2);
 		for (Dijstra.Node n : nodes) {
 			n.drawOn(g2);
 		}
@@ -141,19 +129,12 @@ public class GUI extends JComponent {
 				RHITMap.getWidth(), RHITMap.getHeight(), null);
 	}
 	
-	private void drawFloors(Graphics2D g)
+	private void drawFloor(Graphics2D g)
 	{
-		for(int i = 0; i < buildings.size(); i++)
-		{
-			double zoom = buildings.get(i).getDefaultZoom();
-			BufferedImage temp = buildings.get(i).getFloorImage();
-			double x = xOffset + buildings.get(i).getX();
-			double y = yOffset + buildings.get(i).getY();
-			
-			g.drawImage(temp, (int) (x * zoomLevel), (int) (y * zoomLevel),
-			(int) ((temp.getWidth() * zoom + x) * zoomLevel), (int) ((temp.getHeight() * zoom + y) * zoomLevel), 
-			0, 0, temp.getWidth(), temp.getHeight(), null);
-		}
+		BufferedImage temp = floor.getImage();
+		g.drawImage(temp, (int) (xOffset * zoomLevel), (int) (yOffset * zoomLevel),
+				(int) ((screenWidth + xOffset) * zoomLevel), (int) ((screenHeight + yOffset) * zoomLevel), 0, 0,
+				temp.getWidth(), temp.getHeight(), null);
 	}
 
 	/**
@@ -430,7 +411,4 @@ public class GUI extends JComponent {
 		this.getXMLEditor().updateMapXML();
 
 	}
-
-
-
 }
