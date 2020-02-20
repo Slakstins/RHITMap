@@ -74,7 +74,6 @@ public class ClickHandler {
 							Dijstra.Edge newEdge = gui.getXMLEditor().initializeNewEdge(selNode1, selNode2);
 							gui.addEdge(newEdge); // adding the edge does not add the edge to the nodes' array lists
 							gui.askCost(newEdge);
-							System.out.println("edge add");
 							frame.repaint();
 						}
 					}
@@ -155,17 +154,18 @@ public class ClickHandler {
 			 */
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() == 2) {
+
 					boolean foundContains = false;
 					// check each node to see if it was clicked
-					for (Dijstra.Node i : gui.getXMLEditor().nodes) {
+					for (Dijstra.Node i : gui.getNodes()) {
+		
 
 						Rectangle bounds = new Rectangle((int) (i.specialGetEx() - i.getSize() / 2),
 								(int) (i.specialGetWhy() - i.getSize() / 2), (int) i.getSize(), (int) i.getSize());
 
 						// a node was clicked
-						if (bounds.contains(new Point(e.getX(), e.getY()))) { //nodes x y are incorrect here
-							System.out.println("gui node x: " + i.specialGetEx());
-							System.out.println("gui node y: " + i.specialGetWhy());
+						if (bounds.contains(new Point(e.getX(), e.getY()))) { 
+
 
 
 							foundContains = true;
