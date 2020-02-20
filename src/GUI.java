@@ -190,14 +190,23 @@ public class GUI extends JComponent {
 
 	public ArrayList<Dijstra.Edge> loadSavedPath(String fileName) {
 		try {
+			
+			xmlEditor.updateMapXML();
+			this.edges.clear();
+			xmlEditor.edges.clear();
 			xmlEditor.read(fileName); //problem with loading paths because this returns this.edges instead of the special path edges
+			this.edges = this.xmlEditor.edges;
+			this.xmlEditor.setFileNameToWrite(fileName);
+			this.repaint();
 		} catch (Exception e) {
 			return null;
 		}
+		
 
 		if (this.edges.size() == 0) {
 			System.out.println("file not read " + fileName);
 		}
+		
 		return this.edges;
 	}
 
