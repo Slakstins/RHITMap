@@ -19,8 +19,8 @@ public class XMLEditor {
 	// storing edges instead of nodes in the XML allows for faster retrieval of
 	// nodes for restoring saved class path data, but
 	// it will make Dijstra's slower.
-	private String fileNameToRead = "ANewFile6.xml";
-	private String fileNameToWrite = "ANewFile6.xml";
+	private String fileNameToRead = "ANewFile7.xml";
+	private String fileNameToWrite = "ANewFile7.xml";
 
 	private boolean pastDeleted = false;
 
@@ -49,8 +49,7 @@ public class XMLEditor {
 		
 
 		Dijstra.Node newNode = new Dijstra.Node();
-		System.out.println("x: " + x);
-		System.out.println("y: " + y);
+
 
 
 		newNode.setX(x);
@@ -65,8 +64,7 @@ public class XMLEditor {
 	}
 
 	public Dijstra.Edge initializeNewEdge(Dijstra.Node node1, Dijstra.Node node2) {
-		System.out.println("node x is: " + node1.getX());
-		System.out.println("node y is: " + node1.getY());
+
 		Dijstra.Edge newEdge = new Dijstra.Edge();
 		newEdge.setWCA(true);
 		newEdge.setOutside(true);
@@ -104,6 +102,8 @@ public class XMLEditor {
 			}
 		}
 	}
+	
+
 
 	public void updateMapXML() {
 		if (!this.pastDeleted) {
@@ -135,6 +135,10 @@ public class XMLEditor {
 	 * @throws Exception
 	 */
 	public void writeEdges(ArrayList<Dijstra.Edge> edges, String filename) throws Exception {
+		if (filename.equals("")) {
+			System.out.println("invalid file name");
+			return;
+		}
 
 		XMLEncoder encoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(filename)));
 		for (int i = 0; i < edges.size(); i++) {

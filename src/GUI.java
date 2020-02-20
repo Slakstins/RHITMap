@@ -46,7 +46,7 @@ public class GUI extends JComponent {
 	private boolean moveDown = false;
 	private boolean moveLeft = false;
 	private boolean moveRight = false;
-	
+
 	private Floor floor = new Floor();
 
 	private BufferedImage RHITMap;
@@ -54,7 +54,7 @@ public class GUI extends JComponent {
 	private Dijstra dijstra = new Dijstra();
 
 	public GUI(JFrame frame) {
-	
+
 		this.edges = new ArrayList<Dijstra.Edge>();
 		this.nodes = new ArrayList<Dijstra.Node>();
 		this.nameAsked = false;
@@ -65,7 +65,7 @@ public class GUI extends JComponent {
 
 		xmlEditor = new XMLEditor();
 		HashMap<Dijstra.Node, ArrayList<Dijstra.Edge>> nodeEdgeMap = xmlEditor.getNodeToEdgeMap();
-		
+
 		this.frame = frame;
 		Set<Dijstra.Node> keys = nodeEdgeMap.keySet();
 		for (Dijstra.Node i : keys) {
@@ -92,7 +92,6 @@ public class GUI extends JComponent {
 
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-
 
 		Graphics2D g2 = (Graphics2D) g;
 		drawMap(g2);
@@ -128,9 +127,8 @@ public class GUI extends JComponent {
 				(int) ((screenWidth + xOffset) * zoomLevel), (int) ((screenHeight + yOffset) * zoomLevel), 0, 0,
 				RHITMap.getWidth(), RHITMap.getHeight(), null);
 	}
-	
-	private void drawFloor(Graphics2D g)
-	{
+
+	private void drawFloor(Graphics2D g) {
 		BufferedImage temp = floor.getImage();
 		g.drawImage(temp, (int) (xOffset * zoomLevel), (int) (yOffset * zoomLevel),
 				(int) ((screenWidth + xOffset) * zoomLevel), (int) ((screenHeight + yOffset) * zoomLevel), 0, 0,
@@ -143,7 +141,7 @@ public class GUI extends JComponent {
 	 * @param newNode
 	 */
 	public void addNode(Dijstra.Node newNode) {
-		
+
 		this.nodes.add(newNode);
 
 		this.repaint();
@@ -175,12 +173,14 @@ public class GUI extends JComponent {
 
 	}
 
-	private void savePath(String fileName) {
+	public void savePath(String fileName) {
 		try {
+		
 			xmlEditor.writeEdges(Dijstra.shortestPathEdges, fileName);
 			if (Dijstra.shortestPathEdges.isEmpty()) {
 				System.out.println("current path is empty but saved regardless");
 			}
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			System.out.println("Cannot save path");
@@ -204,13 +204,12 @@ public class GUI extends JComponent {
 	public static void draw(ArrayList<Dijstra.Edge> pathEdges) {
 		int cost = 0;
 		if (Main.calculatingMultiplePaths == false) {
-		edges = pathEdges;
-		}else {
+			edges = pathEdges;
+		} else {
 			for (Dijstra.Edge i : pathEdges) {
 				edges.add(i);
 			}
 		}
-		
 
 		for (int i = 0; i < edges.size(); i++) {
 			edges.get(i).setOnPath(true);
@@ -284,8 +283,8 @@ public class GUI extends JComponent {
 		repaint();
 	}
 
-	public void setMousePos() { //this method is not used
-		
+	public void setMousePos() { // this method is not used
+
 		startX = getMousePosition().getX();
 		startY = getMousePosition().getY();
 		System.out.println(startX);
@@ -331,15 +330,13 @@ public class GUI extends JComponent {
 		this.frame.getContentPane().add(panel);
 		this.frame.validate();
 
-		textGet.addActionListener(new NodeNameGetListener
-				(textGet, panel, node, this.frame, this));
+		textGet.addActionListener(new NodeNameGetListener(textGet, panel, node, this.frame, this));
 
 		textGet.grabFocus();
 
 	}
-	
+
 	public void askCost(Dijstra.Edge edge) {
-		
 
 		JTextField costGet = new JTextField(String.valueOf(edge.getCost()), 40);
 		costGet.selectAll();
@@ -350,13 +347,10 @@ public class GUI extends JComponent {
 		panel.setBounds(0, 40, 100, 100);
 		this.frame.getContentPane().add(panel);
 		this.frame.validate();
-		costGet.addActionListener(new EdgeCostGetListener
-				(costGet, panel, edge, this.frame, this));
+		costGet.addActionListener(new EdgeCostGetListener(costGet, panel, edge, this.frame, this));
 
 		costGet.grabFocus();
-		
-		
-		
+
 	}
 
 	/**

@@ -42,12 +42,13 @@ public class Main {
 		frame.setVisible(true);
 
 		setUpZoomPannel(frame);
-		setUpSchedulePannel(frame);
 		setUpFloorPannel(frame);
 		
 		GUI gui = new GUI(frame);
 		this.gui = gui;
 		
+		setUpSchedulePannel(frame);
+
 		new ClickHandler(frame, gui);
 		
 		frame.add(gui, BorderLayout.CENTER);
@@ -129,12 +130,12 @@ public class Main {
 		JTextField class6 = new JTextField(10);
 		JTextField class7 = new JTextField(10);
 		
-		JButton submitButton = new JButton("Calculate");
-		submitButton.setFocusable(false);
+		JButton calculateButton = new JButton("Calculate");
+		calculateButton.setFocusable(false);
 		
-		schedulePanel.add(submitButton);
+		schedulePanel.add(calculateButton);
 		
-		submitButton.addActionListener(new ClassNameListener(this, class1, class2, class3, class4, class5, class6, class7));
+		calculateButton.addActionListener(new ClassNameListener(this, class1, class2, class3, class4, class5, class6, class7));
 
 		class1.setFocusable(true);
 		schedulePanel.add(class1);
@@ -144,6 +145,15 @@ public class Main {
 		schedulePanel.add(class5);
 		schedulePanel.add(class6);
 		schedulePanel.add(class7);
+		
+		JButton savePathButton = new JButton("Save Path");
+		savePathButton.setFocusable(false);
+
+		savePathButton.addActionListener(new SaveButtonListener(frame, this.gui));
+		schedulePanel.add(savePathButton);
+
+		//listener should give a text box that then when closed writes the edges to a new file of the name in the textbox
+		
 		
 		//make position and size relative to screen size
 		schedulePanel.setLocation(5,5);
