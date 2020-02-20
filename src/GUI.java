@@ -98,10 +98,16 @@ public class GUI extends JComponent {
 		drawMap(g2);
 		drawFloor(g2);
 		for (Dijstra.Node n : nodes) {
-			n.drawOn(g2);
+			if(n.getFloor() == floor.getFloor())
+			{
+				n.drawOn(g2);
+			}	
 		}
 		for (Dijstra.Edge e : edges) { // edges is null for some reason?
-			e.drawOn(g2);
+			if(e.getFloorOne() == floor.getFloor() || e.getFLoorTwo() == floor.getFloor())
+			{
+				e.drawOn(g2);
+			}
 		}
 
 		if (moveUp) {
