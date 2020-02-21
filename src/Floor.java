@@ -7,7 +7,7 @@ import javax.imageio.ImageIO;
 
 public class Floor {
 	private static ArrayList<BufferedImage> floors;
-	private static int floor;
+	public static int floor;
 	
 	public Floor()
 	{

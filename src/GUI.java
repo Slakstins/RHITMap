@@ -32,7 +32,7 @@ public class GUI extends JComponent {
 	private double lastX = 0;
 	private double lastY = 0;
 
-	private double mapMoveAmount = 2;
+	private double mapMoveAmount = 10;
 	private JPanel currentText;
 	private boolean nameAsked;
 

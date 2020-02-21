@@ -284,7 +284,7 @@ public class Dijstra {
 
 		public void calculatePath() {
 			for (int i = 0; i < edges.size(); i++) {
-				if(edges.get(i).wca == wca)
+				if(!wca || edges.get(i).wca == wca)
 				{
 					Node n = edges.get(i).getEndNode(this);
 					if (shortestPathMap.containsKey(n)) {

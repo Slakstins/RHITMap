@@ -153,7 +153,7 @@ public class ClickHandler {
 			 * for creating nodes and edges
 			 */
 			public void mouseClicked(MouseEvent e) {
-				if (e.getClickCount() == 2) {
+				if (e.getClickCount() == 1) {
 
 					boolean foundContains = false;
 					// check each node to see if it was clicked

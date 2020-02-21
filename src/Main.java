@@ -181,7 +181,7 @@ public class Main {
 		
 		schedulePanel.add(calculateButton);
 		
-		calculateButton.addActionListener(new ClassNameListener(this, class1, class2, class3, class4, class5, class6, class7));
+		calculateButton.addActionListener(new ClassNameListener(this, frame,class1, class2, class3, class4, class5, class6, class7));
 
 		class1.setFocusable(true);
 		schedulePanel.add(class1);
