@@ -8,6 +8,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -193,6 +194,33 @@ public class Main {
 		JButton savePathButton = new JButton("Save Path");
 		loadPathButton.setFocusable(true);
 		savePathButton.setFocusable(false);
+		
+		JCheckBox wcaBox = new JCheckBox("WCA");
+		
+		schedulePanel.add(wcaBox);
+		wcaBox.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				gui.getDijstra().setOutside(wcaBox.isSelected());
+				
+			}
+			
+		});
+		
+		JCheckBox outsideBox = new JCheckBox("Outside");
+		
+		schedulePanel.add(outsideBox);
+		wcaBox.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				gui.getDijstra().setWca(wcaBox.isSelected());
+			}
+			
+		});
+		
+
 
 		
 		savePathButton.addActionListener(new SaveButtonListener(frame, this.gui));
