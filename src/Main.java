@@ -203,7 +203,8 @@ public class Main {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				gui.getDijstra().setOutside(wcaBox.isSelected());
+				gui.getDijstra().wca = (wcaBox.isSelected());
+				
 				
 			}
 			
@@ -212,11 +213,11 @@ public class Main {
 		JCheckBox outsideBox = new JCheckBox("Outside");
 		
 		schedulePanel.add(outsideBox);
-		wcaBox.addActionListener(new ActionListener() {
+		outsideBox.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				gui.getDijstra().setWca(wcaBox.isSelected());
+				gui.getDijstra().outsidePath = (outsideBox.isSelected());
 			}
 			
 		});

@@ -13,8 +13,8 @@ public class Dijstra {
 	private static HashMap<Node, ArrayList<Edge>> shortestPathMap = new HashMap<>();
 	public static ArrayList<Edge> shortestPathEdges = new ArrayList<>();
 	private static PriorityQueue<Node> queue = new PriorityQueue<>();
-	private static boolean outsidePath = true;
-	private static boolean wca = false;
+	public static boolean outsidePath = true;
+	public static boolean wca = false;
 
 	public Dijstra() {
 
