@@ -97,13 +97,13 @@ public class GUI extends JComponent {
 		drawMap(g2);
 		drawFloor(g2);
 		for (Dijstra.Node n : nodes) {
-			if(n.getFloor() == floor.getFloor())
+			if(n.getOutside() || n.getFloor() == floor.getFloor())
 			{
 				n.drawOn(g2);
 			}	
 		}
 		for (Dijstra.Edge e : edges) {
-			if(e.getFloorOne() == floor.getFloor() || e.getFLoorTwo() == floor.getFloor())
+			if(e.getOutside() || e.getFloorOne() == floor.getFloor() || e.getFLoorTwo() == floor.getFloor())
 			{
 				e.drawOn(g2);
 			}
@@ -170,7 +170,7 @@ public class GUI extends JComponent {
 			if (nodeNameMap.get(startNode) == null || nodeNameMap.get(endNode) == null) {
 				throw new Exception();
 			}
-			this.dijstra.calculatePath(nodeNameMap.get(startNode), nodeNameMap.get(endNode));
+			this.dijstra.calculatePath(nodeNameMap.get(startNode), nodeNameMap.get(endNode), outside, wca);
 			// make sure nodenamepath communicated with XML
 //			savePath(startNode + endNode + outside + wca);
 
