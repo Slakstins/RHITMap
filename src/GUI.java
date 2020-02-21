@@ -54,8 +54,13 @@ public class GUI extends JComponent {
 	private BufferedImage RHITMap;
 
 	private Dijstra dijstra = new Dijstra();
+	
+	private boolean wca;
+	private boolean outside;
 
 	public GUI(JFrame frame) {
+		this.outside = false;
+		this.wca = false;
 
 		this.edges = new ArrayList<Dijstra.Edge>();
 		this.nodes = new ArrayList<Dijstra.Node>();
@@ -210,6 +215,7 @@ public class GUI extends JComponent {
 		{
 			
 		}
+
 		this.dijstra.calculatePath(nodeNameMap.get(startNode), nodeNameMap.get(endNode));
 	}
 
@@ -452,5 +458,25 @@ public class GUI extends JComponent {
 		this.edges.add(newEdge);
 		this.getXMLEditor().updateMapXML();
 
+	}
+
+	public boolean getWca() {
+		return wca;
+	}
+
+	public void setWca(boolean wca) {
+		this.wca = wca;
+	}
+
+	public boolean getOutside() {
+		return outside;
+	}
+
+	public void setOutside(boolean outside) {
+		this.outside = outside;
+	}
+
+	public Dijstra getDijstra() {
+		return dijstra;
 	}
 }
