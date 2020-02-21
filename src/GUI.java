@@ -3,6 +3,8 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.WindowEvent;
+import java.awt.geom.Line2D;
+import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
@@ -161,7 +163,7 @@ public class GUI extends JComponent {
 		}
 	}
 
-	public void calculatePath(String startNode, String endNode, boolean outside, boolean wca) {
+	public void calculatePath(String startNode, String endNode) {
 		ArrayList<Dijstra.Edge> path = new ArrayList<>();
 //		if ((path = loadSavedPath(startNode + endNode + outside + wca)) != null) {
 //			draw(path);
@@ -170,13 +172,31 @@ public class GUI extends JComponent {
 			if (nodeNameMap.get(startNode) == null || nodeNameMap.get(endNode) == null) {
 				throw new Exception();
 			}
-			this.dijstra.calculatePath(nodeNameMap.get(startNode), nodeNameMap.get(endNode), outside, wca);
+			this.dijstra.calculatePath(nodeNameMap.get(startNode), nodeNameMap.get(endNode));
 			// make sure nodenamepath communicated with XML
 //			savePath(startNode + endNode + outside + wca);
 
 		} catch (Exception e) {
 		}
-
+	}
+	
+	public void parkour(String startNode, String endNode)
+	{
+		try
+		{
+			Dijstra.Node n1 = nodeNameMap.get(startNode);
+			Dijstra.Node n2 = nodeNameMap.get(endNode);
+			if(n1 == null || n2 == null)
+			{
+				throw new Exception();
+			}
+			Line2D.Double edge = new Line2D.Double(new Point2D.Double(n1.getX() + Constants.nodeSize / 2 - Constants.nodeSize / 2, n1.getY() + Constants.nodeSize / 2 - Constants.nodeSize / 2),
+					new Point2D.Double(n2.getX() + Constants.nodeSize / 2 - Constants.nodeSize / 2, n2.getY() + Constants.nodeSize / 2 - Constants.nodeSize / 2));
+		}
+		catch(Exception e)
+		{
+			
+		}
 	}
 
 	public void savePath(String fileName) {

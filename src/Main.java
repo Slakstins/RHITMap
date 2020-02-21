@@ -66,14 +66,14 @@ public class Main {
 		this.className6 = class6;
 		this.className7 = class7;
 		
-		gui.calculatePath(className1, className2, true, true);
+		gui.calculatePath(className1, className2);
 		this.calculatingMultiplePaths = true;
 
-		gui.calculatePath(className2, className3, false, false);
-		gui.calculatePath(className3, className4, false, false);
-		gui.calculatePath(className4, className5, false, false);
-		gui.calculatePath(className5, className6, false, false);
-		gui.calculatePath(className6, className7, false, false);
+		gui.calculatePath(className2, className3);
+		gui.calculatePath(className3, className4);
+		gui.calculatePath(className4, className5);
+		gui.calculatePath(className5, className6);
+		gui.calculatePath(className6, className7);
 		this.calculatingMultiplePaths = false;
 
 		//dijstra does not have error handling for if a path is not found between 2 nodes. This will 
