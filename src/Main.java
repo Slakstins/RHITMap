@@ -68,6 +68,7 @@ public class Main {
 		this.className5 = class5;
 		this.className6 = class6;
 		this.className7 = class7;
+
 		field1.setBackground(Color.GREEN);
 		field2.setBackground(Color.GREEN);
 		field3.setBackground(Color.GREEN);
@@ -77,7 +78,7 @@ public class Main {
 		field7.setBackground(Color.GREEN);
 
 		try {
-		gui.calculatePath(className1, className2, true, true);
+		gui.calculatePath(className1, className2);
 		} catch (Exception e) {
 			field1.setBackground(Color.red);
 			field2.setBackground(Color.red);
@@ -86,33 +87,33 @@ public class Main {
 		this.calculatingMultiplePaths = true;
 		
 		try {
-		gui.calculatePath(className2, className3, false, false);
+		gui.calculatePath(className2, className3);
 		} catch (Exception e) {
 			field3.setBackground(Color.red);
 
 			
 		}
 		try {
-		gui.calculatePath(className3, className4, false, false);
+		gui.calculatePath(className3, className4);
 		} catch (Exception e) {
 			field4.setBackground(Color.red);
 
 			
 		}
 		try {
-		gui.calculatePath(className4, className5, false, false);
+		gui.calculatePath(className4, className5);
 		} catch (Exception e) {
 			field5.setBackground(Color.red);
 
 		}
 		try {
-		gui.calculatePath(className5, className6, false, false);
+		gui.calculatePath(className5, className6);
 		} catch (Exception e) {
 			field6.setBackground(Color.red);
 
 		}
 		try {
-		gui.calculatePath(className6, className7, false, false);
+		gui.calculatePath(className6, className7);
 		} catch (Exception e) {
 			field6.setBackground(Color.red);
 			field7.setBackground(Color.RED);

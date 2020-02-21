@@ -13,18 +13,29 @@ public class Dijstra {
 	private static HashMap<Node, ArrayList<Edge>> shortestPathMap = new HashMap<>();
 	public static ArrayList<Edge> shortestPathEdges = new ArrayList<>();
 	private static PriorityQueue<Node> queue = new PriorityQueue<>();
+	private static boolean outsidePath = true;
+	private static boolean wca = false;
 
 	public Dijstra() {
 
 	}
+	
+	private void setOutsidePath(boolean outsidePath) {
+		this.outsidePath = outsidePath;
+	}
+	
+	private void setWCA(boolean wca)
+	{
+		this.wca = wca;
+	}
 
-	public void calculatePath(Node startNode, Node endNode, boolean outside, boolean wca) {
+	public void calculatePath(Node startNode, Node endNode) {
 		ArrayList<Edge> path = new ArrayList<>();
 		path.add(startNode.zeroEdge);
 		shortestPathMap.put(startNode, path);
 		queue.offer(startNode);
 		while (!queue.isEmpty()) {
-			queue.poll().calculatePath(outside, wca);
+			queue.poll().calculatePath();
 		}
 		GUI.draw(shortestPathMap.get(endNode));
 		shortestPathEdges = shortestPathMap.get(endNode);
@@ -39,7 +50,14 @@ public class Dijstra {
 		int cost = 0;
 		ArrayList<Edge> path = shortestPathMap.get(n);
 		for (int i = 0; i < path.size(); i++) {
-			cost += path.get(i).getCost();
+			if(outsidePath)
+			{
+				cost += path.get(i).getCost();
+			}
+			else
+			{
+				cost += path.get(i).getCost() * 3;
+			}
 		}
 		return cost;
 	}
@@ -165,7 +183,6 @@ public class Dijstra {
 			this.outside = !this.outside;
 			return this.outside;
 			// TODO Auto-generated method stub
-			
 		}
 		
 		public boolean flipWCA() {
@@ -265,9 +282,9 @@ public class Dijstra {
 			return false;
 		}
 
-		public void calculatePath(boolean outside, boolean wca) {
+		public void calculatePath() {
 			for (int i = 0; i < edges.size(); i++) {
-				if(edges.get(i).outside == outside && edges.get(i).wca == wca)
+				if(edges.get(i).wca == wca)
 				{
 					Node n = edges.get(i).getEndNode(this);
 					if (shortestPathMap.containsKey(n)) {
