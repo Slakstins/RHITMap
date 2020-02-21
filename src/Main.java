@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridBagLayout;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
@@ -57,7 +58,8 @@ public class Main {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
-	public void updateClassNames(String class1, String class2,String class3,String class4,String class5,String class6,String class7 ) {
+	public void updateClassNames(String class1, String class2,String class3,String class4,String class5,String class6,String class7 , JTextField field1, 
+			JTextField field2, JTextField field3, JTextField field4, JTextField field5, JTextField field6, JTextField field7) {
 		this.className1 = class1;
 		this.className2 = class2;
 		this.className3 = class3;
@@ -65,15 +67,58 @@ public class Main {
 		this.className5 = class5;
 		this.className6 = class6;
 		this.className7 = class7;
-		
-		gui.calculatePath(className1, className2, true, true);
-		this.calculatingMultiplePaths = true;
+		field1.setBackground(Color.GREEN);
+		field2.setBackground(Color.GREEN);
+		field3.setBackground(Color.GREEN);
+		field4.setBackground(Color.GREEN);
+		field5.setBackground(Color.GREEN);
+		field6.setBackground(Color.GREEN);
+		field7.setBackground(Color.GREEN);
 
+		try {
+		gui.calculatePath(className1, className2, true, true);
+		} catch (Exception e) {
+			field1.setBackground(Color.red);
+			field2.setBackground(Color.red);
+
+		}
+		this.calculatingMultiplePaths = true;
+		
+		try {
 		gui.calculatePath(className2, className3, false, false);
+		} catch (Exception e) {
+			field3.setBackground(Color.red);
+
+			
+		}
+		try {
 		gui.calculatePath(className3, className4, false, false);
+		} catch (Exception e) {
+			field4.setBackground(Color.red);
+
+			
+		}
+		try {
 		gui.calculatePath(className4, className5, false, false);
+		} catch (Exception e) {
+			field5.setBackground(Color.red);
+
+		}
+		try {
 		gui.calculatePath(className5, className6, false, false);
+		} catch (Exception e) {
+			field6.setBackground(Color.red);
+
+		}
+		try {
 		gui.calculatePath(className6, className7, false, false);
+		} catch (Exception e) {
+			field6.setBackground(Color.red);
+			field7.setBackground(Color.RED);
+
+			
+		}
+		
 		this.calculatingMultiplePaths = false;
 
 		//dijstra does not have error handling for if a path is not found between 2 nodes. This will 

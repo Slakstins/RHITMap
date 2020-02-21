@@ -97,14 +97,12 @@ public class GUI extends JComponent {
 		drawMap(g2);
 		drawFloor(g2);
 		for (Dijstra.Node n : nodes) {
-			if(n.getFloor() == floor.getFloor())
-			{
+			if (n.getFloor() == floor.getFloor()) {
 				n.drawOn(g2);
-			}	
+			}
 		}
 		for (Dijstra.Edge e : edges) {
-			if(e.getFloorOne() == floor.getFloor() || e.getFLoorTwo() == floor.getFloor())
-			{
+			if (e.getFloorOne() == floor.getFloor() || e.getFLoorTwo() == floor.getFloor()) {
 				e.drawOn(g2);
 			}
 		}
@@ -161,27 +159,25 @@ public class GUI extends JComponent {
 		}
 	}
 
-	public void calculatePath(String startNode, String endNode, boolean outside, boolean wca) {
+	public void calculatePath(String startNode, String endNode, boolean outside, boolean wca) throws Exception{
 		ArrayList<Dijstra.Edge> path = new ArrayList<>();
-//		if ((path = loadSavedPath(startNode + endNode + outside + wca)) != null) {
-//			draw(path);
-//		} else {
-		try {
-			if (nodeNameMap.get(startNode) == null || nodeNameMap.get(endNode) == null) {
-				throw new Exception();
-			}
-			this.dijstra.calculatePath(nodeNameMap.get(startNode), nodeNameMap.get(endNode));
-			// make sure nodenamepath communicated with XML
-//			savePath(startNode + endNode + outside + wca);
+		String empty = "";
+	
+		if ((nodeNameMap.get(startNode) == null && !(startNode.equals(empty))) && ((nodeNameMap.get(endNode) == null && !(endNode.equals(empty))))) {
+			System.out.println(startNode.toString());
+			System.out.println(endNode.toString());
 
-		} catch (Exception e) {
+			throw new Exception();
+			
 		}
+		this.dijstra.calculatePath(nodeNameMap.get(startNode), nodeNameMap.get(endNode));
+
 
 	}
 
 	public void savePath(String fileName) {
 		try {
-		
+
 			xmlEditor.writeEdges(Dijstra.shortestPathEdges, fileName);
 			if (Dijstra.shortestPathEdges.isEmpty()) {
 				System.out.println("current path is empty but saved regardless");
@@ -196,23 +192,23 @@ public class GUI extends JComponent {
 
 	public ArrayList<Dijstra.Edge> loadSavedPath(String fileName) {
 		try {
-			
+
 			xmlEditor.updateMapXML();
 			this.edges.clear();
 			xmlEditor.edges.clear();
-			xmlEditor.read(fileName); //problem with loading paths because this returns this.edges instead of the special path edges
+			xmlEditor.read(fileName); // problem with loading paths because this returns this.edges instead of the
+										// special path edges
 			this.edges = this.xmlEditor.edges;
 			this.xmlEditor.setFileNameToWrite(fileName);
 			this.repaint();
 		} catch (Exception e) {
 			return null;
 		}
-		
 
 		if (this.edges.size() == 0) {
 			System.out.println("file not read " + fileName);
 		}
-		
+
 		return this.edges;
 	}
 
@@ -302,8 +298,7 @@ public class GUI extends JComponent {
 
 		startX = getMousePosition().getX();
 		startY = getMousePosition().getY();
-		System.out.println(startX);
-		System.out.println(startY);
+
 	}
 
 	public void close() {

@@ -169,7 +169,6 @@ public class XMLEditor {
 			this.writeEdges(edges, filename);
 			file = new FileInputStream(filename);
 		}
-		System.out.println("here");
 
 		
 		XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(file));
@@ -180,7 +179,6 @@ public class XMLEditor {
 				Object tempEdgeMaybe = decoder.readObject();
 
 				if (tempEdgeMaybe instanceof Dijstra.Edge) {
-					System.out.println("found");
 
 					this.edges.add((Dijstra.Edge) tempEdgeMaybe); // for some reason the size of edges increments when
 																	// adding nodes??
