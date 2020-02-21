@@ -16,6 +16,7 @@ import java.util.Set;
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -274,6 +275,7 @@ public class GUI extends JComponent {
 		}
 		frame.repaint();
 		System.out.println("cost: " + cost);
+		JOptionPane.showMessageDialog(frame, "ETA: " + (int) Math.ceil(cost/120.0) + " minutes");
 
 	}
 
