@@ -148,8 +148,10 @@ public class XMLEditor {
 
 		XMLEncoder encoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(filename)));
 		for (int i = 0; i < edges.size(); i++) {
-			
-			encoder.writeObject(edges.get(i)); // how to make this delete the current file and then recreate it?
+			if(edges.get(i).getN1() != null && edges.get(i).getN2() != null)
+			{
+				encoder.writeObject(edges.get(i)); // how to make this delete the current file and then recreate it?
+			}
 		}
 		encoder.close();
 	}

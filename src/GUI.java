@@ -57,10 +57,12 @@ public class GUI extends JComponent {
 	
 	private boolean wca;
 	private boolean outside;
+	private boolean parkour;
 
 	public GUI(JFrame frame) {
 		this.outside = false;
 		this.wca = false;
+		this.parkour = false;
 
 		this.edges = new ArrayList<Dijstra.Edge>();
 		this.nodes = new ArrayList<Dijstra.Node>();
@@ -170,31 +172,30 @@ public class GUI extends JComponent {
 		}
 	}
 
-	public void calculatePath(String startNode, String endNode) {
+	public void calculatePath(String startNode, String endNode) throws Exception {
+		if(parkour)
+		{
+			parkour(startNode, endNode);
+			return;
+		}
 		ArrayList<Dijstra.Edge> path = new ArrayList<>();
 //		if ((path = loadSavedPath(startNode + endNode + outside + wca)) != null) {
 //			draw(path);
 //		} else {
-		try 
+		if (nodeNameMap.get(startNode) == null || nodeNameMap.get(endNode) == null) 
 		{
-			if (nodeNameMap.get(startNode) == null || nodeNameMap.get(endNode) == null) 
-			{
-				throw new Exception();
-			}
-			this.dijstra.calculatePath(nodeNameMap.get(startNode), nodeNameMap.get(endNode));
-			// make sure nodenamepath communicated with XML
-//			savePath(startNode + endNode + outside + wca);
-			String empty = "";
-	
-			if ((nodeNameMap.get(startNode) == null && !(startNode.equals(empty))) && ((nodeNameMap.get(endNode) == null && !(endNode.equals(empty))))) 
-			{
-				System.out.println(startNode.toString());
-				System.out.println(endNode.toString());
-				throw new Exception();	
-			}
+			throw new Exception();
 		}
-		catch(Exception e) {
-			
+		this.dijstra.calculatePath(nodeNameMap.get(startNode), nodeNameMap.get(endNode));
+		// make sure nodenamepath communicated with XML
+//		savePath(startNode + endNode + outside + wca);
+		String empty = "";
+	
+		if ((nodeNameMap.get(startNode) == null && !(startNode.equals(empty))) && ((nodeNameMap.get(endNode) == null && !(endNode.equals(empty))))) 
+		{
+			System.out.println(startNode.toString());
+			System.out.println(endNode.toString());
+			throw new Exception();	
 		}
 	}
 	
@@ -208,15 +209,16 @@ public class GUI extends JComponent {
 			{
 				throw new Exception();
 			}
-			Line2D.Double edge = new Line2D.Double(new Point2D.Double(n1.getX() + Constants.nodeSize / 2 - Constants.nodeSize / 2, n1.getY() + Constants.nodeSize / 2 - Constants.nodeSize / 2),
-					new Point2D.Double(n2.getX() + Constants.nodeSize / 2 - Constants.nodeSize / 2, n2.getY() + Constants.nodeSize / 2 - Constants.nodeSize / 2));
+//			Line2D.Double edge = new Line2D.Double(new Point2D.Double(n1.getX() + Constants.nodeSize / 2 - Constants.nodeSize / 2, n1.getY() + Constants.nodeSize / 2 - Constants.nodeSize / 2),
+//					new Point2D.Double(n2.getX() + Constants.nodeSize / 2 - Constants.nodeSize / 2, n2.getY() + Constants.nodeSize / 2 - Constants.nodeSize / 2));
+			edges.clear();
+			edges.add(new Dijstra.Edge(n1, n2, 0, true, false));
+			draw(edges);
 		}
 		catch(Exception e)
 		{
 			
 		}
-
-		this.dijstra.calculatePath(nodeNameMap.get(startNode), nodeNameMap.get(endNode));
 	}
 
 	public void savePath(String fileName) {
@@ -483,5 +485,10 @@ public class GUI extends JComponent {
 	public void save()
 	{
 		this.getXMLEditor().updateMapXML();
+	}
+	
+	public void setParkour(boolean parkour)
+	{
+		this.parkour = parkour;
 	}
 }

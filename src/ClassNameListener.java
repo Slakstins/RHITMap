@@ -28,8 +28,6 @@ public class ClassNameListener implements ActionListener {
 		this.class6 = textClass6;
 		this.class7 = textClass7;
 		this.frame = frame;
-
-
 	}
 
 	@Override

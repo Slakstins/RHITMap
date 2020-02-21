@@ -69,57 +69,72 @@ public class Main {
 		this.className6 = class6;
 		this.className7 = class7;
 
-		field1.setBackground(Color.GREEN);
-		field2.setBackground(Color.GREEN);
-		field3.setBackground(Color.GREEN);
-		field4.setBackground(Color.GREEN);
-		field5.setBackground(Color.GREEN);
-		field6.setBackground(Color.GREEN);
-		field7.setBackground(Color.GREEN);
-
 		try {
 		gui.calculatePath(className1, className2);
 		} catch (Exception e) {
 			field1.setBackground(Color.red);
 			field2.setBackground(Color.red);
-
+			return;
 		}
-		this.calculatingMultiplePaths = true;
+		field1.setBackground(Color.GREEN);
+		field2.setBackground(Color.GREEN);
 		
-		try {
-		gui.calculatePath(className2, className3);
-		} catch (Exception e) {
-			field3.setBackground(Color.red);
-
-			
+		if(className3.length() > 0)
+		{
+			this.calculatingMultiplePaths = true;
+			try {
+				gui.calculatePath(className2, className3);
+				} catch (Exception e) {
+					field3.setBackground(Color.red);
+					return;
+				}
+				field3.setBackground(Color.GREEN);
+				
+				if(className4.length() > 0)
+				{
+					try {
+						gui.calculatePath(className3, className4);
+						} catch (Exception e) {
+							field4.setBackground(Color.red);		
+							return;
+						}
+						field4.setBackground(Color.GREEN);
+						
+						if(className5.length() > 0)
+						{
+							try {
+								gui.calculatePath(className4, className5);
+								} catch (Exception e) {
+									field5.setBackground(Color.red);
+									return;
+								}
+								field5.setBackground(Color.GREEN);
+								
+								if(className6.length() > 0)
+								{
+									try {
+										gui.calculatePath(className5, className6);
+										} catch (Exception e) {
+											field6.setBackground(Color.red);
+											return;
+										}
+										field6.setBackground(Color.GREEN);
+										
+										if(className7.length() > 0)
+										{
+											try {
+												gui.calculatePath(className6, className7);
+												} catch (Exception e) {
+													field7.setBackground(Color.RED);
+													return;
+												}
+												field7.setBackground(Color.GREEN);
+										}
+								}
+						}
+				}
 		}
-		try {
-		gui.calculatePath(className3, className4);
-		} catch (Exception e) {
-			field4.setBackground(Color.red);
-
-			
-		}
-		try {
-		gui.calculatePath(className4, className5);
-		} catch (Exception e) {
-			field5.setBackground(Color.red);
-
-		}
-		try {
-		gui.calculatePath(className5, className6);
-		} catch (Exception e) {
-			field6.setBackground(Color.red);
-
-		}
-		try {
-		gui.calculatePath(className6, className7);
-		} catch (Exception e) {
-			field6.setBackground(Color.red);
-			field7.setBackground(Color.RED);
-
-			
-		}
+		
 		
 		this.calculatingMultiplePaths = false;
 
@@ -222,8 +237,15 @@ public class Main {
 			
 		});
 		
-
-
+		JCheckBox parkour = new JCheckBox("Parkour");
+		
+		schedulePanel.add(parkour);
+		parkour.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0)
+			{
+				gui.setParkour(parkour.isSelected());
+			}
+		});
 		
 		savePathButton.addActionListener(new SaveButtonListener(frame, this.gui));
 		loadPathButton.addActionListener(new LoadButtonListener(frame, this.gui));
@@ -235,7 +257,7 @@ public class Main {
 		
 		//make position and size relative to screen size
 		schedulePanel.setLocation(5,5);
-		schedulePanel.setSize(150, 300);
+		schedulePanel.setSize(150, 350);
 		frame.add(schedulePanel);
 	}
 	
