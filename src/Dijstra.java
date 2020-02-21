@@ -18,13 +18,13 @@ public class Dijstra {
 
 	}
 
-	public void calculatePath(Node startNode, Node endNode) {
+	public void calculatePath(Node startNode, Node endNode, boolean outside, boolean wca) {
 		ArrayList<Edge> path = new ArrayList<>();
 		path.add(startNode.zeroEdge);
 		shortestPathMap.put(startNode, path);
 		queue.offer(startNode);
 		while (!queue.isEmpty()) {
-			queue.poll().calculatePath();
+			queue.poll().calculatePath(outside, wca);
 		}
 		GUI.draw(shortestPathMap.get(endNode));
 		shortestPathEdges = shortestPathMap.get(endNode);
@@ -194,15 +194,11 @@ public class Dijstra {
 		}
 		
 		public double specialGetEx() {
-			return (GUI.xScreenRatio * x + GUI.xOffset) * GUI.zoomLevel;
-
-			
+			return (GUI.xScreenRatio * x + GUI.xOffset) * GUI.zoomLevel;	
 		}
 		
 		public double specialGetWhy() {
 			return (GUI.yScreenRatio * y + GUI.yOffset) * GUI.zoomLevel;
-
-			
 		}
 
 		public void setX(double x) {
@@ -256,28 +252,43 @@ public class Dijstra {
 		{
 			this.floor = floor;
 		}
+		
+		public boolean getOutside()
+		{
+			for(int i = 0; i < edges.size(); i++)
+			{
+				if(edges.get(i).getOutside())
+				{
+					return true;
+				}
+			}
+			return false;
+		}
 
-		public void calculatePath() {
+		public void calculatePath(boolean outside, boolean wca) {
 			for (int i = 0; i < edges.size(); i++) {
-				Node n = edges.get(i).getEndNode(this);
-				if (shortestPathMap.containsKey(n)) {
-					int oldCost = cost(n);
+				if(edges.get(i).outside == outside && edges.get(i).wca == wca)
+				{
+					Node n = edges.get(i).getEndNode(this);
+					if (shortestPathMap.containsKey(n)) {
+						int oldCost = cost(n);
 
-					int newCost = edges.get(i).getCost() + cost(this);
+						int newCost = edges.get(i).getCost() + cost(this);
 
-					if (oldCost > newCost) {
+						if (oldCost > newCost) {
+							ArrayList<Edge> newPath = new ArrayList<>();
+							newPath.addAll(shortestPathMap.get(this));
+							newPath.add(edges.get(i));
+							shortestPathMap.put(n, newPath);
+							queue.offer(n);
+						}
+					} else {
 						ArrayList<Edge> newPath = new ArrayList<>();
 						newPath.addAll(shortestPathMap.get(this));
 						newPath.add(edges.get(i));
 						shortestPathMap.put(n, newPath);
 						queue.offer(n);
 					}
-				} else {
-					ArrayList<Edge> newPath = new ArrayList<>();
-					newPath.addAll(shortestPathMap.get(this));
-					newPath.add(edges.get(i));
-					shortestPathMap.put(n, newPath);
-					queue.offer(n);
 				}
 			}
 		}

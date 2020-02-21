@@ -32,6 +32,7 @@ public class ClassNameListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		main.updateClassNames(class1.getText(),  class2.getText(),class3.getText(),class4.getText(),class5.getText(),class6.getText(),class7.getText(), class1, class2,class3,class4,class5,class6,class7);
+
 	}
 
 }

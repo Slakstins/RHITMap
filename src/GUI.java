@@ -97,12 +97,16 @@ public class GUI extends JComponent {
 		drawMap(g2);
 		drawFloor(g2);
 		for (Dijstra.Node n : nodes) {
-			if (n.getFloor() == floor.getFloor()) {
+
+			if(n.getOutside() || n.getFloor() == floor.getFloor())
+			{
 				n.drawOn(g2);
 			}
 		}
 		for (Dijstra.Edge e : edges) {
-			if (e.getFloorOne() == floor.getFloor() || e.getFLoorTwo() == floor.getFloor()) {
+
+			if(e.getOutside() || e.getFloorOne() == floor.getFloor() || e.getFLoorTwo() == floor.getFloor())
+			{
 				e.drawOn(g2);
 			}
 		}
@@ -166,6 +170,7 @@ public class GUI extends JComponent {
 		if ((nodeNameMap.get(startNode) == null && !(startNode.equals(empty))) && ((nodeNameMap.get(endNode) == null && !(endNode.equals(empty))))) {
 			System.out.println(startNode.toString());
 			System.out.println(endNode.toString());
+
 
 			throw new Exception();
 			
