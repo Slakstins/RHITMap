@@ -39,7 +39,7 @@ public class EdgeCostGetListener implements ActionListener {
 		this.frame.requestFocus();
 		this.frame.repaint();
 		
-		gui.getXMLEditor().updateMapXML();
+		//gui.getXMLEditor().updateMapXML();
 
 	}
 

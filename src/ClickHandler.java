@@ -85,7 +85,7 @@ public class ClickHandler {
 								|| (e.getN2().equals(selNode1) && e.getN1().equals(selNode2))) {
 							gui.getXMLEditor().setEdgeOutside(e, e.flipOutside());
 							gui.repaint();
-							gui.getXMLEditor().updateMapXML();
+							//gui.getXMLEditor().updateMapXML();
 						}
 					}
 					break;
@@ -96,12 +96,17 @@ public class ClickHandler {
 								|| (e.getN2().equals(selNode1) && e.getN1().equals(selNode2))) {
 							gui.getXMLEditor().setEdgeWCA(e, e.flipWCA());
 							gui.repaint();
-							gui.getXMLEditor().updateMapXML();
+							//gui.getXMLEditor().updateMapXML();
 						}
 					}
 					break;
-
+					
+				case KeyEvent.VK_S:
+					gui.save();
+					break;
 				}
+				
+				
 
 			}
 

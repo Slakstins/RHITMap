@@ -160,7 +160,7 @@ public class GUI extends JComponent {
 		this.nodes.add(newNode);
 
 		this.repaint();
-		this.getXMLEditor().updateMapXML();
+		//this.getXMLEditor().updateMapXML();
 
 	}
 
@@ -448,7 +448,7 @@ public class GUI extends JComponent {
 		this.xmlEditor.nodes.remove(selNode);
 
 		frame.repaint();
-		this.getXMLEditor().updateMapXML();
+//		this.getXMLEditor().updateMapXML();
 
 	}
 
@@ -456,7 +456,7 @@ public class GUI extends JComponent {
 		// check to make sure there isn't already a node with this connection
 
 		this.edges.add(newEdge);
-		this.getXMLEditor().updateMapXML();
+		//this.getXMLEditor().updateMapXML();
 
 	}
 
@@ -478,5 +478,10 @@ public class GUI extends JComponent {
 
 	public Dijstra getDijstra() {
 		return dijstra;
+	}
+	
+	public void save()
+	{
+		this.getXMLEditor().updateMapXML();
 	}
 }
