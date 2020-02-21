@@ -13,10 +13,10 @@ public class Floor {
 	{
 		floors = new ArrayList<>();
 		try {
-			floors.add(ImageIO.read(new File("School Floor Plans/png/floorZero.png")));
-			floors.add(ImageIO.read(new File("School Floor Plans/png/floorOne.png")));
-			floors.add(ImageIO.read(new File("School Floor Plans/png/floorTwo.png")));
-			floors.add(ImageIO.read(new File("School Floor Plans/png/floorThree.png")));
+			floors.add(ImageIO.read(new File("School Floor Plans/Floor 0.png")));
+			floors.add(ImageIO.read(new File("School Floor Plans/Floor 1.png")));
+			floors.add(ImageIO.read(new File("School Floor Plans/Floor 2.png")));
+			floors.add(ImageIO.read(new File("School Floor Plans/Floor 3.png")));
 		} catch (IOException e) {
 			System.out.println("Floor image loading failed");
 			e.printStackTrace();

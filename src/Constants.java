@@ -1,5 +1,5 @@
 public class Constants {
-	public final static int nodeSize = 20;
+	public final static int nodeSize = 5;
 	public static enum Building {
 		BIC,
 		COOK,

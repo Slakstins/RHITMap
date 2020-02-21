@@ -82,7 +82,7 @@ public class GUI extends JComponent {
 
 		}
 		try {
-			RHITMap = ImageIO.read(new File("src/RHITMap-HighDef.jpeg"));
+			RHITMap = ImageIO.read(new File("School Floor Plans/Background.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			System.out.println("did not find RHITMap");
