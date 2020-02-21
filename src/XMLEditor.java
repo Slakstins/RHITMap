@@ -14,13 +14,16 @@ import java.util.HashMap;
 import java.util.Set;
 
 
+
 public class XMLEditor {
+	
 
 	// storing edges instead of nodes in the XML allows for faster retrieval of
 	// nodes for restoring saved class path data, but
 	// it will make Dijstra's slower.
-	private String fileNameToRead = "ANewFile7.xml";
-	private String fileNameToWrite = "ANewFile7.xml";
+	private String defaultFile = "ANewFile7.xml";
+	private String fileNameToRead;
+	private String fileNameToWrite;
 
 	private boolean pastDeleted = false;
 
@@ -28,6 +31,8 @@ public class XMLEditor {
 	ArrayList<Dijstra.Node> nodes;
 
 	public XMLEditor() {
+		this.fileNameToRead =  defaultFile;
+		this.setFileNameToWrite(defaultFile);
 		edges = new ArrayList<Dijstra.Edge>();
 		nodes = new ArrayList<Dijstra.Node>();
 		
@@ -106,6 +111,7 @@ public class XMLEditor {
 
 
 	public void updateMapXML() {
+		
 		if (!this.pastDeleted) {
 			String stringPath = fileNameToRead;
 			Path path = new File(stringPath).toPath();
@@ -119,7 +125,7 @@ public class XMLEditor {
 		}
 
 		try {
-			this.writeEdges(this.edges, fileNameToWrite);
+			this.writeEdges(this.edges, getFileNameToWrite());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -162,17 +168,21 @@ public class XMLEditor {
 		} catch (Exception e) {
 			this.writeEdges(edges, filename);
 			file = new FileInputStream(filename);
-
 		}
+
+		
 		XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(file));
 		int edgeCount = 0;
 
 		while (true) {
 			try {
 				Object tempEdgeMaybe = decoder.readObject();
+
 				if (tempEdgeMaybe instanceof Dijstra.Edge) {
+
 					this.edges.add((Dijstra.Edge) tempEdgeMaybe); // for some reason the size of edges increments when
 																	// adding nodes??
+					
 				}
 			} catch (ArrayIndexOutOfBoundsException e) {
 				break;
@@ -221,6 +231,21 @@ public class XMLEditor {
 
 		return null;
 
+	}
+
+
+
+
+
+
+	public String getFileNameToWrite() {
+		return fileNameToWrite;
+	}
+
+
+
+	public void setFileNameToWrite(String fileNameToWrite) {
+		this.fileNameToWrite = fileNameToWrite;
 	}
 	
 

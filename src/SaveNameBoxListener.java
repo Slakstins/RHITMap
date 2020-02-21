@@ -22,7 +22,7 @@ public class SaveNameBoxListener implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		
 		String saveName = this.text.getText();
-		this.gui.savePath(saveName);
+		this.gui.savePath(saveName + ".xml");
 		this.panel.remove(text);
 		this.frame.getContentPane().remove(panel);
 		

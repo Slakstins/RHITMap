@@ -26,14 +26,13 @@ public class LoadNameBoxListener implements ActionListener {
 		// TODO Auto-generated method stub
 		String saveName = this.loadNameBox.getText();
 		ArrayList<Dijstra.Edge> path = new ArrayList<>();
-		if ((!(saveName.equals("")) && (path = gui.loadSavedPath(saveName)) != null)) {
+		if ((!(saveName.equals("")) && (path = gui.loadSavedPath(saveName + ".xml")) != null)) {
 			gui.draw(path);		
 		} else {
 			System.out.println("Invalid name");
 		}
 			this.panel.remove(loadNameBox);
 		this.frame.remove(panel);
-		
 		this.frame.requestFocus();
 		this.frame.repaint();
 
